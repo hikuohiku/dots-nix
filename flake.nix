@@ -10,6 +10,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     catppuccin.url = "github:catppuccin/nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -21,6 +23,7 @@
       nixpkgs,
       nixos-hardware,
       home-manager,
+      hyprland,
       treefmt-nix,
       catppuccin,
     }@inputs:
