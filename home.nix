@@ -103,45 +103,10 @@ rec {
     cargo-espmonitor
     mkspiffs-presets.esp-idf
 
-    # ========== SHELL ========== 
-    fish
-
     # ========== BROWSER ========== 
-    # firefox
-    # google-chrome
-
-    # ========== SECURITY TOOLS ========== 
-    keybase
-    lssecret
-    gnupg
-
-    # ========== RUNTIME & COMPILER ========== 
-    deno
-    nodejs
-    bun
-
-    pnpm
-
-    gleam
-
-    sbcl
-    ruby
-    # ref: https://cons.io/
-    gerbil
-
-    # roswell
-
-    # swift ==> Flake
-
-    # ========== FONTS ========== 
-    noto-fonts
-    noto-fonts-cjk
-    # ttf-udev-gothic
+    microsoft-edge-dev
 
     # ========== UTILS ========== 
-    nix-prefetch-scripts
-
-
 
     bitwarden-cli
 
