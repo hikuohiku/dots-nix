@@ -141,258 +141,39 @@ rec {
     # ========== UTILS ========== 
     nix-prefetch-scripts
 
-    # ========== FROM PKGLIST ========== 
-    acpi
-    acpid
-    act
 
-    # apparmor
-    libapparmor
 
-    # arduino-cli
-    # arduino-ide-bin
-    asar
-    at
-    autoconf-archive
-    autotiling
-    avahi
-
-    # b43-fwcutter
-    b43FirmwareCutter
-
-    babashka
-
-    # base
-    # base-devel
-
-    bison
     bitwarden-cli
-
-    bluez
-    # bluez-utils
-    bluez-tools
-
-    # boost
-    bottom
-    btrfs-progs
-    bzip2
-    cava
-    ccache
-    cliphist
-    cloc
-    coreutils
-    cpio
-
-    # cpupower
-    linuxKernel.packages.linux_zen.cpupower
-
-    # cronie
-
-    cryptsetup
-    deno
-
-    # device-mapper
-
-    # dhclient
-    # dhcpcd
-    # diffutils
-    # discord_arch_electron
-    dmraid
-    dnsmasq
-    docker
-    docker-compose
-    dosfstools
-    # downgrade
-    doxygen
-    e2fsprogs
-    efibootmgr
-
-    # era
-
-    # esp-idf
-    # esptool
-
-    exfatprogs
-    f2fs-tools
 
     fastfetch
 
-    # fcitx5
-    # fcitx5-configtool
-    # fcitx5-gtk
-    # fcitx5-skk
-
-    fd
-
-    ffmpeg
-    ffmpegthumbnailer
-    file-roller
-    flashfocus
-    font-manager
-
     fzf
-    gammastep
-    # gcc-fortran
-    gfortran9
 
-    gd
-    github-cli
-    glava
+    gomi # trash
 
-    glibcLocales
+    # resource monitor
+    btop
 
-    glow
-    gnome-epub-thumbnailer
-    gnome-keyring
-    go
-    gomi
+    # zip
+    p7zip # 7z
 
-    # greetd
-    # greetd-tuigreet
-    greetd.greetd
-    greetd.tuigreet
-
-    # grub
-    # grub-btrfs
-
-    grim
-    # gtk3-nocsd
-    gvfs
-    # gvfs-mtp
-    helix
-    himalaya
-    htop
-    httpie
-
-    # immersed
-
-    imv
-    inetutils
-    # intel-ucode
-    jfsutils
-    # kitty
-
-    # kvantum
-
-    less
-
-    # lib32-glu
-    # lib32-libva-vdpau-driver
-    # lib32-mesa-vdpau
-    # lib32-vulkan-intel
-    # lib32-vulkan-radeon
-    # libcava
-    # libfishsound
-    # liboggz
-    # libsixel
-    # libva-mesa-driver
-    # libva-vdpau-driver
-
-    lightdm
-
-    # linux61
-
-    logrotate
-
-    luarocks
-    lvm2
-    ly
-    gnumake
-    man-db
-    man-pages
-
-    mdadm
-    mediainfo
-
-    # memtest86plus
-    # memtest86-efi
-
-    # mesa-vdpau
-    # mhwd
-    # mhwd-db
-
-    # mkinitcpio-openswap
-
-    # nfs-utils
-    mplayer
-
-    # multilib-devel
-    # ncurses5-compat-libs
-
-    # network-manager-applet
-    # networkmanager
-
-    # nss-mdns
-
-    # ntfs-3g
-
-    oh-my-zsh
-
-    # openssh-askpass
-
-    opusfile
-    os-prober
-    p7zip
-
-    pass
-    patch
+    # audio
     pavucontrol
 
-    perl
-    playerctl
-
-    polkit_gnome
-
-    # postgresql-libs
-
-    poweralertd
-    pulsemixer
-
-    # python-breathe
-    # python-eventlet
-    # python-joblib
-    # python-pyserial
-    # python-recommonmark
-    # python-sphinx-alabaster-theme
-    # pywal-16-colors
-
-    # qemu-base
-    # qemu-desktop
-    # qemu-system-riscv
-    # qt5-wayland
-    # qt5ct
-    # qt6-multimedia
-    # qt6-tools
-    # qt6-wayland
-    # qt6ct
-
+    # file manager
     ranger
-    # rcm
-    re2c
-    redis
-    reiserfsprogs
-    ripgrep
 
-    # riscv-gnu-toolchain-bin
-
-    rlwrap
-    rofi-power-menu
+    rlwrap # readline wrapper
 
     rsync
 
-    samurai
-    sd
-    shotcut
-    siege
+    # rust replace
+    ripgrep # grep
+    fd # find
+    sd # sed
 
-    slurp
-    sof-firmware
+    # scripts
     spectre-meltdown-checker
-
-    spotify
-    # spotify-tui
-
-    squashfsTools
 
     # media player
     vlc
@@ -402,6 +183,7 @@ rec {
     vhs # terminal screen capture
     # http
     wget
+    httpie
     # clipboard
     wl-clipboard
     # launcher
@@ -581,14 +363,16 @@ rec {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  services.hyprpaper = let 
-    wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
+  services.hyprpaper =
+    let
+      wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
     in
     {
-    enable = true;
-    settings = {
-      preload = wallpaperPath;
-      wallpaper = [ ",${wallpaperPath}" ];
+      enable = true;
+      settings = {
+        preload = wallpaperPath;
+        wallpaper = [ ",${wallpaperPath}" ];
+      };
     };
 
   i18n.inputMethod = {
