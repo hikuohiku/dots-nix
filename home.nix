@@ -462,10 +462,6 @@ rec {
     hyprpaper
     hyprshade
 
-    # wqy-microhei
-    # wxwidgets-gtk3
-    # xclip
-
     # analyze data format
     xsv
     yq
