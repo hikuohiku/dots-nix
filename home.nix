@@ -479,8 +479,6 @@ rec {
     xsv
     yq
 
-    # zeit
-    zeitgeist
     # ================================== 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
