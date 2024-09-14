@@ -180,7 +180,6 @@ rec {
     ccache
     cliphist
     cloc
-    conky
     coreutils
     cpio
 
@@ -566,11 +565,6 @@ rec {
 
       ".config/cava" = {
         source = (symlink /${dotfiles}/config/cava);
-        recursive = true;
-      };
-
-      ".config/conky" = {
-        source = (symlink /${dotfiles}/config/conky);
         recursive = true;
       };
 
