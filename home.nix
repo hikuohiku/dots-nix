@@ -579,11 +579,6 @@ rec {
         recursive = true;
       };
 
-      ".config/i3" = {
-        source = (symlink /${dotfiles}/config/i3);
-        recursive = true;
-      };
-
       ".config/ime" = {
         source = (symlink /${dotfiles}/config/ime);
         recursive = true;
