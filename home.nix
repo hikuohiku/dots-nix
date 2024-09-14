@@ -449,10 +449,11 @@ rec {
 
     # ========== LSP ========== 
     # Language Seervers
+    vscode-langservers-extracted # html, css, json, eslint
     marksman # md
+    yaml-language-server # yaml
     nil # nix
     lua-language-server # lua
-    vscode-langservers-extracted # html, css, json, eslint
 
     # linters
     markdownlint-cli2 # md
