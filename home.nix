@@ -542,22 +542,6 @@ rec {
       # skk-dicts
       ".skk/SKK-JISYO.L".source = "${pkgs.skk-dicts}/share/SKK-JISYO.L";
 
-      # TODO: 後で消す
-      # ".config/" = {
-      #   source = (symlink /${dotfiles}/config);
-      #   recursive = true;
-      # };
-
-      ".config/home-manager" = {
-        source = (symlink /${dotfiles}/config/home-manager);
-        recursive = true;
-      };
-
-      # ".config/hypr" = {
-      #   source = (symlink /${dotfiles}/config/hypr);
-      #   recursive = true;
-      # };
-
       ".config/swaylock" = {
         source = (symlink /${dotfiles}/config/swaylock);
         recursive = true;
