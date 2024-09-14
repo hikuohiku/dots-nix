@@ -51,7 +51,6 @@ rec {
 
     # ========== EDITOR & TOOLS ========== 
     vim-full
-    emacs
     felix
     micro
     neovim
@@ -632,11 +631,6 @@ rec {
 
       ".config/wezterm" = {
         source = (symlink /${dotfiles}/config/wezterm);
-        recursive = true;
-      };
-
-      ".config/emacs" = {
-        source = (symlink /${dotfiles}/config/emacs);
         recursive = true;
       };
 
