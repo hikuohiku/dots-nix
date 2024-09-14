@@ -532,12 +532,6 @@ rec {
         recursive = true;
       };
 
-      # Vim configs.
-      ".vimrc".source = (symlink /${dotfiles}/vimrc);
-      ".vim" = {
-        source = (symlink /${dotfiles}/vim);
-        recursive = true;
-      };
       # # ========== SKK ========== 
       # skk-dicts
       ".skk/SKK-JISYO.L".source = "${pkgs.skk-dicts}/share/SKK-JISYO.L";
