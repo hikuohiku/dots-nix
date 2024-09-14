@@ -446,6 +446,7 @@ rec {
 
     # ========== LSP ========== 
     # Language Seervers
+    nodePackages.bash-language-server # bash
     vscode-langservers-extracted # html, css, json, eslint
     marksman # md
     yaml-language-server # yaml
@@ -454,7 +455,7 @@ rec {
 
     # linters
     markdownlint-cli2 # md
-    
+
     # ========== OTHER TOOLS ========== 
     # hyprland
     # hyprlock
