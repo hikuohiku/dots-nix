@@ -45,7 +45,6 @@ rec {
     # nixgl.nixGLIntel
 
     # ========== TERMINAL ========== 
-    wezterm
     alacritty
     kitty
 
@@ -626,11 +625,6 @@ rec {
 
       ".config/waybar" = {
         source = (symlink /${dotfiles}/config/waybar);
-        recursive = true;
-      };
-
-      ".config/wezterm" = {
-        source = (symlink /${dotfiles}/config/wezterm);
         recursive = true;
       };
 
