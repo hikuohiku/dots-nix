@@ -394,55 +394,25 @@ rec {
 
     squashfsTools
 
-    starship
-    # sudo
-
-    # super_unko-git
-
-    # swaycwd
-    # swaylock-effects
-    # swaync
-
-    # sworkstyle
-
-    swww
-    sysfsutils
-    systemd
-
-    # taglib1
-    # teams-for-linux
-
-    texinfo
-
-    xfce.thunar
-
-    # timeshift-autosnap-manjaro
-
-    usbutils
-    uucp
-
-    # v4l2loopback-dkms
-
-    vhs
+    # media player
     vlc
 
-    # vulkan-intel
-    # vulkan-radeon
-
-    way-displays
-    waypaper
-    wdisplays
-
-    wev
+    # screen capture
     wf-recorder
+    vhs # terminal screen capture
+    # http
     wget
-    which
-    wireless-regdb
+    # clipboard
     wl-clipboard
-    wlay
-    wlsunset
+    # launcher
     wofi
-    wpa_supplicant
+
+    # ========== OTHER TOOLS ========== 
+    # hyprlock
+
+    # analyze data format
+    xsv
+    yq
 
     # ========== LSP ========== 
     # Language Seervers
@@ -455,13 +425,6 @@ rec {
 
     # linters
     markdownlint-cli2 # md
-
-    # ========== OTHER TOOLS ========== 
-    # hyprlock
-
-    # analyze data format
-    xsv
-    yq
 
     # ================================== 
 
