@@ -457,9 +457,7 @@ rec {
     markdownlint-cli2 # md
 
     # ========== OTHER TOOLS ========== 
-    # hyprland
     # hyprlock
-    hyprshade
 
     # analyze data format
     xsv
