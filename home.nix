@@ -459,7 +459,6 @@ rec {
     # ========== OTHER TOOLS ========== 
     # hyprland
     # hyprlock
-    hyprpaper
     hyprshade
 
     # analyze data format
@@ -621,7 +620,17 @@ rec {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  services.hyprpaper = let 
+    wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
+    in
+    {
+    enable = true;
+    settings = {
+      preload = wallpaperPath;
+      wallpaper = [ ",${wallpaperPath}" ];
+    };
+  };
+
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = import ./hyprland.nix { inherit pkgs; };
-  # programs.lem-editor.enable = true 
 }
