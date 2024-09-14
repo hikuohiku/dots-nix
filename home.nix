@@ -519,20 +519,6 @@ rec {
       homeBin = /${home.homeDirectory}/.bin;
     in
     {
-      # scripts
-      ".bin/scripts/ime" = {
-        source = (symlink /${dotfiles}/bin/scripts/ime);
-        recursive = true;
-      };
-      ".bin/scripts/mit" = {
-        source = (symlink /${dotfiles}/bin/scripts/mit);
-        recursive = true;
-      };
-      ".bin/scripts/shift" = {
-        source = (symlink /${dotfiles}/bin/scripts/shift);
-        recursive = true;
-      };
-
       # # ========== SKK ========== 
       # skk-dicts
       ".skk/SKK-JISYO.L".source = "${pkgs.skk-dicts}/share/SKK-JISYO.L";
