@@ -78,7 +78,6 @@ rec {
     lazydocker
     lazygit
     git
-    delta
 
     jwt-cli
 
@@ -659,6 +658,12 @@ rec {
         };
         init = {
           defaultBranch = "main";
+        };
+      };
+      delta = {
+        enable = true;
+        options = {
+          syntax-theme = "Nord";
         };
       };
     };
