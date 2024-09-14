@@ -466,9 +466,6 @@ rec {
     # wxwidgets-gtk3
     # xclip
 
-    xdg-desktop-portal-wlr
-    xdg-user-dirs
-
     # analyze data format
     xsv
     yq
