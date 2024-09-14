@@ -618,11 +618,6 @@ rec {
         recursive = true;
       };
 
-      ".config/sway" = {
-        source = (symlink /${dotfiles}/config/sway);
-        recursive = true;
-      };
-
       ".config/waybar" = {
         source = (symlink /${dotfiles}/config/waybar);
         recursive = true;
