@@ -476,10 +476,10 @@ rec {
         recursive = true;
       };
 
-      ".config/fish" = {
-        source = (symlink /${dotfiles}/config/fish);
-        recursive = true;
-      };
+      # ".config/fish" = {
+      #   source = (symlink /${dotfiles}/config/fish);
+      #   recursive = true;
+      # };
 
       ".config/ime" = {
         source = (symlink /${dotfiles}/config/ime);
