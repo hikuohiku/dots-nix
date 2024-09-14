@@ -76,7 +76,6 @@ rec {
     jq
 
     lazydocker
-    lazygit
     git
 
     jwt-cli
@@ -603,11 +602,6 @@ rec {
       #   }; 
       # };
 
-      ".config/lazygit" = {
-        source = (symlink /${dotfiles}/config/lazygit);
-        recursive = true;
-      };
-
       ".config/libskk" = {
         source = (symlink /${dotfiles}/config/libskk);
         recursive = true;
@@ -665,6 +659,24 @@ rec {
         options = {
           syntax-theme = "Nord";
         };
+      };
+    };
+
+    lazygit = {
+      enable = true;
+      settings = {
+        gui.language = "ja";
+        git.paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+        };
+        # customCommands:
+        #   - key: "C"
+        #     command: "git cz"
+        #     description: "commit with commitizen"
+        #     context: "files"
+        #     loadingText: "opening commitizen commit tool"
+        #     subprocess: true
       };
     };
   };
