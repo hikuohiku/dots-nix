@@ -452,7 +452,7 @@ rec {
     marksman # md
     nil # nix
     lua-language-server # lua
-    nodePackages.vscode-json-languageserver # json
+    vscode-langservers-extracted # html, css, json, eslint
 
     # linters
     markdownlint-cli2 # md
