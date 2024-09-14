@@ -515,8 +515,6 @@ rec {
       symlink = config.lib.file.mkOutOfStoreSymlink;
       dotfilesRoot = /${home.homeDirectory}/.ghq/github.com/hikuo/dotfiles;
       dotfiles = /${dotfilesRoot}/dotfiles;
-      xdgConfigHome = /${home.homeDirectory}/.config;
-      homeBin = /${home.homeDirectory}/.bin;
     in
     {
       # # ========== SKK ========== 
