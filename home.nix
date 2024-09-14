@@ -469,13 +469,7 @@ rec {
     xdg-desktop-portal-wlr
     xdg-user-dirs
 
-    # xf86-video-amdgpu
-    # xf86-video-ati
-    # xf86-video-intel
-    # xf86-video-nouveau
-    # xfsprogs
-
-    # xorg-xwayland
+    # analyze data format
     xsv
     yq
 
