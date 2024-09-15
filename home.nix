@@ -70,38 +70,14 @@ rec {
 
     ghq
     cava
-    lsd
-    bat
-    jnv
-    jq
 
     lazydocker
-    git
-
-    jwt-cli
 
     slack
     teams-for-linux
     discord
-    beeper
 
-    # Teams for linux is depends to Electron-29 but EOL.
-    # teams-for-linux
-
-    teip
-
-    tokei
     tree
-    unar
-    k6
-
-    # esp32
-    easyeffects
-    espup
-    espflash
-    esptool
-    cargo-espmonitor
-    mkspiffs-presets.esp-idf
 
     # ========== BROWSER ========== 
     microsoft-edge-dev
@@ -119,7 +95,8 @@ rec {
     # resource monitor
     btop
 
-    # zip
+    # archive
+    unar # unarchiver
     p7zip # 7z
 
     # audio
@@ -135,6 +112,7 @@ rec {
     # rust replace
     ripgrep # grep
     fd # find
+    bat # cat
     sd # sed
 
     # scripts
@@ -160,6 +138,9 @@ rec {
     # analyze data format
     xsv
     yq
+    jwt-cli
+    jq
+    jnv
 
     # ========== LSP ========== 
     # Language Seervers
@@ -324,6 +305,7 @@ rec {
         #     subprocess: true
       };
     };
+    eza.enable = true;
   };
 
   # Let Home Manager install and manage itself.
