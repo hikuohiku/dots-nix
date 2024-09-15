@@ -3,4 +3,3 @@ final: prev: {
     commandLineArgs = "--enable-features=TouchpadOverscrollHistoryNavigation --enable-wayland-ime";
   };
 }
-
