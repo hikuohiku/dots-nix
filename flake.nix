@@ -73,7 +73,7 @@
           };
           modules = [
             ./home
-            ./home/unixporn/ml4w.nix
+            ./home/waybar
           ];
         };
       };

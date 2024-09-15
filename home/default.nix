@@ -190,11 +190,6 @@ rec {
         source = (symlink /home/hikuo/.ghq/github.com/hikuohiku/lazyvim);
         recursive = true;
       };
-
-      ".config/waybar" = {
-        source = (symlink /${dotfiles}/config/waybar);
-        recursive = true;
-      };
     };
 
   # Home Manager can also manage your environment variables through
@@ -270,6 +265,7 @@ rec {
       wallpaper = [ ",${wallpaperPath}" ];
     };
   };
+  services.swaync.enable = true;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
