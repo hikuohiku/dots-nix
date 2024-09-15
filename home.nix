@@ -262,12 +262,12 @@ rec {
   programs.home-manager.enable = true;
 
   services.hyprpaper = {
-      enable = true;
-      settings = {
-        preload = wallpaperPath;
-        wallpaper = [ ",${wallpaperPath}" ];
-      };
+    enable = true;
+    settings = {
+      preload = wallpaperPath;
+      wallpaper = [ ",${wallpaperPath}" ];
     };
+  };
 
   i18n.inputMethod = {
     enabled = "fcitx5";

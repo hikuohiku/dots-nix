@@ -45,19 +45,17 @@
       # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
 
-      nixosConfigurations = {
-        hikuo-desktop = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./configuration.nix
-            inputs.catppuccin.nixosModules.catppuccin
-          ];
-          specialArgs = {
-            inherit inputs;
-            inherit personalizeInput;
-          };
-          # inputs.catppuccin.enable = true;
+      nixosConfigurations.${personalizeInput.hostname} = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          inputs.catppuccin.nixosModules.catppuccin
+        ];
+        specialArgs = {
+          inherit inputs;
+          inherit personalizeInput;
         };
+        # inputs.catppuccin.enable = true;
       };
       homeConfigurations = {
         Home = inputs.home-manager.lib.homeManagerConfiguration {
