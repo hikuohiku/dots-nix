@@ -218,6 +218,7 @@ rec {
   };
 
   programs = {
+    fish.enable = true;
     git = {
       enable = true;
       userName = gitUsername;
