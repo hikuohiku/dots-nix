@@ -14,6 +14,7 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     catppuccin.url = "github:catppuccin/nix";
+    niqspkgs.url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
@@ -26,6 +27,7 @@
       hyprland,
       treefmt-nix,
       catppuccin,
+      niqspkgs,
     }@inputs:
     let
       personalizeInput = {
@@ -38,6 +40,7 @@
         };
       };
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgsFromNiqs = niqspkgs.packages.x86_64-linux;
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
     # code = _: s: s;
@@ -65,10 +68,12 @@
           };
           extraSpecialArgs = {
             inherit inputs;
+            inherit pkgsFromNiqs;
             inherit personalizeInput;
           };
           modules = [
             ./home
+            ./home/unixporn/ml4w.nix
           ];
         };
       };
