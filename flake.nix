@@ -10,7 +10,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     catppuccin.url = "github:catppuccin/nix";
@@ -28,6 +28,15 @@
       catppuccin,
     }@inputs:
     let
+      personalizeInput = {
+        username = "hikuo";
+        hostname = "hikuo-desktop";
+        wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
+        git = {
+          username = "hikuohiku";
+          email = "hikuohiku@gmail.com";
+        };
+      };
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
@@ -45,6 +54,7 @@
           ];
           specialArgs = {
             inherit inputs;
+            inherit personalizeInput;
           };
           # inputs.catppuccin.enable = true;
         };
@@ -57,6 +67,7 @@
           };
           extraSpecialArgs = {
             inherit inputs;
+            inherit personalizeInput;
           };
           modules = [
             ./home.nix

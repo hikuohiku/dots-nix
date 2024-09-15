@@ -1,11 +1,17 @@
 {
   config,
   pkgs,
-  overlays,
+  # overlays,
   inputs,
+  personalizeInput,
   ...
 }:
-
+let
+  username = personalizeInput.username;
+  gitUsername = personalizeInput.git.username;
+  gitEmail = personalizeInput.git.email;
+  wallpaperPath = personalizeInput.wallpaperPath;
+in
 rec {
   nixpkgs.config = {
     allowUnfree = true;
@@ -16,8 +22,8 @@ rec {
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "hikuo";
-  home.homeDirectory = "/home/hikuo";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -38,7 +44,7 @@ rec {
     # ========== SYSTEM ========== 
     # colorscheme
     catppuccin
-  
+
     # audio
     pavucontrol
 
@@ -58,7 +64,6 @@ rec {
     alacritty
 
     # ========== EDITOR ========== 
-
 
     # ========== BROWSER ========== 
     microsoft-edge-dev
@@ -99,7 +104,7 @@ rec {
     btop # resource monitor
     ranger # file manager
     lazydocker
-    
+
     # ========== GUI APPLICATION ========== 
     # social
     slack
@@ -162,7 +167,7 @@ rec {
   home.file =
     let
       symlink = config.lib.file.mkOutOfStoreSymlink;
-      dotfilesRoot = /${home.homeDirectory}/.ghq/github.com/hikuo/dotfiles;
+      dotfilesRoot = /${home.homeDirectory}/.ghq/github.com/${username}/dotfiles;
       dotfiles = /${dotfilesRoot}/dotfiles;
     in
     {
@@ -241,8 +246,8 @@ rec {
   programs = {
     git = {
       enable = true;
-      userName = "hikuohiku";
-      userEmail = "hikuohiku@gmail.com";
+      userName = gitUsername;
+      userEmail = gitEmail;
       extraConfig = {
         ghq = {
           root = "~/.ghq";
@@ -282,11 +287,7 @@ rec {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  services.hyprpaper =
-    let
-      wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
-    in
-    {
+  services.hyprpaper = {
       enable = true;
       settings = {
         preload = wallpaperPath;
