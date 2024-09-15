@@ -186,7 +186,6 @@ in
     kitty
     waybar
     swaybg
-    swaynotificationcenter
     swaylock
 
     hyprlock
