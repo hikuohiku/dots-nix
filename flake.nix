@@ -68,7 +68,7 @@
             inherit personalizeInput;
           };
           modules = [
-            ./home.nix
+            ./home
           ];
         };
       };
