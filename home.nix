@@ -35,78 +35,39 @@ rec {
     # # "Hello, world!" when run.
     # pkgs.hello
 
-    # theme 
+    # ========== SYSTEM ========== 
+    # colorscheme
     catppuccin
+  
+    # audio
+    pavucontrol
 
-    # Nix
-    nixVersions.nix_2_23
+    # screen capture
+    wf-recorder
+    vhs # terminal screen capture
 
-    # ========== NIXGL ========== 
-    # nixgl.nixGLIntel
+    # clipboard
+    wl-clipboard
+
+    # launcher
+    wofi
+
+    # hyprlock
 
     # ========== TERMINAL ========== 
     alacritty
-    kitty
 
-    # ========== EDITOR & TOOLS ========== 
-    vim-full
-    felix
-    micro
-    neovim
-    # visual-studio-code-bin
-    # inputs.lem-editor.packages.x86_64-linux.lem-ncurses
+    # ========== EDITOR ========== 
 
-    metals
-    meson
-    leiningen
-
-    tig
-
-    # ========== OTHER TOOLS ========== 
-    # textimg
-    # textql-git
-    cachix
-    unzip
-
-    ghq
-
-    lazydocker
-
-    slack
-    teams-for-linux
-    discord
-
-    tree
 
     # ========== BROWSER ========== 
     microsoft-edge-dev
 
-    # ========== UTILS ========== 
-
-    bitwarden-cli
-
+    # ========== CUI TOOL ========== 
+    tree
     fastfetch
-
-    fzf
-
     gomi # trash
-
-    # resource monitor
-    btop
-
-    # archive
-    unar # unarchiver
-    p7zip # 7z
-
-    # audio
-    pavucontrol
-
-    # file manager
-    ranger
-
-    rlwrap # readline wrapper
-
-    rsync
+    bitwarden-cli
 
     # rust replace
     ripgrep # grep
@@ -114,25 +75,18 @@ rec {
     bat # cat
     sd # sed
 
-    # scripts
-    spectre-meltdown-checker
+    # archive
+    unar # unarchiver
+    unzip
+    p7zip # 7z
 
-    # media player
-    vlc
+    # file management
+    ghq
+    rsync
 
-    # screen capture
-    wf-recorder
-    vhs # terminal screen capture
     # http
     wget
     httpie
-    # clipboard
-    wl-clipboard
-    # launcher
-    wofi
-
-    # ========== OTHER TOOLS ========== 
-    # hyprlock
 
     # analyze data format
     xsv
@@ -140,6 +94,24 @@ rec {
     jwt-cli
     jq
     jnv
+
+    # ========== TUI TOOL ========== 
+    btop # resource monitor
+    ranger # file manager
+    lazydocker
+    
+    # ========== GUI APPLICATION ========== 
+    # social
+    slack
+    teams-for-linux
+    discord
+
+    # media player
+    vlc
+
+    # ========== UTIL ========== 
+    fzf
+    rlwrap # readline wrapper
 
     # ========== LSP ========== 
     # Language Seervers
@@ -152,6 +124,11 @@ rec {
 
     # linters
     markdownlint-cli2 # md
+
+    # ========== SCRIPT ========== 
+    spectre-meltdown-checker
+
+    # ========== OTHER TOOLS ========== 
 
     # ================================== 
 
