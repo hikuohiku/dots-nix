@@ -69,7 +69,6 @@ rec {
     unzip
 
     ghq
-    cava
 
     lazydocker
 
@@ -196,11 +195,6 @@ rec {
 
       ".config/swaylock" = {
         source = (symlink /${dotfiles}/config/swaylock);
-        recursive = true;
-      };
-
-      ".config/cava" = {
-        source = (symlink /${dotfiles}/config/cava);
         recursive = true;
       };
 
