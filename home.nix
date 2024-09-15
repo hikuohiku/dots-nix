@@ -171,10 +171,6 @@ rec {
       dotfiles = /${dotfilesRoot}/dotfiles;
     in
     {
-      # # ========== SKK ========== 
-      # skk-dicts
-      ".skk/SKK-JISYO.L".source = "${pkgs.skk-dicts}/share/SKK-JISYO.L";
-
       ".config/swaylock" = {
         source = (symlink /${dotfiles}/config/swaylock);
         recursive = true;
@@ -202,11 +198,6 @@ rec {
       #     src = /${dotfiles}/config/kitty/kitty.conf;
       #   }; 
       # };
-
-      ".config/libskk" = {
-        source = (symlink /${dotfiles}/config/libskk);
-        recursive = true;
-      };
 
       ".config/nvim" = {
         source = (symlink /home/hikuo/.ghq/github.com/hikuohiku/lazyvim);
