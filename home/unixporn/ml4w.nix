@@ -9,6 +9,11 @@
 }:
 {
   home.packages = with pkgs; [
-    pkgsFromNiqs.bibata-hyprcursor
+    (pkgsFromNiqs.bibata-hyprcursor.override
+    {
+      baseColor = "#FF8300";
+      outlineColor = "#FFFFFF";
+      watchBackgroundColor = "#001524";
+    })
   ];
 }
