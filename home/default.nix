@@ -125,6 +125,7 @@ rec {
     vscode-langservers-extracted # html, css, json, eslint
     marksman # md
     yaml-language-server # yaml
+    taplo # toml
     nil # nix
     lua-language-server # lua
 
