@@ -171,16 +171,6 @@ rec {
       dotfiles = /${dotfilesRoot}/dotfiles;
     in
     {
-      ".config/swaylock" = {
-        source = (symlink /${dotfiles}/config/swaylock);
-        recursive = true;
-      };
-
-      # ".config/fish" = {
-      #   source = (symlink /${dotfiles}/config/fish);
-      #   recursive = true;
-      # };
-
       ".config/kitty" = {
         source = (symlink /${dotfiles}/config/kitty);
         recursive = true;
