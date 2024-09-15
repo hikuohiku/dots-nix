@@ -19,6 +19,7 @@ rec {
     #   "electron-29.4.6"
     # ];
   };
+  nixpkgs.overlays = [ (import ./overlays/microsoft-edge-dev.nix) ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
