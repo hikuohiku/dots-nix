@@ -214,7 +214,6 @@ rec {
   home.sessionVariables = {
     # EDITOR = "nvim";
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
-    NIXOS_OZONE_WL = "1";
   };
 
   programs = {
