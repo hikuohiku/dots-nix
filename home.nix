@@ -193,8 +193,6 @@ rec {
         source = (symlink /${dotfiles}/config/waybar);
         recursive = true;
       };
-
-      ".zshrc".source = (symlink /${dotfiles}/zshrc);
     };
 
   # Home Manager can also manage your environment variables through
