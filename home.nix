@@ -181,11 +181,6 @@ rec {
       #   recursive = true;
       # };
 
-      ".config/ime" = {
-        source = (symlink /${dotfiles}/config/ime);
-        recursive = true;
-      };
-
       ".config/kitty" = {
         source = (symlink /${dotfiles}/config/kitty);
         recursive = true;
