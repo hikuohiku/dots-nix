@@ -91,22 +91,5 @@
           ];
         };
       };
-
-      devShells.x86_64-linux.default = pkgs.mkShell {
-        packages = with pkgs; [
-          lua-language-server
-          stylua
-          nil
-        ];
-
-        inputsFrom = with pkgs; [
-          hello
-          gnutar
-        ];
-
-        shellHook = ''
-          exec fish
-        '';
-      };
     };
 }
