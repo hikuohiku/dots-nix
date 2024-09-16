@@ -251,10 +251,9 @@ in
   ];
 
   exec-once = [
-    "waybar"
+    "asztal"
     "fcitx5"
     "conky"
-    "swaync"
     "playerctld daemon"
     # "swaybg -i ~/Pictures/wallpaper/wallpaper.png"
     "hyprpaper"

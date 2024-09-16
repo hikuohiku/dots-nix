@@ -61,6 +61,7 @@ rec {
 
     # hyprlock
 
+    inputs.aylur.packages.x86_64-linux.default
     # ========== TERMINAL ========== 
     alacritty
 
@@ -269,7 +270,7 @@ rec {
       wallpaper = [ ",${wallpaperPath}" ];
     };
   };
-  services.swaync.enable = true;
+  # services.swaync.enable = true;
 
   i18n.inputMethod = {
     enabled = "fcitx5";

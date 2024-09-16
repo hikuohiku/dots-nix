@@ -13,6 +13,10 @@
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
+    aylur = {
+      url = "github:Aylur/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     catppuccin.url = "github:catppuccin/nix";
     niqspkgs.url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -26,6 +30,7 @@
       home-manager,
       hyprland,
       treefmt-nix,
+      aylur,
       catppuccin,
       niqspkgs,
     }@inputs:
