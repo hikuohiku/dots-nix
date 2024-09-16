@@ -83,7 +83,6 @@
           };
           modules = [
             ./home
-            ./home/waybar
           ];
         };
       };
