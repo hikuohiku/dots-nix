@@ -1,6 +1,5 @@
 {
-  #ref: https://github.com/yasunori0418/dotfiles/blob/485eee2794c2e5217823b7bba5201e9f9fe16d1e/flake.nix#L2
-  description = "My dotfiles, all my effort, my sword.";
+  description = "hiro's dotfiles";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -57,9 +56,7 @@
       pkgsFromNiqs = niqspkgs.packages.x86_64-linux;
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
-    # code = _: s: s;
     {
-      # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
 
       nixosConfigurations.${personalizeInput.hostname} = inputs.nixpkgs.lib.nixosSystem {
@@ -72,8 +69,8 @@
           inherit inputs;
           inherit personalizeInput;
         };
-        # inputs.catppuccin.enable = true;
       };
+
       homeConfigurations = {
         Home = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs {

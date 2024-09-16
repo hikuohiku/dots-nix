@@ -2,13 +2,25 @@
 
 let
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
-in {
+in
+{
   mainBar = {
     layer = "top";
     position = "left";
     width = 40;
-    modules-left = ["custom/launcher" "wlr/workspaces"];
-    modules-right = ["keyboard-state" "custom/settings" "pulseaudio" "network" "custom/hour" "custom/mins" "custom/powermenu"];
+    modules-left = [
+      "custom/launcher"
+      "wlr/workspaces"
+    ];
+    modules-right = [
+      "keyboard-state"
+      "custom/settings"
+      "pulseaudio"
+      "network"
+      "custom/hour"
+      "custom/mins"
+      "custom/powermenu"
+    ];
     "custom/launcher" = {
       format = "";
       on-click = "rofi -show drun";
@@ -47,7 +59,12 @@ in {
       on-click = "${pavucontrol}";
       format-icons = {
         headphone = "";
-        default = ["" "" "墳" ""];
+        default = [
+          ""
+          ""
+          "墳"
+          ""
+        ];
       };
     };
     network = {
