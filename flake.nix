@@ -11,15 +11,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     aylur = {
       url = "github:Aylur/dotfiles";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    niqspkgs.url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    niqspkgs = {
+      url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
