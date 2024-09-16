@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    niqspkgs = {
+    diniamo = {
       url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -34,53 +34,52 @@
     {
       self,
       nixpkgs,
-      nixos-hardware,
       home-manager,
-      hyprland,
-      treefmt-nix,
-      aylur,
       catppuccin,
-      niqspkgs,
+      ...
     }@inputs:
     let
-      personalizeInput = {
+      userInfo = {
         username = "hikuo";
         hostname = "hikuo-desktop";
+        system = "x86_64-linux";
         wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
         git = {
           username = "hikuohiku";
           email = "hikuohiku@gmail.com";
         };
       };
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      pkgsFromNiqs = niqspkgs.packages.x86_64-linux;
-      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      pkgs = nixpkgs.legacyPackages.${userInfo.system};
+      aylurpkgs = inputs.aylur.packages.x86_64-linux;
+      diniamopkgs = inputs.diniamo.packages.${userInfo.system};
+      treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
     {
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
 
-      nixosConfigurations.${personalizeInput.hostname} = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          inputs.catppuccin.nixosModules.catppuccin
-        ];
+      nixosConfigurations.${userInfo.hostname} = nixpkgs.lib.nixosSystem {
+        system = userInfo.system;
         specialArgs = {
           inherit inputs;
-          inherit personalizeInput;
+          inherit userInfo;
         };
+        modules = [
+          ./configuration.nix
+          catppuccin.nixosModules.catppuccin
+        ];
       };
 
       homeConfigurations = {
-        Home = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import inputs.nixpkgs {
-            system = "x86_64-linux";
+        ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = userInfo.system;
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
             inherit inputs;
-            inherit pkgsFromNiqs;
-            inherit personalizeInput;
+            inherit aylurpkgs;
+            inherit diniamopkgs;
+            inherit userInfo;
           };
           modules = [
             ./home

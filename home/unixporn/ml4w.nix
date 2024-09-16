@@ -4,7 +4,7 @@
   pkgsFromNiqs,
   # overlays,
   inputs,
-  personalizeInput,
+  userInfo,
   ...
 }:
 {

@@ -1,16 +1,17 @@
 {
   config,
   pkgs,
+  aylurpkgs,
   # overlays,
   inputs,
-  personalizeInput,
+  userInfo,
   ...
 }:
 let
-  username = personalizeInput.username;
-  gitUsername = personalizeInput.git.username;
-  gitEmail = personalizeInput.git.email;
-  wallpaperPath = personalizeInput.wallpaperPath;
+  username = userInfo.username;
+  gitUsername = userInfo.git.username;
+  gitEmail = userInfo.git.email;
+  wallpaperPath = userInfo.wallpaperPath;
 in
 rec {
   nixpkgs.config = {
@@ -61,7 +62,7 @@ rec {
 
     # hyprlock
 
-    inputs.aylur.packages.x86_64-linux.default
+    aylurpkgs.default
     # ========== TERMINAL ========== 
     alacritty
 
@@ -117,7 +118,7 @@ rec {
     vlc
 
     # file manager
-    gnome.nautilus
+    nautilus
     # ========== UTIL ========== 
     fzf
     rlwrap # readline wrapper
@@ -178,19 +179,6 @@ rec {
       dotfiles = /${dotfilesRoot}/dotfiles;
     in
     {
-      ".config/kitty" = {
-        source = (symlink /${dotfiles}/config/kitty);
-        recursive = true;
-      };
-
-      # ".config/kitty/kitty.conf" = {
-      #   source = pkgs.substituteAll {
-      #     name = "kitty_themes";
-      #     kitty_themes = "${inputs.catppuccin-kitty}/themes";
-      #     src = /${dotfiles}/config/kitty/kitty.conf;
-      #   }; 
-      # };
-
       ".config/nvim" = {
         source = (symlink /home/hikuo/.ghq/github.com/hikuohiku/lazyvim);
         recursive = true;
@@ -258,6 +246,15 @@ rec {
       };
     };
     eza.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true; # $EDITOR=nvimに設定
+      viAlias = true;
+      vimAlias = true;
+    };
+    starship.enable = true;
+    firefox.enable = true;
+    kitty.enable = true;
   };
 
   # Let Home Manager install and manage itself.
