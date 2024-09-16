@@ -64,7 +64,7 @@
           inherit userInfo;
         };
         modules = [
-          ./configuration.nix
+          ./nixos/configuration.nix
           catppuccin.nixosModules.catppuccin
         ];
       };
