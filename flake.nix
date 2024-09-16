@@ -83,6 +83,7 @@
           };
           modules = [
             ./home
+            ./home/unixporn/aylur
           ];
         };
       };

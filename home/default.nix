@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  aylurpkgs,
   # overlays,
   inputs,
   userInfo,
@@ -60,7 +59,6 @@ rec {
 
     # hyprlock
 
-    aylurpkgs.default
     # ========== TERMINAL ========== 
     alacritty
 
