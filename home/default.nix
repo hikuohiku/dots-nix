@@ -119,6 +119,8 @@ rec {
     fzf
     rlwrap # readline wrapper
 
+    # ========== Language Environment ========== 
+    gcc
     # ========== LSP ========== 
     # Language Seervers
     nodePackages.bash-language-server # bash
