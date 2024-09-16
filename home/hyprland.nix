@@ -20,8 +20,8 @@ in
 
   "$terminal" = kitty;
 
-  "$browser" = "firefox";
-  "$fileManager" = "thunar";
+  "$browser" = "microsoft-edge-dev";
+  "$fileManager" = "nautilus";
   "$menu" = "rofi -show drun";
   input = {
     kb_layout = "us";
@@ -210,7 +210,7 @@ in
     "$mainMod SHIFT, 0, focusworkspaceoncurrentmonitor, 10"
 
     # Example special workspace (scratchpad)
-    "$mainMod, w, togglespecialworkspace, magic"
+    "$mainMod, s, togglespecialworkspace, magic"
     "$mainMod SHIFT, w, movetoworkspace, special:magic"
 
     "$mainMod, p, workspace, +1, focuswindow"

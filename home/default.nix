@@ -115,6 +115,8 @@ rec {
     # media player
     vlc
 
+    # file manager
+    gnome.nautilus
     # ========== UTIL ========== 
     fzf
     rlwrap # readline wrapper
