@@ -84,6 +84,7 @@
           modules = [
             ./home
             ./home/unixporn/aylur
+            catppuccin.homeManagerModules.catppuccin
           ];
         };
       };

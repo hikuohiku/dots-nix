@@ -10,4 +10,8 @@
   ];
 
   gtk.enable = true;
+
+  catppuccin.enable = true;
+  catppuccin.flavor = "latte";
+  programs.neovim.enable = false;
 }

@@ -7,6 +7,8 @@
   ...
 }:
 rec {
+  imports = [ ./terminal.nix ];
+
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -35,6 +37,7 @@ rec {
   # shell provided by Home Manager.
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
+    EDITOR = "nvim";
   };
 
   # The home.packages option allows you to install Nix packages into your
@@ -59,10 +62,8 @@ rec {
 
     # hyprlock
 
-    # ========== TERMINAL ========== 
-    alacritty
-
     # ========== EDITOR ========== 
+    neovim
 
     # ========== BROWSER ========== 
     microsoft-edge-dev
@@ -196,12 +197,6 @@ rec {
       };
     };
     eza.enable = true;
-    neovim = {
-      enable = true;
-      defaultEditor = true; # $EDITOR=nvimに設定
-      viAlias = true;
-      vimAlias = true;
-    };
     starship.enable = true;
     firefox.enable = true;
     kitty.enable = true;
