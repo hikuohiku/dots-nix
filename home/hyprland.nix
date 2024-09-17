@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  kitty = "kitty";
+  terminal = "alacritty";
 in
 {
   monitor = [
@@ -8,50 +8,38 @@ in
     "HDMI-A-1,preferred,0x0,auto"
   ];
 
-  # source = "~/.config/hypr/mocha.conf";
-
-  env = [
-    "XCURSOR_SIZE,32"
-    "GDK_SCALE,2"
-    "HYPRCURSOR_SIZE,25"
-    "XCURSOR_SIZE,24"
-    "QT_QPA_PLATFORMTHEME,qt5ct"
-  ];
-
-  "$terminal" = kitty;
+  "$terminal" = terminal;
 
   "$browser" = "microsoft-edge-dev";
   "$fileManager" = "nautilus";
-  "$menu" = "rofi -show drun";
+  "$menu" = "asztal -t launcher";
   input = {
     kb_layout = "us";
-    kb_variant = "";
-    kb_model = "";
-    kb_options = "";
-    kb_rules = "";
-
-    follow_mouse = "1";
-    mouse_refocus = false;
 
     touchpad = {
       natural_scroll = true;
+      clickfinger_behavior = true;
     };
 
-    sensitivity = 0; # -1.0 to 1.0, 0 means no modification.
-  };
-
-  xwayland = {
-    force_zero_scaling = true;
+    special_fallthrough = true;
+    follow_mouse = "1";
+    mouse_refocus = false;
   };
 
   general = {
     gaps_in = 5;
     gaps_out = 20;
     border_size = 2;
-    "col.active_border" = "$mauve $rosewater 45deg";
-    # "col.inactive_border" = "$surface0";
+
+    resize_on_border = true;
+
     layout = "dwindle";
     allow_tearing = false;
+  };
+
+  dwindle = {
+    pseudotile = "yes";
+    preserve_split = "yes";
   };
 
   decoration = {
@@ -62,10 +50,10 @@ in
       size = 3;
       passes = 1;
     };
+
     drop_shadow = "yes";
     shadow_range = 4;
     shadow_render_power = 3;
-    # "col.shadow" = "$surface0Alpha";
   };
 
   animations = {
@@ -117,18 +105,20 @@ in
     };
   };
 
-  dwindle = {
-    pseudotile = "yes";
-    preserve_split = "yes";
-  };
-
   # master {
   #     # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
   #     new_is_master = true
   # }
 
   gestures = {
-    workspace_swipe = "off";
+    workspace_swipe = true;
+    workspace_swipe_distance = 700;
+    workspace_swipe_fingers = 4;
+    workspace_swipe_cancel_ratio = 0.2;
+    workspace_swipe_min_speed_to_force = 5;
+    workspace_swipe_direction_lock = true;
+    workspace_swipe_direction_lock_threshold = 10;
+    workspace_swipe_create_new = true;
   };
 
   misc = {
@@ -172,7 +162,7 @@ in
     "$mainMod, e, exec, $fileManager"
     "$mainMod, f, togglefloating,"
     "$mainMod, f, pin,"
-    "$mainMod, space, exec, $menu"
+    "$mainMod, r, exec, $menu"
     # bind = $mainMod, P, pseudo, # dwindle
     "$mainMod, J, togglesplit," # dwindle
     "$mainMod, b, exec, $browser"
@@ -226,8 +216,12 @@ in
     "$mainMod ctrl, l, resizeactive, 100 100"
     "$mainMod ctrl, h, resizeactive, -100 100"
 
+    # reload ags
+    "$mainMod SHIFT, R,  exec, asztal -q; asztal"
     # Screenshot
-    "$mainMod SHIFT, s, exec, slurp | grim -g - - | wl-copy"
+    ",XF86Launch4,   exec, asztal -r 'recorder.start()'"
+    ",Print,         exec, asztal -r 'recorder.screenshot()'"
+    "SHIFT,Print,    exec, asztal -r 'recorder.screenshot(true)'"
     # Take screenshot active window
     # ",Print, exec, hyprctl -j activewindow | jq -r '\"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])\"' | grim -g - - | wl-copy"
     # ",Print, exec, grim -o (hyprctl monitors -j | jq -r '.[] | select(.focused) | .name') - | wl-copy" 
@@ -238,10 +232,6 @@ in
     # Screen lock
     "Super SHIFT, l, exec, hyprlock"
 
-    # bind = Print, exec, slurp | grim -g - - | wl-cop
-
-    # Vim as as IME
-    "$mainMod, code:34, exec, ime.sh float"
   ];
 
   bindm = [
@@ -252,7 +242,6 @@ in
 
   exec-once = [
     "asztal"
-    "fcitx5"
     "conky"
     "playerctld daemon"
     # "swaybg -i ~/Pictures/wallpaper/wallpaper.png"
