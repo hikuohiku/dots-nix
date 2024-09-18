@@ -42,6 +42,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # kernel module params
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ]; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3"
+  ''; # https://wiki.hyprland.org/Nvidia/#fixing-other-random-flickering-nuclear-method
+
   # time zone
   time.timeZone = "Asia/Tokyo";
 
@@ -62,11 +68,12 @@
   };
 
   # nvidia
+  # https://wiki.nixos.org/wiki/Nvidia
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
-    # powerManagement.enable = true; # experimantal
+    powerManagement.enable = true; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
     # powerManagement.finegrained = true; # experimental
     open = false;
     nvidiaSettings = true;
