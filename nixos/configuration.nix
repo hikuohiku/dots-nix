@@ -61,6 +61,17 @@
     };
   };
 
+  # nvidia
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    # powerManagement.enable = true; # experimantal
+    # powerManagement.finegrained = true; # experimental
+    open = false;
+    nvidiaSettings = true;
+  };
+
   # networking
   networking.networkmanager.enable = true;
 
