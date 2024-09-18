@@ -246,5 +246,6 @@ in
     "playerctld daemon"
     # "swaybg -i ~/Pictures/wallpaper/wallpaper.png"
     "hyprpaper"
+    "fcitx5"
   ];
 }
