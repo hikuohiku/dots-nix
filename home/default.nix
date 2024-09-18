@@ -210,7 +210,13 @@ rec {
       wallpaper = [ ",${userInfo.wallpaperPath}" ];
     };
   };
-  # services.swaync.enable = true;
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
