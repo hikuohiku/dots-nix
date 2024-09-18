@@ -128,7 +128,10 @@
   };
 
   # desktop environments
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    enableHidpi = true;
+  };
 
   services.xserver.enable = true;
   # Configure keymap in X11
