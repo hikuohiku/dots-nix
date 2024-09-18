@@ -155,7 +155,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userInfo.username} = {
     isNormalUser = true;
-    description = "main user";
+    description = userInfo.username;
     extraGroups = [
       "networkmanager"
       "wheel"
