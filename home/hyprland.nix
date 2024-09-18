@@ -4,8 +4,8 @@ let
 in
 {
   monitor = [
-    "DP-1,preferred,auto,auto"
-    "HDMI-A-1,preferred,0x0,auto"
+    "DP-3,preferred,0x0,auto"
+    "HDMI-A-1, 3840x2160@59.94,auto,auto"
   ];
 
   "$terminal" = terminal;
