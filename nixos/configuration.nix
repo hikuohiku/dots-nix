@@ -66,6 +66,13 @@
       LC_TIME = "ja_JP.UTF-8";
     };
   };
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk fcitx5-skk ];
+    fcitx5.waylandFrontend = true;
+  };
+
 
   # nvidia
   # https://wiki.nixos.org/wiki/Nvidia
