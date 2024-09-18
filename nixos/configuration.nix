@@ -69,15 +69,18 @@
   i18n.inputMethod = {
     type = "fcitx5";
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk fcitx5-skk ];
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+      fcitx5-skk
+    ];
     fcitx5.waylandFrontend = true;
   };
-
 
   # nvidia
   # https://wiki.nixos.org/wiki/Nvidia
   hardware.graphics.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
