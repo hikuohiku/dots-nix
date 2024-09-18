@@ -130,6 +130,7 @@
   # desktop environments
   services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
     enableHidpi = true;
   };
 
