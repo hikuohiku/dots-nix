@@ -245,5 +245,6 @@ in
     # "swaybg -i ~/Pictures/wallpaper/wallpaper.png"
     "hyprpaper"
     "fcitx5"
+    "discord --start-minimized"
   ];
 }
