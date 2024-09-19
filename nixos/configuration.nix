@@ -53,7 +53,7 @@
 
   # i18n
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "ja_JP.UTF-8";
     extraLocaleSettings = {
       LC_ADDRESS = "ja_JP.UTF-8";
       LC_IDENTIFICATION = "ja_JP.UTF-8";
