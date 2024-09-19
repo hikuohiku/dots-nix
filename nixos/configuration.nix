@@ -144,6 +144,12 @@
 
   programs.hyprland.enable = true;
 
+  # flatpak
+  # https://wiki.nixos.org/wiki/Flatpak
+  services.flatpak.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.config.common.default = "gtk";
+
   # font
   fonts = {
     packages = with pkgs; [
@@ -183,7 +189,6 @@
     ];
     packages = with pkgs; [
       kdePackages.kate
-      #  thunderbird
     ];
     shell = pkgs.fish;
   };

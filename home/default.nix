@@ -141,6 +141,9 @@ rec {
     # ========== OTHER TOOLS ========== 
     skk-dicts
 
+    # flatpak https://wiki.nixos.org/wiki/Flatpak
+    flatpak
+    gnome-software
     # ================================== 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
