@@ -66,6 +66,7 @@ rec {
     neovim
 
     # ========== BROWSER ========== 
+    floorp
     microsoft-edge-dev
 
     # ========== CUI TOOL ========== 

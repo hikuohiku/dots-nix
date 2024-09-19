@@ -76,6 +76,10 @@
     ];
     fcitx5.waylandFrontend = true;
   };
+  # https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
+  environment.sessionVariables.XMODIFIERS = "@im=fcitx";
+  environment.sessionVariables.QT_IM_MODULE = "fcitx";
+  environment.sessionVariables.QT_IM_MODULES = "wayland;fcitx";
 
   # nvidia
   # https://wiki.nixos.org/wiki/Nvidia
