@@ -26,6 +26,11 @@ in
     mouse_refocus = false;
   };
 
+  device = {
+    name = "apple-inc.-magic-trackpad";
+    sensitivity = 0.2;
+  };
+
   general = {
     gaps_in = 5;
     gaps_out = 20;
@@ -123,13 +128,6 @@ in
 
   misc = {
     force_default_wallpaper = -1;
-  };
-
-  # Example per-device config
-  # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
-  device = {
-    name = "epic-mouse-v1";
-    sensitivity = -0.5;
   };
 
   # Example windowrule v1
