@@ -43,8 +43,6 @@ in
   };
 
   dwindle = {
-    pseudotile = "yes";
-    preserve_split = "yes";
   };
 
   decoration = {
@@ -161,8 +159,6 @@ in
     "$mainMod, f, togglefloating,"
     "$mainMod, f, pin,"
     "$mainMod, r, exec, $menu"
-    # bind = $mainMod, P, pseudo, # dwindle
-    "$mainMod, J, togglesplit," # dwindle
     "$mainMod, b, exec, $browser"
 
     # Move focus with mainMod + arrow keys
