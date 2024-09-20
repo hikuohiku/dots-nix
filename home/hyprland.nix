@@ -10,7 +10,7 @@ in
 
   "$terminal" = terminal;
 
-  "$browser" = "microsoft-edge-dev";
+  "$browser" = "zen";
   "$fileManager" = "nautilus";
   "$menu" = "asztal -t launcher";
   input = {

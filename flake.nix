@@ -24,6 +24,10 @@
       url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.url = "nixpkgs";
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +56,7 @@
       pkgs = nixpkgs.legacyPackages.${userInfo.system};
       aylurpkgs = inputs.aylur.packages.x86_64-linux;
       diniamopkgs = inputs.diniamo.packages.${userInfo.system};
+      zen-browser = inputs.zen-browser.packages.${userInfo.system};
       treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
     {
@@ -79,6 +84,7 @@
             inherit inputs;
             inherit aylurpkgs;
             inherit diniamopkgs;
+            inherit zen-browser;
             inherit userInfo;
           };
           modules = [

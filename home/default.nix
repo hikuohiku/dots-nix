@@ -3,6 +3,7 @@
   pkgs,
   # overlays,
   inputs,
+  zen-browser,
   userInfo,
   ...
 }:
@@ -68,6 +69,7 @@ rec {
     # ========== BROWSER ========== 
     floorp
     microsoft-edge-dev
+    zen-browser.default
 
     # ========== CUI TOOL ========== 
     tree
