@@ -63,6 +63,7 @@ rec {
 
     # hyprlock
 
+    openssl
     # ========== EDITOR ========== 
     neovim
 
