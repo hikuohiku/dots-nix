@@ -17,9 +17,9 @@
 
   # vscode
   programs.vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
   # TODO: overlayで設定にする
   xdg.desktopEntries = {
     code = {
