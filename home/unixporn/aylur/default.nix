@@ -1,4 +1,5 @@
 {
+  pkgs,
   aylurpkgs,
   ...
 }:
@@ -13,5 +14,13 @@
 
   catppuccin.enable = true;
   catppuccin.flavor = "latte";
-  programs.neovim.enable = false;
+  programs.starship.catppuccin.enable = true;
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
+
 }

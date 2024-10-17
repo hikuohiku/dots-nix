@@ -35,9 +35,6 @@ rec {
   # environment.
   home.packages = with pkgs; [
     # ========== SYSTEM ========== 
-    # colorscheme
-    catppuccin
-
     # audio
     pavucontrol
 
@@ -133,13 +130,6 @@ rec {
       preload = userInfo.wallpaperPath;
       wallpaper = [ ",${userInfo.wallpaperPath}" ];
     };
-  };
-
-  home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 24;
-    gtk.enable = true;
   };
 
   wayland.windowManager.hyprland = {
