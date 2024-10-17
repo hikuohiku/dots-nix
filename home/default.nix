@@ -122,6 +122,10 @@ rec {
   programs = {
     bat.enable = true;
     eza.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
   };
 
   services.hyprpaper = {
