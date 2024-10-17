@@ -9,6 +9,7 @@ rec {
     ./terminal.nix
     ./editor.nix
     ./browser.nix
+    ./git.nix
   ];
 
   # nixpkgs
@@ -136,46 +137,8 @@ rec {
   ];
 
   programs = {
-    git = {
-      enable = true;
-      userName = userInfo.git.username;
-      userEmail = userInfo.git.email;
-      extraConfig = {
-        ghq = {
-          root = "~/.ghq";
-        };
-        init = {
-          defaultBranch = "main";
-        };
-      };
-      delta = {
-        enable = true;
-        options = {
-          dark = false;
-        };
-      };
-    };
-
-    lazygit = {
-      enable = true;
-      settings = {
-        gui.language = "ja";
-        git.paging = {
-          colorArg = "always";
-          pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
-        };
-        # customCommands:
-        #   - key: "C"
-        #     command: "git cz"
-        #     description: "commit with commitizen"
-        #     context: "files"
-        #     loadingText: "opening commitizen commit tool"
-        #     subprocess: true
-      };
-    };
     bat.enable = true;
     eza.enable = true;
-    firefox.enable = true;
   };
 
   services.hyprpaper = {
