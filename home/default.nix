@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  zen-browser,
   userInfo,
   ...
 }:
@@ -9,6 +8,7 @@ rec {
   imports = [
     ./terminal.nix
     ./editor.nix
+    ./browser.nix
   ];
 
   # nixpkgs
@@ -53,11 +53,6 @@ rec {
     # hyprlock
 
     openssl
-
-    # ========== BROWSER ========== 
-    floorp
-    microsoft-edge-dev
-    zen-browser.default
 
     # ========== CUI TOOL ========== 
     tree
@@ -140,7 +135,6 @@ rec {
     # '')
   ];
 
-  nixpkgs.overlays = [ (import ./overlays/microsoft-edge-dev.nix) ];
   programs = {
     git = {
       enable = true;
