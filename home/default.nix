@@ -39,6 +39,8 @@ rec {
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
     EDITOR = "nvim";
+    ZELLIJ_AUTO_ATTACH = "true";
+    ZELLIJ_AUTO_EXIT = "true";
   };
 
   # The home.packages option allows you to install Nix packages into your
@@ -81,7 +83,6 @@ rec {
     # rust replace
     ripgrep # grep
     fd # find
-    bat # cat
     sd # sed
 
     # archive
@@ -126,24 +127,14 @@ rec {
 
     # ========== Language Environment ========== 
     gcc
-    # ========== LSP ========== 
-    # Language Seervers
-    nodePackages.bash-language-server # bash
-    vscode-langservers-extracted # html, css, json, eslint
-    marksman # md
-    yaml-language-server # yaml
-    taplo # toml
-    nil # nix
-    lua-language-server # lua
-
-    # linters
-    markdownlint-cli2 # md
+    nodejs
+    cargo
 
     # ========== SCRIPT ========== 
     spectre-meltdown-checker
 
     # ========== OTHER TOOLS ========== 
-    skk-dicts
+    # skk-dicts
 
     # flatpak https://wiki.nixos.org/wiki/Flatpak
     flatpak
@@ -182,7 +173,7 @@ rec {
       delta = {
         enable = true;
         options = {
-          syntax-theme = "Nord";
+          dark = false;
         };
       };
     };
@@ -193,7 +184,7 @@ rec {
         gui.language = "ja";
         git.paging = {
           colorArg = "always";
-          pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+          pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
         };
         # customCommands:
         #   - key: "C"
@@ -204,10 +195,47 @@ rec {
         #     subprocess: true
       };
     };
+    zellij = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        theme = "catppuccin-latte";
+        default_mode = "locked";
+        ui.pane_frames.rounded_corners = true;
+      };
+    };
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
+    };
+    bat.enable = true;
     eza.enable = true;
     starship.enable = true;
     firefox.enable = true;
     kitty.enable = true;
+  };
+
+  xdg.desktopEntries = {
+    code = {
+      actions.new-empty-window = {
+        name = "New Empty Window";
+        exec = "code --enable-wayland-ime --new-window %F";
+        icon = "vscode";
+      };
+      categories = [
+        "Utility"
+        "TextEditor"
+        "Development"
+        "IDE"
+      ];
+      comment = "Code Editing. Redefined.";
+      exec = "code --enable-wayland-ime %F";
+      genericName = "Text Editor";
+      icon = "vscode";
+      name = "Visual Studio Code";
+      startupNotify = true;
+      type = "Application";
+    };
   };
 
   services.hyprpaper = {

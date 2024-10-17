@@ -15,6 +15,8 @@ in
   "$menu" = "asztal -t launcher";
   input = {
     kb_layout = "us";
+    repeat_delay = 250;
+    repeat_rate = 35;
 
     touchpad = {
       natural_scroll = true;
@@ -42,8 +44,9 @@ in
     allow_tearing = false;
   };
 
-  dwindle = {
-  };
+  dwindle =
+    {
+    };
 
   decoration = {
     rounding = 10;
@@ -159,7 +162,7 @@ in
     "$mainMod, f, togglefloating,"
     "$mainMod, f, pin,"
     "$mainMod, r, exec, $menu"
-    "$mainMod, b, exec, $browser"
+    "$mainMod, w, exec, $browser"
 
     # Move focus with mainMod + arrow keys
     "$mainMod, h, movefocus, l"

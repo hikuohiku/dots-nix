@@ -32,6 +32,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # nix-ld
+  programs.nix-ld.enable = true;
+
   # hostname
   networking.hostName = userInfo.hostname;
 
@@ -95,6 +98,9 @@
 
   # networking
   networking.networkmanager.enable = true;
+
+  # tailscale
+  services.tailscale.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -207,9 +213,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

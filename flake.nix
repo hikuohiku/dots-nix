@@ -26,7 +26,7 @@
     };
     zen-browser = {
       url = "github:MarceColl/zen-browser-flake";
-      inputs.nixpkgs.url = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
