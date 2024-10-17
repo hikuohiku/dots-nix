@@ -11,6 +11,7 @@ rec {
     ./editor.nix
   ];
 
+  # nixpkgs
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -21,9 +22,7 @@ rec {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager.
+  # session environment variables
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
     EDITOR = "nvim";
@@ -143,7 +142,6 @@ rec {
 
   nixpkgs.overlays = [ (import ./overlays/microsoft-edge-dev.nix) ];
   programs = {
-    fish.enable = true;
     git = {
       enable = true;
       userName = userInfo.git.username;
@@ -181,20 +179,9 @@ rec {
         #     subprocess: true
       };
     };
-    zellij = {
-      enable = true;
-      enableFishIntegration = true;
-      settings = {
-        theme = "catppuccin-latte";
-        default_mode = "locked";
-        ui.pane_frames.rounded_corners = true;
-      };
-    };
     bat.enable = true;
     eza.enable = true;
-    starship.enable = true;
     firefox.enable = true;
-    kitty.enable = true;
   };
 
   services.hyprpaper = {
