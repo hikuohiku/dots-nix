@@ -1,14 +1,15 @@
 {
-  config,
   pkgs,
-  # overlays,
   inputs,
   zen-browser,
   userInfo,
   ...
 }:
 rec {
-  imports = [ ./terminal.nix ];
+  imports = [
+    ./terminal.nix
+    ./editor.nix
+  ];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -19,19 +20,6 @@ rec {
   home.homeDirectory = "/home/${userInfo.username}";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file =
-    let
-      symlink = config.lib.file.mkOutOfStoreSymlink;
-    in
-    {
-      ".config/nvim" = {
-        source = (symlink /home/hikuo/.ghq/github.com/hikuohiku/lazyvim);
-        recursive = true;
-      };
-    };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -66,8 +54,6 @@ rec {
     # hyprlock
 
     openssl
-    # ========== EDITOR ========== 
-    neovim
 
     # ========== BROWSER ========== 
     floorp
@@ -204,38 +190,11 @@ rec {
         ui.pane_frames.rounded_corners = true;
       };
     };
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
     bat.enable = true;
     eza.enable = true;
     starship.enable = true;
     firefox.enable = true;
     kitty.enable = true;
-  };
-
-  xdg.desktopEntries = {
-    code = {
-      actions.new-empty-window = {
-        name = "New Empty Window";
-        exec = "code --enable-wayland-ime --new-window %F";
-        icon = "vscode";
-      };
-      categories = [
-        "Utility"
-        "TextEditor"
-        "Development"
-        "IDE"
-      ];
-      comment = "Code Editing. Redefined.";
-      exec = "code --enable-wayland-ime %F";
-      genericName = "Text Editor";
-      icon = "vscode";
-      name = "Visual Studio Code";
-      startupNotify = true;
-      type = "Application";
-    };
   };
 
   services.hyprpaper = {
