@@ -3,6 +3,7 @@
   # neovim
   home.packages = with pkgs; [
     neovim
+    neovide
   ];
   home.file =
     let
@@ -14,6 +15,9 @@
         recursive = true;
       };
     };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 
   # vscode
   programs.vscode = {

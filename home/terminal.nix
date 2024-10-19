@@ -1,5 +1,16 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.sessionVariables = {
+    ZELLIJ_AUTO_ATTACH = "true";
+    LS_COLORS = "$(vivid generate catppuccin-latte)";
+  };
+
+  # packages
+  home.packages = with pkgs; [
+    grc
+    vivid # LS_COLORS
+  ];
+
   # alacritty
   programs.alacritty = {
     enable = true;
@@ -24,7 +35,49 @@
   programs.kitty.enable = true;
 
   # fish
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      copy = "wl-copy";
+      paste = "wl-paste";
+      ls = "eza --color=auto --icons";
+      l = "eza --color=auto --icons -lah";
+      ll = "eza --color=auto --icons -l";
+      la = "eza --color=auto --icons -a";
+      cat = "bat";
+      find = "fd";
+      grep = "rg";
+      top = "btop";
+      du = "dua";
+      c = "code";
+      v = "nvim";
+      vi = "nvim";
+      vim = "nvim";
+      n = "neovide";
+      g = "git";
+      lg = "lazygit";
+      lspath = "echo $PATH | sed 's/ /\\n/g' | sort";
+      ja = "trans -b :ja";
+    };
+    plugins = [
+      {
+        name = "z";
+        src = pkgs.fishPlugins.z.src;
+      }
+      {
+        name = "grc";
+        src = pkgs.fishPlugins.grc.src;
+      }
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "fzf";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+    ];
+  };
   # starship
   programs.starship.enable = true;
 
@@ -33,7 +86,6 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      theme = "catppuccin-latte";
       default_mode = "locked";
       ui.pane_frames.rounded_corners = true;
     };

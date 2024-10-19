@@ -26,9 +26,6 @@ rec {
   # session environment variables
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
-    EDITOR = "nvim";
-    ZELLIJ_AUTO_ATTACH = "true";
-    ZELLIJ_AUTO_EXIT = "true";
   };
 
   # The home.packages option allows you to install Nix packages into your
@@ -52,6 +49,7 @@ rec {
 
     openssl
 
+    libnotify # norify-send
     # ========== CUI TOOL ========== 
     tree
     fastfetch
@@ -100,7 +98,6 @@ rec {
     # file manager
     nautilus
     # ========== UTIL ========== 
-    fzf
     rlwrap # readline wrapper
 
     # ========== Language Environment ========== 
@@ -121,7 +118,15 @@ rec {
 
   programs = {
     bat.enable = true;
-    eza.enable = true;
+    eza = {
+      enable = true;
+      enableFishIntegration = false;
+    };
+    fzf = {
+      enable = true;
+      enableFishIntegration = false;
+      defaultOptions = [ "--cycle" "--layout=reverse" "--border" "--height=90%" "--preview-window=wrap" ''--marker="*"''];
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;

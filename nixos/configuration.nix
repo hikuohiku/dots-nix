@@ -71,7 +71,7 @@
   };
   i18n.inputMethod = {
     type = "fcitx5";
-    enabled = "fcitx5";
+    enable = true;
     fcitx5.addons = with pkgs; [
       fcitx5-mozc
       fcitx5-gtk
@@ -167,8 +167,9 @@
       source-han-sans-vf-ttf
       sarasa-gothic
       noto-fonts-emoji
-      nerdfonts
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ];
+    enableDefaultPackages = false;
     fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
