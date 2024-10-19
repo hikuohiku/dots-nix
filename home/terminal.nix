@@ -47,6 +47,7 @@
       cat = "bat";
       find = "fd";
       grep = "rg";
+      sed = "sd";
       top = "btop";
       du = "dua";
       c = "code";

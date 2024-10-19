@@ -6,10 +6,13 @@
 }:
 rec {
   imports = [
+    ./core.nix
     ./terminal.nix
+    ./git.nix
     ./editor.nix
     ./browser.nix
-    ./git.nix
+    ./cli-tools.nix
+    ./gui-tools.nix
   ];
 
   # nixpkgs
@@ -26,127 +29,6 @@ rec {
   # session environment variables
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
-  };
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-    # ========== SYSTEM ========== 
-    # audio
-    pavucontrol
-
-    # screen capture
-    wf-recorder
-    vhs # terminal screen capture
-
-    # clipboard
-    wl-clipboard
-
-    # launcher
-    wofi
-
-    # hyprlock
-
-    openssl
-
-    libnotify # norify-send
-    # ========== CUI TOOL ========== 
-    tree
-    fastfetch
-    gomi # trash
-    bitwarden-cli
-
-    # rust replace
-    ripgrep # grep
-    fd # find
-    sd # sed
-
-    # archive
-    unar # unarchiver
-    unzip
-    p7zip # 7z
-
-    # file management
-    ghq
-    rsync
-
-    # http
-    wget
-    httpie
-
-    # analyze data format
-    xsv
-    yq
-    jwt-cli
-    jq
-    jnv
-
-    # ========== TUI TOOL ========== 
-    btop # resource monitor
-    ranger # file manager
-    lazydocker
-
-    # ========== GUI APPLICATION ========== 
-    # social
-    slack
-    teams-for-linux
-    discord
-
-    # media player
-    vlc
-
-    # file manager
-    nautilus
-    # ========== UTIL ========== 
-    rlwrap # readline wrapper
-
-    # ========== Language Environment ========== 
-    gcc
-    nodejs
-    cargo
-
-    # ========== SCRIPT ========== 
-    spectre-meltdown-checker
-
-    # ========== OTHER TOOLS ========== 
-    # skk-dicts
-
-    # flatpak https://wiki.nixos.org/wiki/Flatpak
-    flatpak
-    gnome-software
-  ];
-
-  programs = {
-    bat.enable = true;
-    eza = {
-      enable = true;
-      enableFishIntegration = false;
-    };
-    fzf = {
-      enable = true;
-      enableFishIntegration = false;
-      defaultOptions = [ "--cycle" "--layout=reverse" "--border" "--height=90%" "--preview-window=wrap" ''--marker="*"''];
-    };
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
-  };
-
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = userInfo.wallpaperPath;
-      wallpaper = [ ",${userInfo.wallpaperPath}" ];
-    };
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    settings = import ./hyprland.nix { inherit pkgs; };
-    # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
-    systemd.variables = [ "--all" ];
   };
 
   # This value determines the Home Manager release that your configuration is

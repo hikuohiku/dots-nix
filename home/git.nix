@@ -1,4 +1,4 @@
-{ userInfo, ... }:
+{ pkgs, userInfo, ... }:
 {
   # git
   programs.git = {
@@ -20,6 +20,11 @@
       };
     };
   };
+
+  # ghq
+  home.packages = with pkgs; [
+    ghq
+  ];
 
   # lazygit
   programs.lazygit = {
