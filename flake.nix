@@ -18,7 +18,12 @@
     aylur = {
       url = "github:Aylur/dotfiles";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.astal.follows = "astal";
     };
+    astal = {
+      url = "github:Aylur/astal";
+    };
+         
     catppuccin.url = "github:catppuccin/nix";
     diniamo = {
       url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
