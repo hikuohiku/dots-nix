@@ -13,6 +13,7 @@ rec {
     ./browser.nix
     ./cli-tools.nix
     ./gui-tools.nix
+    ./fileServer.nix
   ];
 
   # nixpkgs
