@@ -59,7 +59,7 @@
       zen-browser = inputs.zen-browser.packages.${userInfo.system};
       treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
-    {
+    rec {
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
 
       nixosConfigurations.${userInfo.hostname} = nixpkgs.lib.nixosSystem {
@@ -73,6 +73,7 @@
           catppuccin.nixosModules.catppuccin
         ];
       };
+      nixosConfigurations.nixos = nixosConfigurations.${userInfo.hostname};
 
       homeConfigurations = {
         ${userInfo.username} = home-manager.lib.homeManagerConfiguration {

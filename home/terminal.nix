@@ -2,6 +2,7 @@
 {
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
+    ZELLIJ_AUTO_EXIT = "true";
     LS_COLORS = "$(vivid generate catppuccin-latte)";
   };
 
