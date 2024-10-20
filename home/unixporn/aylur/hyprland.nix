@@ -1,18 +1,22 @@
 { pkgs }:
 let
   terminal = "alacritty";
+  browser = "zen";
+  fileManager = "nautilus";
+  menu = "asztal -t launcher";
+  mainMod = "Alt";
 in
 {
+  "$terminal" = terminal;
+  "$browser" = browser;
+  "$fileManager" = fileManager;
+  "$menu" = menu;
+
   monitor = [
     "DP-3,preferred,0x0,auto"
     "HDMI-A-1, 3840x2160@59.94,auto,auto"
   ];
 
-  "$terminal" = terminal;
-
-  "$browser" = "zen";
-  "$fileManager" = "nautilus";
-  "$menu" = "asztal -t launcher";
   input = {
     kb_layout = "us";
     repeat_delay = 250;
@@ -83,13 +87,15 @@ in
       animate_floating = "yes";
       animate_workspacechange = "yes";
       focus_animation = "shrink";
-      # # Beziers for focus animations
-      # bezier = bezIn, 0.5,0.0,1.0,0.5
-      # bezier = bezOut, 0.0,0.5,0.5,1.0
-      # bezier = overshot, 0.05, 0.9, 0.1, 1.05
-      # bezier = smoothOut, 0.36, 0, 0.66, -0.56
-      # bezier = smoothIn, 0.25, 1, 0.5, 1
-      # bezier = realsmooth, 0.28,0.29,.69,1.08
+      # Beziers for focus animations
+     bezier = [
+      "bezIn, 0.5,0.0,1.0,0.5"
+      "bezOut, 0.0,0.5,0.5,1.0"
+      "overshot, 0.05, 0.9, 0.1, 1.05"
+      "smoothOut, 0.36, 0, 0.66, -0.56"
+      "smoothIn, 0.25, 1, 0.5, 1"
+      "realsmooth, 0.28,0.29,.69,1.08"
+    ];     
 
       # Flash settings
       # flash {
@@ -145,34 +151,46 @@ in
 
   windowrulev2 = [
     "float,class:^(firefox),title:^(ピクチャーインピクチャー)"
+    "float,class:^(zen-alpha),title:^(ピクチャーインピクチャー)"
     "pin,class:^(firefox),title:^(ピクチャーインピクチャー)"
+    "pin,class:^(zen-alpha),title:^(ピクチャーインピクチャー)"
     "suppressevent maximize, class:.*"
   ];
 
   # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-  # $mainMod = SUPER
-  "$mainMod" = "Alt";
+  "$mainMod" = mainMod;
 
   bind = [
-    # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+    # execs
     "$mainMod, Return, exec, $terminal"
+    "$mainMod, t, exec, $terminal"
     "$mainMod, q, killactive,"
-    # bind = $mainMod, m, exit, 
     "$mainMod, e, exec, $fileManager"
     "$mainMod, f, togglefloating,"
-    "$mainMod, f, pin,"
     "$mainMod, r, exec, $menu"
+    "$mainMod, Space, exec, $menu"
     "$mainMod, w, exec, $browser"
+    "$mainMod SHIFT, R,  exec, asztal -q; asztal" # reload ags
+    "Super SHIFT, l, exec, hyprlock"
+    # Screenshot
+    ",XF86Launch4,   exec, asztal -r 'recorder.start()'"
+    ",Print,         exec, asztal -r 'recorder.screenshot()'"
+    "SHIFT,Print,    exec, asztal -r 'recorder.screenshot(true)'"
 
-    # Move focus with mainMod + arrow keys
+
+    # Move focus
     "$mainMod, h, movefocus, l"
     "$mainMod, l, movefocus, r"
     "$mainMod, k, movefocus, u"
     "$mainMod, j, movefocus, d"
 
-    # bind = $mainMod, g, movefocus, d
+    # Move active window
+    "$mainMod SHIFT, h, movewindow, l"
+    "$mainMod SHIFT, l, movewindow, r"
+    "$mainMod, SHIFT k, movewindow, u"
+    "$mainMod, SHIFT j, movewindow, d"
 
-    # Switch workspaces with mainMod + [0-9]
+    # Switch workspaces
     "$mainMod, 1, workspace, 1"
     "$mainMod, 2, workspace, 2"
     "$mainMod, 3, workspace, 3"
@@ -184,7 +202,7 @@ in
     "$mainMod, 9, workspace, 9"
     "$mainMod, 0, workspace, 10"
 
-    # Move active window to a workspace with mainMod + SHIFT + [0-9]
+    # Move active window workspace
     "$mainMod SHIFT, 1, focusworkspaceoncurrentmonitor, 1"
     "$mainMod SHIFT, 2, focusworkspaceoncurrentmonitor, 2"
     "$mainMod SHIFT, 3, focusworkspaceoncurrentmonitor, 3"
@@ -198,7 +216,7 @@ in
 
     # Example special workspace (scratchpad)
     "$mainMod, s, togglespecialworkspace, magic"
-    "$mainMod SHIFT, w, movetoworkspace, special:magic"
+    "$mainMod SHIFT, s, movetoworkspace, special:magic"
 
     "$mainMod, p, workspace, +1, focuswindow"
     "$mainMod, n, workspace, -1, focuswindow"
@@ -206,29 +224,9 @@ in
     "$mainMod SHIFT, p, movetoworkspace, +1"
     "$mainMod SHIFT, n, movetoworkspace, -1"
 
-    "$mainMod SHIFT, l, movewindow, r"
-    "$mainMod SHIFT, h, movewindow, l"
-
     # Change window size
     "$mainMod ctrl, l, resizeactive, 100 100"
     "$mainMod ctrl, h, resizeactive, -100 100"
-
-    # reload ags
-    "$mainMod SHIFT, R,  exec, asztal -q; asztal"
-    # Screenshot
-    ",XF86Launch4,   exec, asztal -r 'recorder.start()'"
-    ",Print,         exec, asztal -r 'recorder.screenshot()'"
-    "SHIFT,Print,    exec, asztal -r 'recorder.screenshot(true)'"
-    # Take screenshot active window
-    # ",Print, exec, hyprctl -j activewindow | jq -r '\"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])\"' | grim -g - - | wl-copy"
-    # ",Print, exec, grim -o (hyprctl monitors -j | jq -r '.[] | select(.focused) | .name') - | wl-copy" 
-    # Take screenshot active monitor
-    # "$mainMod, s, exec, hyprctl -j activeworkspace | jq -r '(.monitor)' | xargs -i grim -o {} -- - | wl-copy"
-    ",Print, exec, hyprctl -j activeworkspace | jq -r '(.monitor)' | xargs -i grim -o {} -- - | wl-copy"
-
-    # Screen lock
-    "Super SHIFT, l, exec, hyprlock"
-
   ];
 
   bindm = [
@@ -241,7 +239,6 @@ in
     "asztal"
     "conky"
     "playerctld daemon"
-    # "swaybg -i ~/Pictures/wallpaper/wallpaper.png"
     "hyprpaper"
     "fcitx5"
     "discord --start-minimized --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime"

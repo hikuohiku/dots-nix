@@ -37,6 +37,9 @@
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     settings = import ./hyprland.nix { inherit pkgs; };
+    plugins = [
+      pkgs.hyprlandPlugins.hyprfocus
+    ];
     # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
     systemd.variables = [ "--all" ];
   };
