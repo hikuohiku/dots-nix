@@ -23,7 +23,7 @@
     astal = {
       url = "github:Aylur/astal";
     };
-         
+
     catppuccin.url = "github:catppuccin/nix";
     diniamo = {
       url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
