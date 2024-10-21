@@ -80,7 +80,9 @@
     ];
   };
   # starship
-  programs.starship.enable = true;
+  programs.starship = {
+    enable = true;
+  };
 
   # zellij
   programs.zellij = {
