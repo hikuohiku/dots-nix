@@ -60,6 +60,10 @@
       lspath = "echo $PATH | sed 's/ /\\n/g' | sort";
       ja = "trans -b :ja";
     };
+    functions = {
+      code = "command code $argv --enable-wayland-ime";
+      gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+    };
     plugins = [
       {
         name = "z";

@@ -10,7 +10,7 @@
 }:
 let
   locale = "ja_JP.UTF-8";
-  hardwareConfiguration = if userInfo.hostname == "hikuo-homeserver" then ./hardware-configuration.homeserver.nix else ./hardware-configuration.nix
+  hardwareConfiguration = if userInfo.hostname == "hikuo-homeserver" then ./hardware-configuration.homeserver.nix else ./hardware-configuration.nix;
 in
 {
   imports = [
