@@ -50,7 +50,7 @@
     let
       userInfo = {
         username = "hikuo";
-        hostname = "hikuo-desktop";
+        hostname = "hikuo-homeserver";
         system = "x86_64-linux";
         wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
         git = {
@@ -67,38 +67,73 @@
     rec {
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
 
-      nixosConfigurations.${userInfo.hostname} = nixpkgs.lib.nixosSystem {
-        system = userInfo.system;
-        specialArgs = {
-          inherit inputs;
-          inherit userInfo;
+      nixosConfigurations = {
+        hikuo-desktop = nixpkgs.lib.nixosSystem {
+          system = userInfo.system;
+          specialArgs = {
+            inherit inputs;
+            inherit userInfo;
+          };
+          modules = [
+            ./nixos/configuration.nix
+            catppuccin.nixosModules.catppuccin
+          ];
         };
-        modules = [
-          ./nixos/configuration.nix
-          catppuccin.nixosModules.catppuccin
-        ];
+        hikuo-homeserver = nixpkgs.lib.nixosSystem {
+          system = userInfo.system;
+          specialArgs = {
+            inherit inputs;
+            inherit userInfo;
+          };
+          modules = [
+            ./nixos/configuration.nix
+            catppuccin.nixosModules.catppuccin
+          ];
+        };
       };
       nixosConfigurations.nixos = nixosConfigurations.${userInfo.hostname};
 
       homeConfigurations = {
-        ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = userInfo.system;
-            config.allowUnfree = true;
-          };
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit aylurpkgs;
-            inherit diniamopkgs;
-            inherit zen-browser;
-            inherit userInfo;
-          };
-          modules = [
-            ./home
-            ./home/unixporn/aylur
-            catppuccin.homeManagerModules.catppuccin
-          ];
-        };
+        ${userInfo.username} =
+          if userInfo.hostname == "hikuo-desktop" then
+            home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                system = userInfo.system;
+                config.allowUnfree = true;
+              };
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit aylurpkgs;
+                inherit diniamopkgs;
+                inherit zen-browser;
+                inherit userInfo;
+              };
+              modules = [
+                ./home
+                ./home/unixporn/aylur
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            }
+          else if userInfo.hostname == "hikuo-homeserver" then
+            home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                system = userInfo.system;
+                config.allowUnfree = true;
+              };
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit aylurpkgs;
+                inherit diniamopkgs;
+                inherit zen-browser;
+                inherit userInfo;
+              };
+              modules = [
+                ./home/homeserver.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            }
+          else
+            { };
       };
     };
 }
