@@ -59,13 +59,13 @@
         };
       };
       pkgs = nixpkgs.legacyPackages.${userInfo.system};
-      aylurpkgs = inputs.aylur.packages.x86_64-linux;
+      aylurpkgs = inputs.aylur.packages.${userInfo.system};
       diniamopkgs = inputs.diniamo.packages.${userInfo.system};
       zen-browser = inputs.zen-browser.packages.${userInfo.system};
       treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
     rec {
-      formatter.x86_64-linux = treefmtEval.config.build.wrapper;
+      formatter.${userInfo.system} = treefmtEval.config.build.wrapper;
 
       nixosConfigurations = {
         hikuo-desktop = nixpkgs.lib.nixosSystem {
@@ -76,6 +76,7 @@
           };
           modules = [
             ./nixos/configuration.nix
+            ./nixos/hardware-configuration.desktop.nix
             catppuccin.nixosModules.catppuccin
           ];
         };
@@ -87,6 +88,7 @@
           };
           modules = [
             ./nixos/configuration.nix
+            ./nixos/hardware-configuration.homeserver.nix
             catppuccin.nixosModules.catppuccin
           ];
         };
