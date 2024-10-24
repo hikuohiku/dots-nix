@@ -89,6 +89,7 @@
           };
           modules = [
             ./nixos/configuration.nix
+            ./nixos/hikuo-homeserver.nix
             ./nixos/hardware-configuration.homeserver.nix
             catppuccin.nixosModules.catppuccin
           ];
