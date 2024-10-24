@@ -76,6 +76,7 @@
           };
           modules = [
             ./nixos/configuration.nix
+            ./nixos/hikuo-deskotp.nix
             ./nixos/hardware-configuration.desktop.nix
             catppuccin.nixosModules.catppuccin
           ];
