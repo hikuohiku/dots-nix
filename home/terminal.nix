@@ -50,6 +50,7 @@
       sed = "sd";
       top = "btop";
       du = "dua";
+      rm = "gomi";
       c = "code";
       v = "nvim";
       vi = "nvim";
@@ -59,10 +60,12 @@
       lg = "lazygit";
       lspath = "echo $PATH | sed 's/ /\\n/g' | sort";
       ja = "trans -b :ja";
+      cp = "cp -r";
     };
     functions = {
       code = "command code $argv --enable-wayland-ime";
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+      nr = "nix run nixpkgs#$argv[1] -- $argv[2..]";
     };
     plugins = [
       {
