@@ -9,6 +9,9 @@
     options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3"
   ''; # https://wiki.hyprland.org/Nvidia/#fixing-other-random-flickering-nuclear-method
 
+  # wake on lan
+  networking.interfaces.enp2s0.wakeOnLan.enable = true;
+
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;
