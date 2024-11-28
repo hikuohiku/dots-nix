@@ -25,6 +25,7 @@ in
     touchpad = {
       natural_scroll = true;
       clickfinger_behavior = true;
+      scroll_factor = 0.5;
     };
 
     special_fallthrough = true;
@@ -34,7 +35,7 @@ in
 
   device = {
     name = "apple-inc.-magic-trackpad";
-    sensitivity = 0.2;
+    sensitivity = 0.4;
   };
 
   general = {
