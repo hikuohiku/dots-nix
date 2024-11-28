@@ -21,6 +21,7 @@
       fcitx5-skk
     ];
     fcitx5.waylandFrontend = true;
+    fcitx5.settings.globalOptions = (import ./hikuo-desktop/fcitx-conf.nix);
   };
   # https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
   environment.sessionVariables.XMODIFIERS = "@im=fcitx";
