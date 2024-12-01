@@ -66,6 +66,7 @@
       code = "command code $argv --enable-wayland-ime";
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       nr = "nix run nixpkgs#$argv[1] -- $argv[2..]";
+      makeEnv = "ln -s ~/environments/$argv[1]/flake.nix ./flake.nix && echo 'use flake' > .envrc && direnv allow";
     };
     plugins = [
       {
