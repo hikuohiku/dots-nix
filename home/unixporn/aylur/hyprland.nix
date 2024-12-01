@@ -179,9 +179,9 @@ in
     "$mainMod SHIFT, R,  exec, asztal -q; asztal" # reload ags
     "Super SHIFT, l, exec, hyprlock"
     # Screenshot
-    ",XF86Launch4,   exec, asztal -r 'recorder.start()'"
-    ",Print,         exec, asztal -r 'recorder.screenshot()'"
-    "SHIFT,Print,    exec, asztal -r 'recorder.screenshot(true)'"
+    "$mainMod, Print,   exec, hyprshot -m window"
+    ",Print,         exec, hyprshot -m output"
+    "SHIFT, Print,    exec, hyprshot -m region"
 
     # Move focus
     "$mainMod, h, movefocus, l"

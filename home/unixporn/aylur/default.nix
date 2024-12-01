@@ -8,8 +8,9 @@
 {
   imports = [ ./icon.nix ];
 
-  home.packages = [
+  home.packages = with pkgs; [
     aylurpkgs.default
+    hyprshot
   ];
 
   gtk.enable = true;
