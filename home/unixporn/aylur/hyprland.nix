@@ -17,6 +17,11 @@ in
     "HDMI-A-1, 3840x2160@59.94,auto,auto"
   ];
 
+  workspace = [
+    "1, monitor:DP-3, default:true"
+    "2, monitor:HDMI-A-1, default:true"
+  ];
+
   input = {
     kb_layout = "us";
     repeat_delay = 250;
