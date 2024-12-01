@@ -30,6 +30,13 @@ rec {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
   };
 
+  xdg.mimeApps.enable = true;
+
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
