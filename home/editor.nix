@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 {
-  # neovim
   home.packages = with pkgs; [
     neovim
     neovide
+    obsidian
   ];
+
+  # neovim
   home.file =
     let
       symlink = config.lib.file.mkOutOfStoreSymlink;
