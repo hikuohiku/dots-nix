@@ -234,6 +234,10 @@ in
     "$mainMod ctrl, h, resizeactive, -100 100"
   ];
 
+  bindn = [
+    ", Escape, exec, fcitx5-remote -c"
+  ];
+
   bindm = [
     # Move/resize windows with mainMod + LMB/RMB and dragging
     "$mainMod, mouse:272, movewindow"
