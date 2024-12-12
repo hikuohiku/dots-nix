@@ -1,12 +1,16 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    # nix
+    nix-output-monitor
+    
     tree
     fastfetch
     gomi # trash
     bitwarden-cli
     vhs # terminal screen capture
     rlwrap # readline wrapper
+    gh
 
     # rust replacements
     ripgrep # grep
