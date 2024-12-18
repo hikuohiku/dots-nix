@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     pavucontrol # PulseAudio GUI
     nautilus # file manager
+    mission-center
 
     # social
     slack
