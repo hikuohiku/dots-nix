@@ -78,10 +78,6 @@ in
   virtualisation = {
     docker = {
       enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
     };
   };
 
@@ -92,6 +88,7 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     shell = pkgs.fish;
   };
