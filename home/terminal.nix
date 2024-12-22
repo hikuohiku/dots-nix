@@ -66,6 +66,15 @@
       code = "command code $argv --enable-wayland-ime";
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       nr = "nix run nixpkgs#$argv[1] -- $argv[2..]";
+      ssh = ''
+        # ZELLIJ環境変数が設定されているかを確認
+        if test -n "$ZELLIJ"
+            echo "Please detach zellij session before starting ssh connection."
+        else
+            # 実際のsshコマンドを実行
+            command ssh $argv
+        end
+      '';
       mkenv = "cp ~/environments/$argv[1]/flake.nix ./flake.nix && echo 'use flake' > .envrc && direnv allow";
     };
     plugins = [
