@@ -17,6 +17,7 @@ rec {
   # nixpkgs
   nixpkgs.config = {
     allowUnfree = true;
+    allowBroken = true;
   };
 
   # home-manager

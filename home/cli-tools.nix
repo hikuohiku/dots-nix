@@ -27,7 +27,6 @@
     httpie
 
     # analyze data format
-    xsv
     yq
     jwt-cli
     jq

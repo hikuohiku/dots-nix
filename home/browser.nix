@@ -1,7 +1,6 @@
 { pkgs, zen-browser, ... }:
 {
   home.packages = with pkgs; [
-    microsoft-edge-dev
     zen-browser.default
   ];
   programs.firefox.enable = true;
@@ -14,6 +13,4 @@
     "x-scheme-handler/ftp"="zen.desktop";
     "x-scheme-handler/about"="zen.desktop";
   };
-
-  nixpkgs.overlays = [ (import ./overlays/microsoft-edge-dev.nix) ];
 }

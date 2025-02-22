@@ -4,7 +4,7 @@
 }:
 {
   # kernel module params
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ]; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ]; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issueslibselibse
   boot.extraModprobeConfig = ''
     options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3"
   ''; # https://wiki.hyprland.org/Nvidia/#fixing-other-random-flickering-nuclear-method
@@ -88,7 +88,7 @@
       source-han-sans-vf-ttf
       sarasa-gothic
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
     ];
     enableDefaultPackages = false;
     fontDir.enable = true;
