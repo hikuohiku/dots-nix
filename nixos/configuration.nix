@@ -38,7 +38,12 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub = {
+    enable = true;
+    useOSProber = true;
+    efiSupport = true;
+    device = "nodev";
+ };
   boot.loader.efi.canTouchEfiVariables = true;
 
   # time zone
