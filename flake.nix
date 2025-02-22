@@ -81,19 +81,6 @@
             catppuccin.nixosModules.catppuccin
           ];
         };
-        hikuo-homeserver = nixpkgs.lib.nixosSystem {
-          system = userInfo.system;
-          specialArgs = {
-            inherit inputs;
-            inherit userInfo;
-          };
-          modules = [
-            ./nixos/configuration.nix
-            ./nixos/hikuo-homeserver.nix
-            ./nixos/hardware-configuration.homeserver.nix
-            catppuccin.nixosModules.catppuccin
-          ];
-        };
       };
       nixosConfigurations.nixos = nixosConfigurations.${userInfo.hostname};
 
@@ -115,24 +102,6 @@
               modules = [
                 ./home
                 ./home/unixporn/aylur
-                catppuccin.homeManagerModules.catppuccin
-              ];
-            }
-          else if userInfo.hostname == "hikuo-homeserver" then
-            home-manager.lib.homeManagerConfiguration {
-              pkgs = import nixpkgs {
-                system = userInfo.system;
-                config.allowUnfree = true;
-              };
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit aylurpkgs;
-                inherit diniamopkgs;
-                inherit zen-browser;
-                inherit userInfo;
-              };
-              modules = [
-                ./home/homeserver.nix
                 catppuccin.homeManagerModules.catppuccin
               ];
             }
