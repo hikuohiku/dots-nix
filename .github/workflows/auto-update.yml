@@ -27,16 +27,11 @@ jobs:
         id: update
         uses: DeterminateSystems/update-flake-lock@main
         with:
+          inputs: nixpkgs nixos-hardware home-manager hyprland catppuccin zen-browser treefmt-nix
           pr-title: "chore: Update flake.lock"
           pr-labels: |
             dependencies
             automated
-          pr-body: |
-            自動更新によるflake.lockの更新です。
-            以下のチェックが全て成功した場合、自動的にマージされます：
-            - `nix flake check`コマンドによるフォーマットチェック
-            - NixOS設定のビルド
-            - Home Manager設定のビルド
   check-and-merge:
     needs: update-lockfile
     if: needs.update-lockfile.outputs.pull-request-number != ''
