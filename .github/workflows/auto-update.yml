@@ -2,8 +2,7 @@ name: update-flake-lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 0'  # 毎週日曜日の午前0時に実行
-
+    - cron: '0 0 * * 0' # 毎週日曜日の午前0時に実行
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
@@ -17,7 +16,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install Nix
         uses: cachix/install-nix-action@v30
         with:
@@ -25,7 +23,6 @@ jobs:
           extra_nix_config: |
             trusted-public-keys = hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=
             substituters = https://hyprland.cachix.org
-
       - name: Update flake.lock
         id: update
         uses: DeterminateSystems/update-flake-lock@main
@@ -40,7 +37,6 @@ jobs:
             - `nix flake check`コマンドによるフォーマットチェック
             - NixOS設定のビルド
             - Home Manager設定のビルド
-
   check-and-merge:
     needs: update-lockfile
     if: needs.update-lockfile.outputs.pull-request-number != ''
@@ -53,7 +49,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ needs.update-lockfile.outputs.branch }}
-
       - name: Install Nix
         uses: cachix/install-nix-action@v30
         with:
@@ -61,16 +56,12 @@ jobs:
           extra_nix_config: |
             trusted-public-keys = hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=
             substituters = https://hyprland.cachix.org
-
       - name: Run Nix Flake check
         run: nix flake check
-
       - name: Build NixOS configuration
         run: nix build .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel
-
       - name: Build Home-Manager configuration
         run: nix build .#homeConfigurations.hikuo.activationPackage
-
       - name: Auto-merge if checks pass
         if: success()
         run: |
@@ -80,7 +71,6 @@ jobs:
             --delete-branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Comment on failure
         if: failure()
         run: |
