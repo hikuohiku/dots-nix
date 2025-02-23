@@ -15,9 +15,11 @@
 
   gtk.enable = true;
 
-  catppuccin.enable = true;
-  catppuccin.flavor = "latte";
-  programs.starship.catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "latte";
+    starship.enable = true;
+  };
 
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";
