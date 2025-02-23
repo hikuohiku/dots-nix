@@ -1,0 +1,90 @@
+name: update-flake-lock
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # 毎週日曜日の午前0時に実行
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      pull-request-number: ${{ steps.update.outputs.pull-request-number }}
+      pull-request-url: ${{ steps.update.outputs.pull-request-url }}
+      branch: ${{ steps.update.outputs.branch }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            trusted-public-keys = hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=
+            substituters = https://hyprland.cachix.org
+
+      - name: Update flake.lock
+        id: update
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "chore: Update flake.lock"
+          pr-labels: |
+            dependencies
+            automated
+          pr-body: |
+            自動更新によるflake.lockの更新です。
+            以下のチェックが全て成功した場合、自動的にマージされます：
+            - `nix flake check`コマンドによるフォーマットチェック
+            - NixOS設定のビルド
+            - Home Manager設定のビルド
+
+  check-and-merge:
+    needs: update-lockfile
+    if: needs.update-lockfile.outputs.pull-request-number != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.update-lockfile.outputs.branch }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            trusted-public-keys = hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=
+            substituters = https://hyprland.cachix.org
+
+      - name: Run Nix Flake check
+        run: nix flake check
+
+      - name: Build NixOS configuration
+        run: nix build .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel
+
+      - name: Build Home-Manager configuration
+        run: nix build .#homeConfigurations.hikuo.activationPackage
+
+      - name: Auto-merge if checks pass
+        if: success()
+        run: |
+          gh pr merge "${{ needs.update-lockfile.outputs.pull-request-number }}" \
+            --auto \
+            --merge \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on failure
+        if: failure()
+        run: |
+          gh pr comment "${{ needs.update-lockfile.outputs.pull-request-number }}" \
+            --body "ビルドチェックが失敗しました。手動での確認が必要です。"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
