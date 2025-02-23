@@ -58,6 +58,7 @@
     in
     rec {
       formatter.${userInfo.system} = treefmtEval.config.build.wrapper;
+      checks.${userInfo.system}.formatting = treefmtEval.config.build.check self;
 
       # NixOS configurations
       nixosConfigurations = {
