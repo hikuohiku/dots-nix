@@ -86,7 +86,9 @@
           };
           extraSpecialArgs = {
             inherit
-              inputs aylurpkgs diniamopkgs
+              inputs
+              aylurpkgs
+              diniamopkgs
               zen-browser
               userInfo
               ;
