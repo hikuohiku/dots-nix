@@ -13,13 +13,13 @@ in
   "$menu" = menu;
 
   monitor = [
-    "DP-3,preferred,0x0,auto"
-    "HDMI-A-1, 3840x2160@59.94,auto,auto"
+    "DP-2,preferred,auto,auto"
+    "HDMI-A-1, preferred,auto-right,auto"
   ];
 
   workspace = [
-    "1, monitor:DP-3, default:true"
-    "2, monitor:HDMI-A-1, default:true"
+    "1, monitor:HDMI-A-1, default:true"
+    "2, monitor:DP-2, default:true"
   ];
 
   input = {

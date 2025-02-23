@@ -41,9 +41,9 @@
   };
   hardware.nvidia-container-toolkit.enable = true;
   virtualisation.docker.package = pkgs.docker;
- 
+
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
