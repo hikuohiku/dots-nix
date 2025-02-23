@@ -53,10 +53,10 @@ jobs:
             substituters = https://hyprland.cachix.org https://cache.nixos.org/
       - name: Run Nix Flake check
         run: nix flake check
-      - name: Build NixOS configuration
-        run: nix build .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel
-      - name: Build Home-Manager configuration
-        run: nix build .#homeConfigurations.hikuo.activationPackage
+      - name: Eval NixOS configuration # Build すると GitHub ホステッドランナーのストレージを使い果たしてしまうっぽいのでしかたない
+        run: nix eval .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel --raw
+      - name: Eval Home-Manager configuration
+        run: nix eval .#homeConfigurations.hikuo.activationPackage --raw
       - name: Auto-merge if checks pass
         if: success()
         run: |
