@@ -1,6 +1,5 @@
 name: Nix Flake Check
 on:
-  pull_request:
   push:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
