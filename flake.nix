@@ -38,7 +38,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      catppuccin,
+      ...
+    }@inputs:
     let
       userInfo = import ./config/user.nix;
       pkgs = nixpkgs.legacyPackages.${userInfo.system};
@@ -51,6 +58,7 @@
     in
     rec {
       formatter.${userInfo.system} = treefmtEval.config.build.wrapper;
+      checks.${userInfo.system}.formatting = treefmtEval.config.build.check self;
 
       # NixOS configurations
       nixosConfigurations = {
@@ -77,7 +85,13 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
-            inherit inputs aylurpkgs diniamopkgs zen-browser userInfo;
+            inherit
+              inputs
+              aylurpkgs
+              diniamopkgs
+              zen-browser
+              userInfo
+              ;
           };
           modules = [
             # Base configuration and common settings
