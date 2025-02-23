@@ -38,59 +38,74 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      catppuccin,
+      ...
+    }@inputs:
     let
-      userInfo = import ./config/user.nix;
+      userInfo = {
+        username = "hikuo";
+        hostname = "hikuo-desktop";
+        system = "x86_64-linux";
+        wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
+        git = {
+          username = "hikuohiku";
+          email = "hikuohiku@gmail.com";
+        };
+      };
       pkgs = nixpkgs.legacyPackages.${userInfo.system};
-      # External packages
       aylurpkgs = inputs.aylur.packages.${userInfo.system};
       diniamopkgs = inputs.diniamo.packages.${userInfo.system};
       zen-browser = inputs.zen-browser.packages.${userInfo.system};
-      # Treefmt configuration
       treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
     in
     rec {
       formatter.${userInfo.system} = treefmtEval.config.build.wrapper;
 
-      # NixOS configurations
       nixosConfigurations = {
-        # デスクトップマシンの設定
-        ${userInfo.hostname} = nixpkgs.lib.nixosSystem {
+        hikuo-desktop = nixpkgs.lib.nixosSystem {
           system = userInfo.system;
           specialArgs = {
-            inherit inputs userInfo;
+            inherit inputs;
+            inherit userInfo;
           };
           modules = [
-            # Base system configuration
-            ./modules/nixos/base
-            # Host-specific configuration
-            ./hosts/desktop
+            ./nixos/configuration.nix
+            ./nixos/hikuo-deskotp.nix
+            ./nixos/hardware-configuration.desktop.nix
             catppuccin.nixosModules.catppuccin
           ];
         };
       };
+      nixosConfigurations.nixos = nixosConfigurations.${userInfo.hostname};
 
-      # Home Manager configurations
       homeConfigurations = {
-        ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = userInfo.system;
-            config.allowUnfree = true;
-          };
-          extraSpecialArgs = {
-            inherit inputs aylurpkgs diniamopkgs zen-browser userInfo;
-          };
-          modules = [
-            # CLI tools and basic configuration
-            ./modules/home/cli
-            # Desktop environment and GUI applications
-            ./modules/home/desktop
-            # Aylur's configuration (for Hyprland setup)
-            ./home/unixporn/aylur
-            # Theme configuration
-            catppuccin.homeManagerModules.catppuccin
-          ];
-        };
+        ${userInfo.username} =
+          if userInfo.hostname == "hikuo-desktop" then
+            home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                system = userInfo.system;
+                config.allowUnfree = true;
+              };
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit aylurpkgs;
+                inherit diniamopkgs;
+                inherit zen-browser;
+                inherit userInfo;
+              };
+              modules = [
+                ./home
+                ./home/unixporn/aylur
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            }
+          else
+            { };
       };
     };
 }
