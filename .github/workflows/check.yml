@@ -1,9 +1,6 @@
 name: Nix Flake Check
 on:
   push:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: true
 jobs:
   fmt-check:
     runs-on: ubuntu-latest
