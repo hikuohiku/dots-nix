@@ -160,7 +160,7 @@
     #         frame_color = "#ffffff";
     #         font = "Fira Sans Semibold 9";
     #         line_height = 1;
-    #         icon_theme = "Papirus-Dark,Adwaita"; 
+    #         icon_theme = "Papirus-Dark,Adwaita";
     #         corner_radius = 10;
     #       };
     #       urgency_low = {

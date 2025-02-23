@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     # nix
     nix-output-monitor
-    
+
     tree
     fastfetch
     gomi # trash
@@ -32,7 +32,7 @@
     jq
     jnv
 
-    # ========== TUI TOOL ========== 
+    # ========== TUI TOOL ==========
     btop # resource monitor
     ranger # file manager
     lazydocker

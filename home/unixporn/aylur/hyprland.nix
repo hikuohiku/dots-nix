@@ -54,9 +54,8 @@ in
     allow_tearing = false;
   };
 
-  dwindle =
-    {
-    };
+  dwindle = {
+  };
 
   decoration = {
     rounding = 10;

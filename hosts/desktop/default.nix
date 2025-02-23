@@ -1,10 +1,11 @@
 {
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
-    ./hardware.nix  # ハードウェア設定
-    ./nvidia.nix    # NVIDIA固有の設定
+    ./hardware.nix # ハードウェア設定
+    ./nvidia.nix # NVIDIA固有の設定
   ];
 
   # Input method configuration
