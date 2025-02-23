@@ -75,6 +75,6 @@ jobs:
         if: failure()
         run: |
           gh pr comment "${{ needs.update-lockfile.outputs.pull-request-number }}" \
-            --body "ビルドチェックが失敗しました。手動での確認が必要です。"
+            --body "@hikuohiku ビルドチェックが失敗しました。手動での確認が必要です。"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
