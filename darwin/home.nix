@@ -5,6 +5,9 @@
   ...
 }:
 {
+  imports = [
+    ../home/terminal.nix
+  ];
   # git
   programs.git = {
     enable = true;
