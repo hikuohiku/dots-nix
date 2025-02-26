@@ -2,6 +2,7 @@
 {
   imports = [
     ./gui-tools.nix
+    ./browser.nix
   ];
 
   users.knownUsers = [ "hikuo" ];
