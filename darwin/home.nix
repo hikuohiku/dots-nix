@@ -11,6 +11,7 @@
     ../home/editor
     ../home/cli-tools.nix
     ../home/gui-tools
+    ../home/fileServer.nix
   ];
 
   # home-manager
