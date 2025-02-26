@@ -10,7 +10,7 @@ rec {
     ./editor
     ./browser.nix
     ./cli-tools.nix
-    ./gui-tools.nix
+    ./gui-tools
     ./fileServer.nix
   ];
 

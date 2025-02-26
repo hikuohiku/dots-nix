@@ -10,6 +10,7 @@
     ../home/git.nix
     ../home/editor
     ../home/cli-tools.nix
+    ../home/gui-tools
   ];
 
   # home-manager

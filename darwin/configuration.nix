@@ -1,8 +1,20 @@
 { self, pkgs, ... }:
 {
+  imports = [
+    ./gui-tools.nix
+  ];
+
   users.knownUsers = [ "hikuo" ];
   users.users.hikuo.uid = 501;
   users.users.hikuo.shell = pkgs.fish;
+
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+    };
+  };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
