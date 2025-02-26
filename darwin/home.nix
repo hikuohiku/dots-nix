@@ -29,6 +29,7 @@
   # ghq
   home.packages = with pkgs; [
     ghq
+    vscode
   ];
 
   # lazygit

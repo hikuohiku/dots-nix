@@ -52,7 +52,10 @@
     }@inputs:
     let
       userInfo = import ./config/user.nix;
-      pkgs = nixpkgs.legacyPackages.${userInfo.system};
+      pkgs = import nixpkgs {
+        system = userInfo.system;
+        config.allowUnfree = true;
+      };
       # External packages
       aylurpkgs = inputs.aylur.packages.${userInfo.system};
       diniamopkgs = inputs.diniamo.packages.${userInfo.system};
