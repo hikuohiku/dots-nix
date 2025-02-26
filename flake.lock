@@ -820,6 +820,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740452771,
+        "narHash": "sha256-/tI1vFJ7/dXJqUmI+s0EV1F0DPe6dZvT444mrLUkrlU=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "42be12b510253d750138ec90c66decc282298b44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nix2container": {
       "flake": false,
       "locked": {
@@ -1027,6 +1048,7 @@
         "diniamo": "diniamo",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland_2",
+        "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_7",
         "treefmt-nix": "treefmt-nix",

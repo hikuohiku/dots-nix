@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,6 +45,7 @@
     {
       self,
       nixpkgs,
+      nix-darwin,
       home-manager,
       catppuccin,
       ...
@@ -103,5 +107,9 @@
           ];
         };
       };
+
+    darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
+      modules = [ ./darwin/configuration.nix ];
+    };
     };
 }

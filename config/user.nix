@@ -1,7 +1,7 @@
 {
   username = "hikuo";
-  hostname = "hikuo-desktop";
-  system = "x86_64-linux";
+  hostname = "hikuo-macbook";
+  system = "aarch64-darwin";
   wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
   git = {
     username = "hikuohiku";
