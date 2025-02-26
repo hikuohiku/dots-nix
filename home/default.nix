@@ -7,7 +7,7 @@ rec {
     ./core.nix
     ./terminal.nix
     ./git.nix
-    ./editor.nix
+    ./editor
     ./browser.nix
     ./cli-tools.nix
     ./gui-tools.nix
