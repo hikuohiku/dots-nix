@@ -108,8 +108,21 @@
         };
       };
 
-    darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
-      modules = [ ./darwin/configuration.nix ];
-    };
+      darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./darwin/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hikuo = import darwin/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit userInfo;
+            };
+          }
+
+        ];
+      };
     };
 }
