@@ -3,6 +3,7 @@
   imports = [
     ./gui-tools.nix
     ./browser.nix
+    ./tailscale.nix
   ];
 
   users.knownUsers = [ "hikuo" ];
