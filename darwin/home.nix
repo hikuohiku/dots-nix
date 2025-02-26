@@ -9,6 +9,7 @@
     ../home/terminal.nix
     ../home/git.nix
     ../home/editor
+    ../home/cli-tools.nix
   ];
 
   # home-manager
