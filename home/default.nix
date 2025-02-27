@@ -4,7 +4,7 @@
 }:
 rec {
   imports = [
-    ./core.nix
+    ./core
     ./terminal.nix
     ./git.nix
     ./editor

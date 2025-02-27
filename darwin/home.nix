@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ../home/core
     ../home/terminal.nix
     ../home/git.nix
     ../home/editor
