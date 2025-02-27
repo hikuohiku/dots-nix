@@ -3,6 +3,7 @@
   imports = [
     ./gui-tools.nix
     ./browser.nix
+    ./editor.nix
     ./tailscale.nix
   ];
 

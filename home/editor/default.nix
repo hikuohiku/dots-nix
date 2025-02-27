@@ -2,11 +2,9 @@
 {
   imports = [
     ./linux.nix
-    ./darwin.nix
   ];
 
   editor-linux.enable = pkgs.stdenv.isLinux;
-  editor-darwin.enable = pkgs.stdenv.isDarwin;
 
   home.packages = with pkgs; [
     neovim
