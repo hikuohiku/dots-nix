@@ -2,6 +2,7 @@
 {
   homebrew.casks = [
     "zen-browser"
+    "google-chrome"
   ];
 
   homebrew.masApps = {
