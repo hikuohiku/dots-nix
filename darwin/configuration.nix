@@ -5,6 +5,7 @@
     ./browser.nix
     ./editor.nix
     ./tailscale.nix
+    ./karabiner.nix
   ];
 
   users.knownUsers = [ "hikuo" ];
