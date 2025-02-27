@@ -1,6 +1,7 @@
 { self, pkgs, ... }:
 {
   imports = [
+    ./fonts.nix
     ./gui-tools.nix
     ./browser.nix
     ./editor.nix
