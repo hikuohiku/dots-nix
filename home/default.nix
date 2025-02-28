@@ -5,7 +5,7 @@
 rec {
   imports = [
     ./core
-    ./terminal.nix
+    ./terminal
     ./git.nix
     ./editor
     ./browser.nix

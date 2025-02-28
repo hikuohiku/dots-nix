@@ -7,7 +7,7 @@
 {
   imports = [
     ../home/core
-    ../home/terminal.nix
+    ../home/terminal
     ../home/git.nix
     ../home/editor
     ../home/cli-tools.nix
