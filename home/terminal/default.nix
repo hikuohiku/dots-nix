@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./linux.nix
+    ./darwin.nix
+  ];
+
+  terminal-linux.enable = pkgs.stdenv.isLinux;
+  terminal-darwin.enable = pkgs.stdenv.isDarwin;
+
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
     LS_COLORS = "$(vivid generate catppuccin-latte)";
@@ -37,8 +45,6 @@
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      copy = "wl-copy";
-      paste = "wl-paste";
       ls = "eza --color=auto --icons";
       l = "eza --color=auto --icons -lah";
       ll = "eza --color=auto --icons -l";
@@ -62,7 +68,6 @@
       cp = "cp -r";
     };
     functions = {
-      code = "command code $argv --enable-wayland-ime";
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       nr = "nix run nixpkgs#$argv[1] -- $argv[2..]";
       ssh = ''
@@ -84,10 +89,6 @@
       {
         name = "grc";
         src = pkgs.fishPlugins.grc.src;
-      }
-      {
-        name = "done";
-        src = pkgs.fishPlugins.done.src;
       }
       {
         name = "fzf";
