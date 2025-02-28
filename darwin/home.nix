@@ -7,6 +7,7 @@
 {
   imports = [
     ../home/core
+    ../home/fonts.nix
     ../home/terminal
     ../home/git.nix
     ../home/editor

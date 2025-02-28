@@ -5,6 +5,7 @@
 rec {
   imports = [
     ./core
+    ./fonts.nix
     ./terminal
     ./git.nix
     ./editor
