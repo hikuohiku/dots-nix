@@ -3,6 +3,7 @@
   imports = [
     ./linux.nix
     ./darwin.nix
+    ./zellij.nix
   ];
 
   terminal-linux.enable = pkgs.stdenv.isLinux;
@@ -23,6 +24,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
+      env.TERM = "alacritty";
       window = {
         padding = {
           x = 8;
@@ -102,7 +104,8 @@
   };
 
   # zellij
-  programs.zellij = {
+  # alacrittyでのみターミナル起動時にzellijを起動するためにカスタムモジュールを作成している ./zellij.nix
+  programs.my-zellij = {
     enable = true;
     enableFishIntegration = true;
     settings = {
