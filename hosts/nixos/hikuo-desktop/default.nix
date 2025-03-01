@@ -73,6 +73,8 @@
       noto-fonts-cjk-serif
       source-han-sans-vf-ttf
       sarasa-gothic
+      plemoljp
+      plemoljp-nf
       noto-fonts-emoji
       nerd-fonts.symbols-only
     ];
