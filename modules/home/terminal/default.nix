@@ -33,7 +33,6 @@
         opacity = 0.7;
         blur = true; # macとKDEでのみ有効
       };
-      font.size = 12;
       cursor = {
         style.shape = "Beam";
         style.blinking = "On";
