@@ -82,6 +82,7 @@
       };
 
       # Home Manager configurations
+      # TODO: nixos moduleにする
       homeConfigurations = {
         ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -95,31 +96,28 @@
               ;
           };
           modules = [
-            # Base configuration and common settings
-            ./home
-            # Aylur's configuration (for Hyprland setup)
-            ./home/unixporn/aylur
-            # Theme configuration
+            ./hosts/home/hikuo-desktop
             catppuccin.homeManagerModules.catppuccin
           ];
         };
       };
 
-      darwinConfigurations.${userInfo.hostname} = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./darwin/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${userInfo.username} = import darwin/home.nix;
+      darwinConfigurations = {
+        ${userInfo.hostname} = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./hosts/darwin/hikuo-macbook
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${userInfo.username} = import ./hosts/home/hikuo-macbook;
 
-            home-manager.extraSpecialArgs = {
-              inherit userInfo;
-            };
-          }
-
-        ];
+              home-manager.extraSpecialArgs = {
+                inherit userInfo;
+              };
+            }
+          ];
+        };
       };
     };
 }

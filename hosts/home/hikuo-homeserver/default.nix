@@ -4,12 +4,12 @@
 }:
 rec {
   imports = [
-    ./core.nix
-    ./terminal.nix
-    ./git.nix
-    ./editor.nix
-    ./cli-tools.nix
-    ./fileServer.nix
+    ../../../modules/core
+    ../../../modules/home/terminal
+    ../../../modules/home/git.nix
+    ../../../modules/home/editor
+    ../../../modules/home/cli-tools.nix
+    ../../../modules/home/fileServer.nix
   ];
 
   catppuccin.enable = true;

@@ -6,14 +6,14 @@
 }:
 {
   imports = [
-    ../home/core
-    ../home/fonts.nix
-    ../home/terminal
-    ../home/git.nix
-    ../home/editor
-    ../home/cli-tools.nix
-    ../home/gui-tools
-    ../home/fileServer.nix
+    ../../../modules/home/core
+    ../../../modules/home/fonts.nix
+    ../../../modules/home/terminal
+    ../../../modules/home/git.nix
+    ../../../modules/home/editor
+    ../../../modules/home/cli-tools.nix
+    ../../../modules/home/gui-tools
+    ../../../modules/home/fileServer.nix
   ];
 
   # home-manager

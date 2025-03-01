@@ -19,7 +19,7 @@
       fcitx5-skk
     ];
     fcitx5.waylandFrontend = true;
-    fcitx5.settings.globalOptions = (import ../../config/fcitx);
+    fcitx5.settings.globalOptions = (import ../../../config/fcitx);
   };
   # https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
   environment.sessionVariables = {
