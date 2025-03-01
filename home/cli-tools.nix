@@ -61,4 +61,8 @@
       nix-direnv.enable = true;
     };
   };
+
+  home.sessionVariables = {
+    PAGER = "bat";
+  };
 }

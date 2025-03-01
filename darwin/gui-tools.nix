@@ -4,5 +4,6 @@
     "slack"
     "discord"
     "chatgpt"
+    "raycast"
   ];
 }
