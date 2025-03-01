@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userInfo, ... }:
 {
   imports = [
     ./linux.nix
@@ -19,7 +19,7 @@
     in
     {
       ".config/nvim" = {
-        source = (symlink /home/hikuo/.ghq/github.com/hikuohiku/lazyvim);
+        source = (symlink userInfo.home + /.ghq/github.com/hikuohiku/lazyvim);
         recursive = true;
       };
     };
