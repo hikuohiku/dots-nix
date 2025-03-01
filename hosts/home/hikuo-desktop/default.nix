@@ -5,7 +5,7 @@
 rec {
   imports = [
     ../../../modules/home/core
-    ../../../modules/home/fonts.nix
+    ../../../modules/home/fonts
     ../../../modules/home/terminal
     ../../../modules/home/git.nix
     ../../../modules/home/editor

@@ -13,8 +13,8 @@ in
   "$menu" = menu;
 
   monitor = [
-    "DP-2,preferred,auto,auto"
-    "HDMI-A-1, preferred,auto-right,auto"
+    "DP-2,preferred,auto,1.33"
+    "HDMI-A-1, preferred,auto-right,2"
   ];
 
   workspace = [
