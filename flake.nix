@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,13 +45,17 @@
     {
       self,
       nixpkgs,
+      nix-darwin,
       home-manager,
       catppuccin,
       ...
     }@inputs:
     let
       userInfo = import ./config/user.nix;
-      pkgs = nixpkgs.legacyPackages.${userInfo.system};
+      pkgs = import nixpkgs {
+        system = userInfo.system;
+        config.allowUnfree = true;
+      };
       # External packages
       aylurpkgs = inputs.aylur.packages.${userInfo.system};
       diniamopkgs = inputs.diniamo.packages.${userInfo.system};
@@ -102,6 +109,23 @@
             catppuccin.homeManagerModules.catppuccin
           ];
         };
+      };
+
+      darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./darwin/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hikuo = import darwin/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit userInfo;
+            };
+          }
+
+        ];
       };
     };
 }
