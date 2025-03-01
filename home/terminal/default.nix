@@ -109,9 +109,9 @@
   programs.my-zellij = {
     enable = true;
     enableFishIntegration = true;
-    settings = {
-      default_mode = "locked";
-      ui.pane_frames.rounded_corners = true;
-    };
+    # settings = {
+    #   default_mode = "locked";
+    #   ui.pane_frames.rounded_corners = true;
+    # };
   };
 }
