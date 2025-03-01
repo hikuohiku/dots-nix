@@ -1,12 +1,12 @@
 { self, pkgs, ... }:
 {
   imports = [
-    ./fonts.nix
-    ./gui-tools.nix
-    ./browser.nix
-    ./editor.nix
-    ./tailscale.nix
-    ./karabiner.nix
+    ../../../modules/darwin/fonts.nix
+    ../../../modules/darwin/gui-tools.nix
+    ../../../modules/darwin/browser.nix
+    ../../../modules/darwin/editor.nix
+    ../../../modules/darwin/tailscale.nix
+    ../../../modules/darwin/karabiner.nix
   ];
 
   users.knownUsers = [ "hikuo" ];

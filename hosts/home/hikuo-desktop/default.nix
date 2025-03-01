@@ -4,15 +4,16 @@
 }:
 rec {
   imports = [
-    ./core
-    ./fonts.nix
-    ./terminal
-    ./git.nix
-    ./editor
-    ./browser.nix
-    ./cli-tools.nix
-    ./gui-tools
-    ./fileServer.nix
+    ../../../modules/home/core
+    ../../../modules/home/fonts.nix
+    ../../../modules/home/terminal
+    ../../../modules/home/git.nix
+    ../../../modules/home/editor
+    ../../../modules/home/browser.nix
+    ../../../modules/home/cli-tools.nix
+    ../../../modules/home/gui-tools
+    ../../../modules/home/fileServer.nix
+    ../../../modules/home/unixporn/aylur
   ];
 
   # nixpkgs

@@ -75,22 +75,17 @@
             inherit inputs userInfo;
           };
           modules = [
-            # Base system configuration
-            ./modules/nixos/base
-            # Host-specific configuration
-            ./hosts/desktop
+            ./hosts/nixos/hikuo-desktop
             catppuccin.nixosModules.catppuccin
           ];
         };
       };
 
       # Home Manager configurations
+      # TODO: nixos moduleにする
       homeConfigurations = {
         ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = userInfo.system;
-            config.allowUnfree = true;
-          };
+          inherit pkgs;
           extraSpecialArgs = {
             inherit
               inputs
@@ -101,31 +96,28 @@
               ;
           };
           modules = [
-            # Base configuration and common settings
-            ./home
-            # Aylur's configuration (for Hyprland setup)
-            ./home/unixporn/aylur
-            # Theme configuration
+            ./hosts/home/hikuo-desktop
             catppuccin.homeManagerModules.catppuccin
           ];
         };
       };
 
-      darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./darwin/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hikuo = import darwin/home.nix;
+      darwinConfigurations = {
+        ${userInfo.hostname} = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./hosts/darwin/hikuo-macbook
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${userInfo.username} = import ./hosts/home/hikuo-macbook;
 
-            home-manager.extraSpecialArgs = {
-              inherit userInfo;
-            };
-          }
-
-        ];
+              home-manager.extraSpecialArgs = {
+                inherit userInfo;
+              };
+            }
+          ];
+        };
       };
     };
 }

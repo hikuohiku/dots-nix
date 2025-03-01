@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../../../modules/nixos/base
     ./hardware.nix # ハードウェア設定
     ./nvidia.nix # NVIDIA固有の設定
   ];
@@ -18,7 +19,7 @@
       fcitx5-skk
     ];
     fcitx5.waylandFrontend = true;
-    fcitx5.settings.globalOptions = (import ../../config/fcitx);
+    fcitx5.settings.globalOptions = (import ../../../config/fcitx);
   };
   # https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
   environment.sessionVariables = {
@@ -72,6 +73,8 @@
       noto-fonts-cjk-serif
       source-han-sans-vf-ttf
       sarasa-gothic
+      plemoljp
+      plemoljp-nf
       noto-fonts-emoji
       nerd-fonts.symbols-only
     ];
