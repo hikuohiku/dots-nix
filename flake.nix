@@ -75,10 +75,7 @@
             inherit inputs userInfo;
           };
           modules = [
-            # Base system configuration
-            ./modules/nixos/base
-            # Host-specific configuration
-            ./hosts/desktop
+            ./hosts/nixos/hikuo-desktop
             catppuccin.nixosModules.catppuccin
           ];
         };

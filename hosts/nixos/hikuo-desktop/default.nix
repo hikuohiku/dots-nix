@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../../../modules/nixos/base
     ./hardware.nix # ハードウェア設定
     ./nvidia.nix # NVIDIA固有の設定
   ];
