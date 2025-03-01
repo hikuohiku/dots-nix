@@ -1,0 +1,68 @@
+name: Auto Rebase Host-Specific Branches
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  get-hosts:
+    runs-on: ubuntu-latest
+    outputs:
+      hosts: ${{ steps.set-hosts.outputs.hosts }}
+    steps:
+      - name: Set host list
+        id: set-hosts
+        run: |
+          # ホスト一覧をJSON配列として定義
+          echo "hosts=[\"hikuo-macbook\"]" >> $GITHUB_OUTPUT
+          # 新しいホストを追加する場合は以下のように追加していく
+          # echo "hosts=[\"hikuo-macbook\", \"hikuo-desktop\", \"hikuo-server\"]" >> $GITHUB_OUTPUT
+
+  rebase-host-branches:
+    needs: get-hosts
+    runs-on: ubuntu-latest
+    strategy:
+      # 1つのブランチの失敗が他のブランチのリベースを妨げないようにする
+      fail-fast: false
+      matrix:
+        host: ${{ fromJson(needs.get-hosts.outputs.hosts) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Rebase host branch
+        run: |
+          # ブランチの存在確認
+          if ! git fetch origin ${{ matrix.host }}:${{ matrix.host }}; then
+            echo "Error: ${{ matrix.host }} branch does not exist or could not be fetched"
+            exit 1
+          fi
+
+          # ブランチの切り替え
+          if ! git checkout ${{ matrix.host }}; then
+            echo "Error: Failed to checkout ${{ matrix.host }} branch"
+            exit 1
+          fi
+
+          # リベースの実行
+          if ! git rebase origin/main; then
+            echo "Error: Rebase failed for ${{ matrix.host }}. There might be conflicts that need manual resolution"
+            git rebase --abort
+            exit 1
+          fi
+
+          # プッシュの実行
+          if ! git push --force-with-lease origin ${{ matrix.host }}; then
+            echo "Error: Push failed for ${{ matrix.host }}. The remote branch might have been updated"
+            exit 1
+          fi
+
+          echo "Successfully rebased and pushed ${{ matrix.host }} branch"
