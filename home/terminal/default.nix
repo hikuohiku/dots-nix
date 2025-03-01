@@ -31,6 +31,7 @@
           y = 8;
         };
         opacity = 0.7;
+        blur = true; # macとKDEでのみ有効
       };
       font.size = 12;
       cursor = {
