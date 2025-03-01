@@ -1,10 +1,8 @@
 name: Auto Rebase Host-Specific Branches
-
 on:
   push:
     branches:
       - main
-
 jobs:
   get-hosts:
     runs-on: ubuntu-latest
@@ -15,10 +13,7 @@ jobs:
         id: set-hosts
         run: |
           # ホスト一覧をJSON配列として定義
-          echo "hosts=[\"hikuo-macbook\"]" >> $GITHUB_OUTPUT
-          # 新しいホストを追加する場合は以下のように追加していく
-          # echo "hosts=[\"hikuo-macbook\", \"hikuo-desktop\", \"hikuo-server\"]" >> $GITHUB_OUTPUT
-
+          echo "hosts=[\"hikuo-macbook\", \"hikuo-desktop\"]" >> $GITHUB_OUTPUT
   rebase-host-branches:
     needs: get-hosts
     runs-on: ubuntu-latest
@@ -32,14 +27,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Configure Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
       - name: Rebase host branch
-        run: |
+        run: |-
           # ブランチの存在確認
           if ! git fetch origin ${{ matrix.host }}:${{ matrix.host }}; then
             echo "Error: ${{ matrix.host }} branch does not exist or could not be fetched"
