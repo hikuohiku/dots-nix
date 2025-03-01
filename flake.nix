@@ -87,10 +87,7 @@
       # Home Manager configurations
       homeConfigurations = {
         ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = userInfo.system;
-            config.allowUnfree = true;
-          };
+          inherit pkgs;
           extraSpecialArgs = {
             inherit
               inputs
@@ -111,14 +108,14 @@
         };
       };
 
-      darwinConfigurations."hikuo-macbook" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${userInfo.hostname} = nix-darwin.lib.darwinSystem {
         modules = [
           ./darwin/configuration.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.hikuo = import darwin/home.nix;
+            home-manager.users.${userInfo.username} = import darwin/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit userInfo;
