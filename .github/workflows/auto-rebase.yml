@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  workflow_call:
+permissions:
+  contents: write
 jobs:
   get-hosts:
     runs-on: ubuntu-latest
@@ -32,30 +35,33 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Rebase host branch
-        run: |-
+        run: |
+          BRANCH="${{ matrix.host }}"
+          echo "Processing branch: $BRANCH"
+
           # ブランチの存在確認
-          if ! git fetch origin ${{ matrix.host }}:${{ matrix.host }}; then
-            echo "Error: ${{ matrix.host }} branch does not exist or could not be fetched"
+          if ! git fetch origin "$BRANCH:$BRANCH"; then
+            echo "::error::Branch $BRANCH does not exist or could not be fetched"
             exit 1
           fi
 
           # ブランチの切り替え
-          if ! git checkout ${{ matrix.host }}; then
-            echo "Error: Failed to checkout ${{ matrix.host }} branch"
+          if ! git checkout "$BRANCH"; then
+            echo "::error::Failed to checkout branch $BRANCH"
             exit 1
           fi
 
           # リベースの実行
           if ! git rebase origin/main; then
-            echo "Error: Rebase failed for ${{ matrix.host }}. There might be conflicts that need manual resolution"
+            echo "::error::Rebase failed for branch $BRANCH. There might be conflicts that need manual resolution"
             git rebase --abort
             exit 1
           fi
 
           # プッシュの実行
-          if ! git push --force-with-lease origin ${{ matrix.host }}; then
-            echo "Error: Push failed for ${{ matrix.host }}. The remote branch might have been updated"
+          if ! git push --force-with-lease origin "$BRANCH"; then
+            echo "::error::Push failed for branch $BRANCH - Remote branch has diverged from our last fetched state. Someone else might have pushed changes to this branch"
             exit 1
           fi
 
-          echo "Successfully rebased and pushed ${{ matrix.host }} branch"
+          echo "::notice::Successfully rebased and pushed branch $BRANCH"
