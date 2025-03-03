@@ -1,14 +1,11 @@
 name: Auto Rebase Host-Specific Branches
-
 on:
   push:
     branches:
       - main
   workflow_call:
-
 permissions:
   contents: write
-
 jobs:
   get-hosts:
     runs-on: ubuntu-latest
@@ -33,12 +30,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Configure Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
       - name: Rebase host branch
         run: |
           BRANCH="${{ matrix.host }}"
