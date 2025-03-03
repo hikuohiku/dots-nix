@@ -68,7 +68,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run auto-rebase workflow
         if: success()
-        uses: ./.github/workflows/auto-rebase.yml
+        uses: ./auto-rebase.yml
       - name: Comment on failure
         if: failure()
         run: |
