@@ -1,26 +1,39 @@
 {
-  lib,
   userInfo,
   ...
 }:
-{
+rec {
   imports = [
     ../../../modules/home/core
     ../../../modules/home/fonts
     ../../../modules/home/terminal
     ../../../modules/home/git.nix
     ../../../modules/home/editor
+    ../../../modules/home/browser.nix
     ../../../modules/home/cli-tools.nix
     ../../../modules/home/gui-tools
     ../../../modules/home/fileServer.nix
-    ../../../modules/home/darwin/yabai.nix
+    ../../../modules/home/unixporn/aylur
   ];
+
+  # nixpkgs
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
 
   # home-manager
   home.username = userInfo.username;
-  home.homeDirectory = lib.mkForce "/Users/${userInfo.username}";
+  home.homeDirectory = "/home/${userInfo.username}";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # session environment variables
+  home.sessionVariables = {
+    XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
+  };
+
+  xdg.mimeApps.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
