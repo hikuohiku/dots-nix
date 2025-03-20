@@ -5,5 +5,4 @@
   ];
 
   gui-tools-linux.enable = pkgs.stdenv.isLinux;
-
 }

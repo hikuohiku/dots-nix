@@ -1,7 +1,7 @@
-{ pkgs, zen-browser, ... }:
+{ pkgs, inputs', ... }:
 {
   home.packages = with pkgs; [
-    zen-browser.default
+    inputs'.zen-browser.default
   ];
   programs.firefox.enable = true;
 

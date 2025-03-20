@@ -1,7 +1,7 @@
 {
+  self,
   config,
   pkgs,
-  userInfo,
   ...
 }:
 {
@@ -24,7 +24,7 @@
     in
     {
       ".config/nvim" = {
-        source = (symlink userInfo.home + /.ghq/github.com/hikuohiku/lazyvim);
+        source = (symlink config.home.homeDirectory + /.ghq/github.com/hikuohiku/lazyvim);
         recursive = true;
       };
     };
