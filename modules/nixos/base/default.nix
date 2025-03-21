@@ -3,6 +3,7 @@
   config,
   lib,
   userInfo,
+  systemInfo,
   ...
 }:
 {
@@ -32,7 +33,7 @@
 
   # Basic system settings
   networking = {
-    hostName = userInfo.hostname;
+    hostName = systemInfo.hostname;
     networkmanager.enable = true;
   };
 

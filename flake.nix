@@ -2,6 +2,8 @@
   description = "hiro's dotfiles";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -42,82 +44,36 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nix-darwin,
-      home-manager,
-      catppuccin,
+    inputs@{
+      flake-parts,
       ...
-    }@inputs:
-    let
-      userInfo = import ./config/user.nix;
-      pkgs = import nixpkgs {
-        system = userInfo.system;
-        config.allowUnfree = true;
-      };
-      # External packages
-      aylurpkgs = inputs.aylur.packages.${userInfo.system};
-      diniamopkgs = inputs.diniamo.packages.${userInfo.system};
-      zen-browser = inputs.zen-browser.packages.${userInfo.system};
-      # Treefmt configuration
-      treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-    in
-    rec {
-      formatter.${userInfo.system} = treefmtEval.config.build.wrapper;
-      checks.${userInfo.system}.formatting = treefmtEval.config.build.check self;
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      imports = [
+        inputs.home-manager.flakeModules.home-manager
+        inputs.treefmt-nix.flakeModule
+        ./hosts/nixos/hikuo-desktop
+        ./hosts/home/hikuo-desktop
+        ./hosts/hikuo-macbook.nix
+      ];
 
-      # NixOS configurations
-      nixosConfigurations = {
-        ${userInfo.hostname} = nixpkgs.lib.nixosSystem {
-          system = userInfo.system;
-          specialArgs = {
-            inherit inputs userInfo;
+      perSystem =
+        { ... }:
+        {
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              yamlfmt.enable = true;
+            };
+
+            settings.formatter = {
+            };
           };
-          modules = [
-            ./hosts/nixos/hikuo-desktop
-            catppuccin.nixosModules.catppuccin
-          ];
         };
-      };
-
-      # Home Manager configurations
-      # TODO: nixos moduleにする
-      homeConfigurations = {
-        ${userInfo.username} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit
-              inputs
-              aylurpkgs
-              diniamopkgs
-              zen-browser
-              userInfo
-              ;
-          };
-          modules = [
-            ./hosts/home/hikuo-desktop
-            catppuccin.homeManagerModules.catppuccin
-          ];
-        };
-      };
-
-      darwinConfigurations = {
-        ${userInfo.hostname} = nix-darwin.lib.darwinSystem {
-          modules = [
-            ./hosts/darwin/hikuo-macbook
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${userInfo.username} = import ./hosts/home/hikuo-macbook;
-
-              home-manager.extraSpecialArgs = {
-                inherit userInfo;
-              };
-            }
-          ];
-        };
-      };
     };
 }

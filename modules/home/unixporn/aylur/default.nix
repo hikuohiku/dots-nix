@@ -1,5 +1,5 @@
 {
-  inputs,
+  inputs',
   pkgs,
   aylurpkgs,
   userInfo,
@@ -9,7 +9,7 @@
   imports = [ ./icon.nix ];
 
   home.packages = with pkgs; [
-    aylurpkgs.default
+    inputs'.aylurpkgs.default
     hyprshot
   ];
 
@@ -38,7 +38,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = inputs'.hyprland.packages.hyprland;
     settings = import ./hyprland.nix { inherit pkgs; };
     # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
     systemd.variables = [ "--all" ];
