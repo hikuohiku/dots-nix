@@ -149,9 +149,6 @@ in
   # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 
   windowrule = [
-    "float,^(Floaterm)$"
-    "size 25% 30%,^(Floaterm)$"
-    "move 60% 60%,^(Floaterm)$"
   ];
 
   windowrulev2 = [
