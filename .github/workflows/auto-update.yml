@@ -26,7 +26,7 @@ jobs:
         id: update
         uses: DeterminateSystems/update-flake-lock@main
         with:
-          inputs: nixpkgs nixos-hardware home-manager hyprland catppuccin zen-browser treefmt-nix
+          inputs: nixpkgs nixos-hardware home-manager nix-darwin hyprland catppuccin zen-browser treefmt-nix
           pr-title: "chore: Update flake.lock"
           pr-labels: |
             dependencies
