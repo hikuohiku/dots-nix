@@ -1,16 +1,15 @@
 {
   inputs',
   pkgs,
-  aylurpkgs,
   userInfo,
   ...
 }:
 {
   imports = [ ./icon.nix ];
 
-  home.packages = with pkgs; [
-    inputs'.aylurpkgs.default
-    hyprshot
+  home.packages = [
+    inputs'.aylur.packages.default
+    pkgs.hyprshot
   ];
 
   gtk.enable = true;
