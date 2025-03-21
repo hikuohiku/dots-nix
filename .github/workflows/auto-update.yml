@@ -1,4 +1,4 @@
-name: update-flake-lock
+name: Update Flake Lock
 on:
   workflow_dispatch:
   schedule:
@@ -69,6 +69,6 @@ jobs:
         if: failure()
         run: |
           gh pr comment "${{ needs.update-lockfile.outputs.pull-request-number }}" \
-            --body "@hikuohiku ビルドチェックが失敗しました。手動での確認が必要です。"
+            --body "自動アップデートに失敗しました。"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
