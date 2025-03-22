@@ -8,6 +8,7 @@
     ../../../modules/darwin/tailscale.nix
     ../../../modules/darwin/karabiner.nix
     ../../../modules/darwin/yabai.nix
+    ../../../modules/darwin/misc.nix
   ];
 
   users.knownUsers = [ "hikuo" ];
