@@ -77,7 +77,7 @@
       # alt - e : yabai -m window --toggle split
 
       # float / unfloat window and center on screen
-      # alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+      alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
       # toggle sticky(+float), picture-in-picture
       # alt - p : yabai -m window --toggle sticky --toggle pip
