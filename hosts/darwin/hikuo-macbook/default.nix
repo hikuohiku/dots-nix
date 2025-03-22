@@ -9,6 +9,7 @@
     ../../../modules/darwin/karabiner.nix
     ../../../modules/darwin/yabai.nix
     ../../../modules/darwin/misc.nix
+    ../../../modules/darwin/touchId.nix
   ];
 
   users.knownUsers = [ "hikuo" ];
