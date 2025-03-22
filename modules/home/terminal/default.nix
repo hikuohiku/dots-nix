@@ -101,6 +101,9 @@
         src = inputs.fish-ghq;
       }
     ];
+    interactiveShellInit = ''
+      bind \cs '__ghq_repository_search'
+    '';
   };
   # starship
   programs.starship = {
