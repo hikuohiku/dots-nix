@@ -71,7 +71,7 @@
 
       # toggle window zoom
       # alt - d : yabai -m window --toggle zoom-parent
-      # alt - f : yabai -m window --toggle zoom-fullscreen
+      alt - g : yabai -m window --toggle zoom-fullscreen
 
       # toggle window split type
       # alt - e : yabai -m window --toggle split
