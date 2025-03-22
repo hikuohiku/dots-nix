@@ -28,6 +28,11 @@
       url = "github:Aylur/astal";
     };
 
+    fish-ghq = {
+      url = "github:decors/fish-ghq";
+      flake = false;
+    };
+
     catppuccin.url = "github:catppuccin/nix";
     diniamo = {
       url = "github:diniamo/niqspkgs"; # bibata-hyprcursor
