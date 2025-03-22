@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ./linux.nix
@@ -95,6 +95,10 @@
       {
         name = "fzf";
         src = pkgs.fishPlugins.fzf-fish.src;
+      }
+      {
+        name = "fish-ghq";
+        src = inputs.fish-ghq;
       }
     ];
   };
