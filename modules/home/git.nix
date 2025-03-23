@@ -13,6 +13,7 @@
         defaultBranch = "main";
       };
       pull.rebase = true;
+      fetch.prune = true;
     };
     delta = {
       enable = true;
