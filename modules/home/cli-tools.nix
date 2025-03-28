@@ -7,7 +7,7 @@
     tree
     fastfetch
     gomi # trash
-    bitwarden-cli
+    # bitwarden-cli # いつからかビルドできなくなったので使いたくなる時までは一旦コメントアウトしておく
     vhs # terminal screen capture
     rlwrap # readline wrapper
     gh
