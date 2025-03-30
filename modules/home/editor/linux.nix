@@ -38,6 +38,10 @@
         type = "Application";
       };
     };
+
+    home.packages = with pkgs; [
+      obsidian
+    ];
   };
 
 }

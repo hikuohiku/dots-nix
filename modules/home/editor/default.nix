@@ -14,7 +14,6 @@
   home.packages = with pkgs; [
     neovim
     neovide
-    obsidian
   ];
 
   # neovim
