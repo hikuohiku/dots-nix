@@ -71,18 +71,13 @@
 
       # toggle window zoom
       # alt - d : yabai -m window --toggle zoom-parent
-      alt - g : yabai -m window --toggle zoom-fullscreen
+      shift + alt - g : yabai -m window --toggle zoom-fullscreen
 
       # toggle window split type
       # alt - e : yabai -m window --toggle split
 
       # float / unfloat window and center on screen
-      alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2 \
-                  if [ "$(yabai -m query --windows --window | jq '."is-floating"')" = "true" ]; then \
-                      yabai -m window --sub-layer above; \
-                  else \
-                      yabai -m window --sub-layer normal; \
-                  fi
+      alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
       # toggle sticky(+float), picture-in-picture
       # alt - p : yabai -m window --toggle sticky --toggle pip
