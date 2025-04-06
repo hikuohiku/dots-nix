@@ -11,6 +11,6 @@
     gcc
     nodejs
     cargo
-    python3
+    uv
   ];
 }
