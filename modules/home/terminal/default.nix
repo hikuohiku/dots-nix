@@ -68,6 +68,8 @@
       lspath = "echo $PATH | sed 's/ /\\n/g' | sort";
       ja = "trans -b :ja";
       cp = "cp -r";
+      "-" = "prevd";
+      "+" = "nextd";
     };
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
