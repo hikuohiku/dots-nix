@@ -1,0 +1,6 @@
+{ ... }:
+{
+  homebrew.brews = [
+    "openfortivpn"
+  ];
+}
