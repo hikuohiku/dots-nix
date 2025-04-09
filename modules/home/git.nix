@@ -5,6 +5,9 @@
     enable = true;
     userName = userInfo.git.username;
     userEmail = userInfo.git.email;
+    ignores = [
+      ".DS_Store"
+    ];
     extraConfig = {
       ghq = {
         root = "~/.ghq";
