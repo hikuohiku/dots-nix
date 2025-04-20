@@ -70,6 +70,7 @@
       cp = "cp -r";
       "-" = "prevd";
       "+" = "nextd";
+      zl = "zellij a";
     };
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
