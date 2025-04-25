@@ -71,6 +71,7 @@
       "-" = "prevd";
       "+" = "nextd";
       zl = "zellij a";
+      tree = "eza --color=auto --icons -a --tree";
     };
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
