@@ -6,6 +6,6 @@
   ];
 
   browser-darwin.enable = pkgs.stdenv.isDarwin;
-  browser-linux.enable = pkgs.stdenv.isLinux;  # Added support for Linux
+  browser-linux.enable = pkgs.stdenv.isLinux; # Added support for Linux
 
 }
