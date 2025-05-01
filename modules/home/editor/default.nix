@@ -23,7 +23,7 @@
     in
     {
       ".config/nvim" = {
-        source = (symlink config.home.homeDirectory + /.ghq/github.com/hikuohiku/lazyvim);
+        source = (symlink config.home.homeDirectory + /.ghq/github.com/hikuohiku/dots-nvim);
         recursive = true;
       };
     };

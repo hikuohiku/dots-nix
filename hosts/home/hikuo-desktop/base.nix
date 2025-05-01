@@ -9,7 +9,7 @@ rec {
     ../../../modules/home/terminal
     ../../../modules/home/git.nix
     ../../../modules/home/editor
-    ../../../modules/home/browser.nix
+    ../../../modules/home/browser
     ../../../modules/home/cli-tools.nix
     ../../../modules/home/gui-tools
     ../../../modules/home/fileServer.nix

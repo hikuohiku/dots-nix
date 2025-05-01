@@ -18,6 +18,7 @@
   home.packages = with pkgs; [
     grc
     vivid # LS_COLORS
+    claude-code
   ];
 
   # alacritty
@@ -32,6 +33,7 @@
         };
         opacity = 0.7;
         blur = true; # macとKDEでのみ有効
+        option_as_alt = "Both";
       };
       cursor = {
         style.shape = "Beam";
