@@ -44,6 +44,9 @@
 
       # float / unfloat window and center on screen
       alt - f : yabai -m window --toggle float
+
+      # toggle autofocus
+      cmd + alt - f : yabai -m config focus_follows_mouse $([ $(yabai -m config focus_follows_mouse) = autofocus ] && echo off || echo autofocus)
     '';
   };
 }
