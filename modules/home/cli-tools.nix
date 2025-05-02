@@ -32,6 +32,9 @@
     jq
     jnv
 
+    # writing
+    typst
+
     # ========== TUI TOOL ==========
     btop # resource monitor
     ranger # file manager
