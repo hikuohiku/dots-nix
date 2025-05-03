@@ -109,6 +109,7 @@
     ];
     interactiveShellInit = ''
       bind \cs '__ghq_repository_search'
+      complete -c uv -n '__fish_seen_subcommand_from remove' -xa '(yq -r ".project.dependencies[]" pyproject.toml)'
     '';
   };
   # starship
