@@ -11,7 +11,7 @@
 
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
-    LS_COLORS = "$(vivid generate catppuccin-latte)";
+    LS_COLORS = "$(vivid generate tokyonight-moon)";
   };
 
   # packages
@@ -108,7 +108,13 @@
       }
     ];
     interactiveShellInit = ''
-      bind \cs '__ghq_repository_search'
+      bind ctrl-s '__ghq_repository_search'
+      bind ctrl-q delete-or-exit
+      bind shift-tab complete
+      bind tab complete-and-search
+      fzf_configure_bindings --git_log= --git_status= --processes= --directory=ctrl-d
+      complete -c uv -n '__fish_seen_subcommand_from remove' -xa '(yq -r ".project.dependencies[]" pyproject.toml)'
+      set -g fzf_fd_opts --no-ignore
     '';
   };
   # starship
