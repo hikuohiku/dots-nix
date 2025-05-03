@@ -27,10 +27,13 @@
     httpie
 
     # analyze data format
-    yq
+    yq-go
     jwt-cli
     jq
     jnv
+
+    # tree-sitter
+    tree-sitter
 
     # writing
     typst
