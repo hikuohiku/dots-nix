@@ -111,7 +111,13 @@
       bind ctrl-s '__ghq_repository_search'
       bind ctrl-q delete-or-exit
       bind shift-tab complete
-      bind tab complete-and-search
+      bind tab '
+        if commandline --search-field >/dev/null
+          commandline -f complete
+        else
+          commandline -f complete-and-search
+        end
+      '
       fzf_configure_bindings --git_log= --git_status= --processes= --directory=ctrl-d
       complete -c uv -n '__fish_seen_subcommand_from remove' -xa '(yq -r ".project.dependencies[]" pyproject.toml)'
       set -g fzf_fd_opts --no-ignore
