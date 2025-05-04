@@ -35,10 +35,13 @@
   programs.lazygit = {
     enable = true;
     settings = {
-      gui.language = "ja";
-      git.paging = {
-        colorArg = "always";
-        pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+      gui = {
+        language = "ja";
+        paging = {
+          colorArg = "always";
+          pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+        };
+        nerdFontsVersion = "3";
       };
       # TODO: git cz
       # customCommands:
