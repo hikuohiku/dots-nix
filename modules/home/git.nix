@@ -21,7 +21,7 @@
     delta = {
       enable = true;
       options = {
-        dark = false;
+        dark = true;
       };
     };
   };
@@ -37,11 +37,13 @@
     settings = {
       gui = {
         language = "ja";
+        nerdFontsVersion = "3";
+      };
+      git = {
         paging = {
           colorArg = "always";
           pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
         };
-        nerdFontsVersion = "3";
       };
       # TODO: git cz
       # customCommands:
