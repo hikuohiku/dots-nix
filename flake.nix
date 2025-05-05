@@ -72,7 +72,7 @@
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {
-              nixfmt.enable = true;
+              nixfmt-rfc-style.enable = true;
               yamlfmt.enable = true;
             };
 
