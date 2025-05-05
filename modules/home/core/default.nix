@@ -12,5 +12,7 @@
     nodejs
     cargo
     uv
+    nil
+    nixfmt-rfc-style
   ];
 }
