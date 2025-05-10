@@ -15,7 +15,7 @@
   gtk.enable = true;
 
   catppuccin = {
-    enable = true;
+    enable = false;
     flavor = "latte";
     starship.enable = true;
   };
