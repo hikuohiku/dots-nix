@@ -1,6 +1,7 @@
 { self, pkgs, ... }:
 {
   imports = [
+    ../../../modules/darwin/system.nix
     ../../../modules/darwin/fonts.nix
     ../../../modules/darwin/gui-tools.nix
     ../../../modules/darwin/browser.nix
