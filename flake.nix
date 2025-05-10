@@ -7,6 +7,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin.url = "github:LnL7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -66,6 +71,14 @@
         ./hosts/hikuo-macbook.nix
       ];
 
+      flake = {
+        packages.x86_64-linux = {
+          proxmox = inputs.nixos-generators.nixosGenerate {
+            system = "x86_64-linux";
+            format = "proxmox";
+          };
+        };
+      };
       perSystem =
         { ... }:
         {
