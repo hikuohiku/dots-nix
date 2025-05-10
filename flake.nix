@@ -58,43 +58,74 @@
       flake-parts,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-      imports = [
-        inputs.home-manager.flakeModules.home-manager
-        inputs.treefmt-nix.flakeModule
-        ./hosts/nixos/hikuo-desktop
-        ./hosts/home/hikuo-desktop
-        ./hosts/hikuo-macbook.nix
-      ];
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { withSystem, ... }:
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+        ];
+        imports = [
+          inputs.home-manager.flakeModules.home-manager
+          inputs.treefmt-nix.flakeModule
+          ./hosts/nixos/hikuo-desktop
+          ./hosts/home/hikuo-desktop
+          ./hosts/hikuo-macbook.nix
+        ];
 
-      flake = {
-        packages.x86_64-linux = {
-          proxmox = inputs.nixos-generators.nixosGenerate {
-            system = "x86_64-linux";
-            format = "proxmox";
-            modules = [
-              ./hosts/nixos/hikuo-homeserver
-            ];
+        flake = {
+          packages.x86_64-linux = {
+            proxmox = withSystem "x86_64-linux" (
+              { inputs', ... }:
+              inputs.nixos-generators.nixosGenerate {
+                system = "x86_64-linux";
+                format = "proxmox";
+                modules = [
+                  ./hosts/nixos/hikuo-homeserver
+                  inputs.home-manager.nixosModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.hikuo = {
+                      imports = [
+                        ./modules/home/core
+                      ];
+                      nixpkgs.config = {
+                        allowUnfree = true;
+                      };
+                      programs.home-manager.enable = true;
+                    };
+
+                    home-manager.extraSpecialArgs = {
+                      inherit inputs inputs';
+                      userInfo = {
+                        username = "hikuo";
+                        git = {
+                          username = "hikuohiku";
+                          email = "hikuohiku@gmail.com";
+                        };
+                      };
+                    };
+                  }
+                ];
+              }
+            );
           };
         };
-      };
-      perSystem =
-        { ... }:
-        {
-          treefmt = {
-            projectRootFile = "flake.nix";
-            programs = {
-              nixfmt-rfc-style.enable = true;
-              yamlfmt.enable = true;
-            };
+        perSystem =
+          { ... }:
+          {
+            treefmt = {
+              projectRootFile = "flake.nix";
+              programs = {
+                nixfmt-rfc-style.enable = true;
+                yamlfmt.enable = true;
+              };
 
-            settings.formatter = {
+              settings.formatter = {
+              };
             };
           };
-        };
-    };
+      }
+    );
 }
