@@ -76,7 +76,7 @@
         flake = {
           packages.x86_64-linux = {
             proxmox = withSystem "x86_64-linux" (
-              { inputs', ... }:
+              { pkgs, inputs', ... }:
               inputs.nixos-generators.nixosGenerate {
                 system = "x86_64-linux";
                 format = "proxmox";
@@ -92,6 +92,11 @@
                       ];
                       programs.home-manager.enable = true;
                       home.stateVersion = "25.05";
+
+                      home.packages = with pkgs; [
+                        firefox
+                        git
+                      ];
                     };
 
                     home-manager.extraSpecialArgs = {
