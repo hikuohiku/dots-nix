@@ -33,6 +33,7 @@ in
       scroll_factor = 0.5;
     };
 
+    sensitivity = 0.4;
     special_fallthrough = true;
     follow_mouse = "1";
     mouse_refocus = false;
