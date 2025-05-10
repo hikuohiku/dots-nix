@@ -90,10 +90,8 @@
                       imports = [
                         ./modules/home/core
                       ];
-                      nixpkgs.config = {
-                        allowUnfree = true;
-                      };
                       programs.home-manager.enable = true;
+                      home.stateVersion = "25.05";
                     };
 
                     home-manager.extraSpecialArgs = {

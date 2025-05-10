@@ -29,4 +29,5 @@
     };
   };
   services.desktopManager.plasma6.enable = true;
+  system.stateVersion = "25.05";
 }
