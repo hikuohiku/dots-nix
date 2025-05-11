@@ -1,4 +1,9 @@
-{ modulesPath, pkgs, lib, ... }:
+{
+  modulesPath,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -33,7 +38,8 @@
     fsType = "ext4";
   };
 
-  networking.hostName = "base";
+  time.timeZone = "Asia/Tokyo";
+  networking.hostName = "hikuo-homebase";
   services.qemuGuest.enable = true;
   services.cloud-init.network.enable = true;
   # Desktop environments
