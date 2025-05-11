@@ -1,4 +1,4 @@
-{ modulesPath, lib, ... }:
+{ modulesPath, pkgs, lib, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -50,6 +50,7 @@
     };
   };
   services.desktopManager.plasma6.enable = true;
+  services.tailscale.enable = true;
 
   programs.nix-ld.enable = true;
 
@@ -58,7 +59,7 @@
     after = [ "network.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/home/hikuo/moneyforward-automation/.venv/bin/python /home/hikuo/moneyforward-automation/main.py";
+      ExecStart = "${pkgs.uv}/bin/uv run main.py";
       User = "hikuo";
       Group = "users";
       WorkingDirectory = "/home/hikuo/moneyforward-automation";
