@@ -52,5 +52,32 @@
   services.desktopManager.plasma6.enable = true;
 
   programs.nix-ld.enable = true;
+
+  systemd.services."moneyforward-automation" = {
+    description = "Run Money Forward automation script";
+    after = [ "network.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/home/hikuo/moneyforward-automation/.venv/bin/python /home/hikuo/moneyforward-automation/main.py";
+      User = "hikuo";
+      Group = "users";
+      WorkingDirectory = "/home/hikuo/moneyforward-automation";
+      StandardOutput = "journal";
+      StandardError = "journal";
+    };
+  };
+
+  systemd.timers."moneyforward-automation" = {
+    description = "Run Money Forward automation script daily at 12:00 PM";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 12:00:00";
+      AccuracySec = "1h";
+      Persistent = true;
+      RandomizedDelaySec = "600";
+      Unit = "moneyforward-automation.service";
+    };
+  };
+
   system.stateVersion = "25.05";
 }
