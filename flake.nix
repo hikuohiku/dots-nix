@@ -74,6 +74,53 @@
         ];
 
         flake = {
+          nixosConfigurations.proxmox = withSystem "x86_64-linux" (
+            { pkgs, inputs', ... }:
+            inputs.nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = {
+                inherit inputs inputs';
+                userInfo = {
+                  username = "hikuo";
+                  git = {
+                    username = "hikuohiku";
+                    email = "hikuohiku@gmail.com";
+                  };
+                };
+              };
+              modules = [
+                ./hosts/nixos/hikuo-homeserver
+                inputs.home-manager.nixosModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.hikuo = {
+                    imports = [
+                      ./modules/home/core
+                    ];
+                    programs.home-manager.enable = true;
+                    home.stateVersion = "25.05";
+
+                    home.packages = with pkgs; [
+                      firefox
+                      git
+                    ];
+                  };
+
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs inputs';
+                    userInfo = {
+                      username = "hikuo";
+                      git = {
+                        username = "hikuohiku";
+                        email = "hikuohiku@gmail.com";
+                      };
+                    };
+                  };
+                }
+              ];
+            }
+          );
           packages.x86_64-linux = {
             proxmox = withSystem "x86_64-linux" (
               { pkgs, inputs', ... }:
