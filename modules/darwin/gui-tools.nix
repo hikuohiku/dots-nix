@@ -5,6 +5,7 @@
     "discord"
     "chatgpt"
     "raycast"
+    "inkscape"
   ];
 
   homebrew.masApps = {
