@@ -6,6 +6,7 @@
     "chatgpt"
     "raycast"
     "inkscape"
+    "zotero"
   ];
 
   homebrew.masApps = {
