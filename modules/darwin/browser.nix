@@ -1,7 +1,7 @@
 { ... }:
 {
   homebrew.casks = [
-    "zen-browser"
+    "zen"
     "google-chrome"
     "firefox"
   ];
