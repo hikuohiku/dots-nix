@@ -11,9 +11,6 @@
   config = lib.mkIf config.fonts-darwin.enable {
     # alacritty
     programs.alacritty = {
-      settings = {
-        font.size = 12;
-      };
     };
   };
 
