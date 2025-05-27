@@ -1,0 +1,39 @@
+# focus
+alt - h : yabai -m window --focus west
+alt - j : yabai -m space --focus prev
+alt - k : yabai -m space --focus next
+alt - l : yabai -m window --focus east
+
+# swap managed window
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --space prev
+shift + alt - k : yabai -m window --space next
+shift + alt - l : yabai -m window --swap east
+
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+shift + alt - n : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m window --space "{index}" && \
+                  yabai -m space --focus "{index}"
+
+# fast focus desktop
+# cmd + alt - x : yabai -m space --focus recent
+# cmd + alt - 1 : yabai -m space --focus 1
+
+# send window to desktop and follow focus
+# shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
+# shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
+
+# send window to monitor and follow focus
+alt - return : yabai -m window --display recent; yabai -m display --focus recent
+shift + alt - return : yabai -m window --display prev; yabai -m display --focus prev
+
+# toggle window zoom
+ctrl + alt - f : yabai -m window --toggle native-fullscreen
+shift + alt - f : yabai -m window --toggle zoom-fullscreen
+
+# float / unfloat window and center on screen
+alt - f : yabai -m window --toggle float
+
+# toggle autofocus
+cmd + alt - f : yabai -m config focus_follows_mouse $([ $(yabai -m config focus_follows_mouse) = autofocus ] && echo off || echo autofocus)

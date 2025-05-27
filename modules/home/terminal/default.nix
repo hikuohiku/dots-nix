@@ -22,25 +22,8 @@
   ];
 
   # alacritty
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      env.TERM = "alacritty";
-      window = {
-        padding = {
-          x = 8;
-          y = 8;
-        };
-        opacity = 0.7;
-        blur = true; # macとKDEでのみ有効
-        option_as_alt = "Both";
-      };
-      cursor = {
-        style.shape = "Beam";
-        style.blinking = "On";
-        vi_mode_style.shape = "Block";
-      };
-    };
+  xdg.configFile."alacritty/alacritty.toml" = {
+    source = ./alacritty.toml;
   };
   # kitty
   programs.kitty.enable = true;

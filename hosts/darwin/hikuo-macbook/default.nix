@@ -13,6 +13,7 @@
     ../../../modules/darwin/touchId.nix
     ../../../modules/darwin/vpn.nix
     ../../../modules/darwin/container.nix
+    ../../../modules/darwin/terminal.nix
   ];
 
   users.knownUsers = [ "hikuo" ];

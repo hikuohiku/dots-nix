@@ -9,12 +9,6 @@
   };
 
   config = lib.mkIf config.fonts-linux.enable {
-    # alacritty
-    programs.alacritty = {
-      settings = {
-        font.size = 9;
-      };
-    };
   };
 
 }
