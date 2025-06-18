@@ -16,6 +16,7 @@
     ../../../modules/home/fileServer.nix
     ../../../modules/home/darwin/yabai.nix
     ../../../modules/home/runtimes/typescript.nix
+    ../../../modules/home/runtimes/actions.nix
   ];
 
   # home-manager
