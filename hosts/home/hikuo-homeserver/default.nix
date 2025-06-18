@@ -6,7 +6,7 @@ rec {
   imports = [
     ../../../modules/core
     ../../../modules/home/terminal
-    ../../../modules/home/git.nix
+    ../../../modules/home/git
     ../../../modules/home/editor
     ../../../modules/home/cli-tools.nix
     ../../../modules/home/fileServer.nix
