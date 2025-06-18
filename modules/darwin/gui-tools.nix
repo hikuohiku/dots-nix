@@ -7,6 +7,7 @@
     "raycast"
     "inkscape"
     "zotero"
+    "path-finder"
   ];
 
   homebrew.masApps = {

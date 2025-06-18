@@ -42,6 +42,7 @@
     btop # resource monitor
     ranger # file manager
     lazydocker
+    dive
   ];
 
   programs = {

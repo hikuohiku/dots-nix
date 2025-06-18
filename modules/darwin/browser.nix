@@ -4,6 +4,7 @@
     "zen"
     "google-chrome"
     "firefox"
+    "chromium"
   ];
 
   homebrew.masApps = {
