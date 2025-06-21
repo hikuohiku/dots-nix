@@ -16,6 +16,7 @@
     ../../../modules/darwin/terminal.nix
   ];
 
+  system.primaryUser = "hikuo";
   users.knownUsers = [ "hikuo" ];
   users.users.hikuo.uid = 501;
   users.users.hikuo.shell = pkgs.fish;
