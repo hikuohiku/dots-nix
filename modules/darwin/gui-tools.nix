@@ -8,7 +8,6 @@
     "inkscape"
     "zotero"
     "path-finder"
-    "utm"
   ];
 
   homebrew.masApps = {
