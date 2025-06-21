@@ -4,6 +4,8 @@
     # nix
     nix-output-monitor
 
+    devenv
+
     tree
     fastfetch
     gomi # trash
