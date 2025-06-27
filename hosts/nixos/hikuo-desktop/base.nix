@@ -7,6 +7,7 @@
     ../../../modules/nixos/base
     ./hardware.nix # ハードウェア設定
     ./nvidia.nix # NVIDIA固有の設定
+    ./remotebuild.nix
   ];
 
   # Input method configuration
