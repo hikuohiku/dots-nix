@@ -111,6 +111,7 @@
   };
   programs.fish.enable = true;
 
+  # TODO: move to device specific
   # System state version
   system.stateVersion = "24.05";
 }
