@@ -8,7 +8,11 @@
       hostName = "hikuo-desktop";
       sshUser = "remotebuild";
       system = pkgs.stdenv.hostPlatform.system;
-      supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
+      supportedFeatures = [
+        "nixos-test"
+        "big-parallel"
+        "kvm"
+      ];
     }
   ];
 }

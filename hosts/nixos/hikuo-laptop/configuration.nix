@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-      ./hardware-configuration.nix
-    ];
+    ./hardware-configuration.nix
+  ];
 
   # Nix configuration
   nix = {
@@ -110,4 +115,3 @@
   system.stateVersion = "25.05";
 
 }
-
