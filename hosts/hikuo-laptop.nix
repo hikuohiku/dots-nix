@@ -16,6 +16,24 @@
         ./nixos/hikuo-laptop/configuration.nix
         ./nixos/hikuo-laptop/distributed-builds.nix
         inputs.nixos-hardware.nixosModules.microsoft-surface-laptop-amd
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.hikuo = import ./home/hikuo-laptop;
+
+          home-manager.extraSpecialArgs = {
+            inherit inputs inputs';
+            userInfo = {
+              username = "hikuo";
+              wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
+              git = {
+                username = "hikuohiku";
+                email = "hikuohiku@gmail.com";
+              };
+            };
+          };
+        }
       ];
     }
   );
