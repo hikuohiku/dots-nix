@@ -62,6 +62,7 @@
         inputs.home-manager.flakeModules.home-manager
         inputs.treefmt-nix.flakeModule
         ./hosts/nixos/hikuo-desktop
+        ./hosts/hikuo-laptop.nix
         ./hosts/home/hikuo-desktop
         ./hosts/hikuo-macbook.nix
       ];

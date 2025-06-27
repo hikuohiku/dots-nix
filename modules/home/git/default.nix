@@ -6,7 +6,7 @@
   ];
 
   git-darwin.enable = pkgs.stdenv.isDarwin;
-  git-linux.enable = pkgs.stdenv.isLinux; # Added support for Linux
+  git-linux.enable = pkgs.stdenv.isLinux;
 
   # git
   programs.git = {
@@ -17,9 +17,6 @@
       ".DS_Store"
     ];
     extraConfig = {
-      ghq = {
-        root = "~/.ghq";
-      };
       init = {
         defaultBranch = "main";
       };
