@@ -21,6 +21,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.hikuo = import ./home/hikuo-laptop;
+          home-manager.backupFileExtension = "backup";
 
           home-manager.extraSpecialArgs = {
             inherit inputs inputs';
