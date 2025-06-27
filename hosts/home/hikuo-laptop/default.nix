@@ -10,7 +10,7 @@ rec {
     ../../../modules/home/git
     ../../../modules/home/editor
     ../../../modules/home/browser
-    # ../../../modules/home/cli-tools.nix
+    ../../../modules/home/cli-tools.nix
     # ../../../modules/home/gui-tools
     # ../../../modules/home/fileServer.nix
     # ../../../modules/home/unixporn/aylur
