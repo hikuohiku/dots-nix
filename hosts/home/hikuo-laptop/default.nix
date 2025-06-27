@@ -4,7 +4,7 @@
 }:
 rec {
   imports = [
-    # ../../../modules/home/core
+    ../../../modules/home/core
     # ../../../modules/home/fonts
     # ../../../modules/home/terminal
     # ../../../modules/home/git
