@@ -113,7 +113,6 @@
     git
     sddm-astronaut
 
-    ghq
     alacritty
   ];
 
