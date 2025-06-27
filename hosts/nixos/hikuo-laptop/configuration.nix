@@ -49,6 +49,35 @@
     useXkbConfig = true;
   };
 
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts-cjk-serif
+      source-han-sans-vf-ttf
+      plemoljp
+      plemoljp-nf
+      noto-fonts-emoji
+    ];
+    enableDefaultPackages = false;
+    fontDir.enable = true;
+    fontconfig = {
+      defaultFonts = {
+        serif = [
+          "Noto Serif CJK JP"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "Source Han Sans VF"
+          "Noto Color Emoji"
+        ];
+        monospace = [
+          "PlemolJP35 Console NF"
+          "Noto Color Emoji"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
