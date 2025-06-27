@@ -1,25 +1,46 @@
-{ withSystem, inputs, ... }:
 {
-  flake.homeConfigurations.hikuo = withSystem "x86_64-linux" (
-    ctx@{ pkgs, inputs', ... }:
-    # TODO: nixos moduleにする
-    inputs.home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = {
-        inherit inputs inputs';
-        userInfo = {
-          username = "hikuo";
-          wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
-          git = {
-            username = "hikuohiku";
-            email = "hikuohiku@gmail.com";
-          };
-        };
-      };
-      modules = [
-        ./base.nix
-        inputs.catppuccin.homeManagerModules.catppuccin
-      ];
-    }
-  );
+  userInfo,
+  ...
+}:
+rec {
+  imports = [
+    ../../../modules/home/core
+    ../../../modules/home/fonts
+    ../../../modules/home/terminal
+    ../../../modules/home/git
+    ../../../modules/home/editor
+    ../../../modules/home/browser
+    ../../../modules/home/cli-tools.nix
+    ../../../modules/home/gui-tools
+    ../../../modules/home/fileServer.nix
+    ../../../modules/home/unixporn/aylur
+  ];
+
+  # nixpkgs
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
+
+  # home-manager
+  home.username = userInfo.username;
+  home.homeDirectory = "/home/${userInfo.username}";
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  # session environment variables
+  home.sessionVariables = {
+    XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
+  };
+
+  xdg.mimeApps.enable = true;
+
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 }
