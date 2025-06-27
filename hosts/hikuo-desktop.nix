@@ -22,7 +22,7 @@
           home-manager.users.hikuo = import ./home/hikuo-desktop;
           home-manager.backupFileExtension = "backup";
           home-manager.sharedModules = [
-            inputs.catppuccin.homeManagerModules.catppuccin
+            inputs.catppuccin.homeModules.catppuccin
           ];
 
           home-manager.extraSpecialArgs = {

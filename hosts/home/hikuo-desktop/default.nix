@@ -16,12 +16,6 @@ rec {
     ../../../modules/home/unixporn/aylur
   ];
 
-  # nixpkgs
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-  };
-
   # home-manager
   home.username = userInfo.username;
   home.homeDirectory = "/home/${userInfo.username}";
