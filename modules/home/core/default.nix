@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     # ========== Language Environment ==========
-    gcc
     nodejs
     cargo
     uv
