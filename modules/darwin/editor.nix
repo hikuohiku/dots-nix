@@ -5,4 +5,11 @@
     "obsidian"
     "notion"
   ];
+
+  system.defaults.CustomUserPreferences = {
+    "com.microsoft.VSCode" = {
+      ApplePressAndHoldEnabled = false;
+    };
+  };
+
 }
