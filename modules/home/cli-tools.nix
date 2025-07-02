@@ -37,9 +37,6 @@
     # tree-sitter
     tree-sitter
 
-    # writing
-    typst
-
     # ========== TUI TOOL ==========
     btop # resource monitor
     ranger # file manager
