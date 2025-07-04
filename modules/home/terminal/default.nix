@@ -105,6 +105,7 @@
       complete -c uv -n '__fish_seen_subcommand_from remove' -xa '(yq -r ".project.dependencies[]" pyproject.toml)'
       complete -c ghq -n '__fish_seen_subcommand_from get' -xa "(gh repo list --json name,owner --jq '.[] | select(.owner.login==\"hikuohiku\") | .owner.login + \"/\" + .name' 2>/dev/null)"
       set -g fzf_fd_opts --no-ignore
+      set PATH $HOME/.ghcup/bin $PATH
     '';
   };
   # starship
