@@ -6,5 +6,6 @@
 
   homebrew.brews = [
     "ghcup"
+    "asyncapi"
   ];
 }
