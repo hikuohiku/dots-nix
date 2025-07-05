@@ -107,6 +107,7 @@
 
   environment.variables = {
     EDITOR = "vim";
+    ELECTRON_OZONE_PLATFORM_HINT = "ELECTRON_OZONE_PLATFORM_HINT=wayland";
   };
   environment.systemPackages = with pkgs; [
     vim
