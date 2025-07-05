@@ -112,7 +112,6 @@
   environment.systemPackages = with pkgs; [
     vim
     git
-    sddm-astronaut
 
     alacritty
   ];
