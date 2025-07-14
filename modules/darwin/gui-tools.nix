@@ -7,7 +7,6 @@
     "raycast"
     "inkscape"
     "zotero"
-    "path-finder"
     "zed"
   ];
 
