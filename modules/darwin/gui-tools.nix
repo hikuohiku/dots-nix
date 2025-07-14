@@ -8,6 +8,7 @@
     "inkscape"
     "zotero"
     "zed"
+    "forklift"
   ];
 
   homebrew.masApps = {
