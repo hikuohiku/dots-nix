@@ -9,6 +9,7 @@
     "zotero"
     "zed"
     "forklift"
+    "insomnia"
   ];
 
   homebrew.masApps = {
