@@ -10,6 +10,7 @@
     "zed"
     "forklift"
     "insomnia"
+    "tailscale-app"
   ];
 
   homebrew.masApps = {
