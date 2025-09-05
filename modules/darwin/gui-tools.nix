@@ -7,8 +7,10 @@
     "raycast"
     "inkscape"
     "zotero"
-    "path-finder"
     "zed"
+    "forklift"
+    "insomnia"
+    "tailscale-app"
   ];
 
   homebrew.masApps = {

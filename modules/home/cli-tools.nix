@@ -37,6 +37,9 @@
     # tree-sitter
     tree-sitter
 
+    ansible
+    ansible-lint
+
     # ========== TUI TOOL ==========
     btop # resource monitor
     ranger # file manager
