@@ -34,6 +34,8 @@
   # ghq
   home.packages = with pkgs; [
     ghq
+    jujutsu
+    lazyjj
   ];
 
   # lazygit
