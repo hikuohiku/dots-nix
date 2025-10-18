@@ -1,7 +1,7 @@
-{ withSystem, inputs, ... }:
+{ withSystem, inputs, lib, ... }:
 {
   flake.darwinConfigurations.hikuo-macbook = withSystem "aarch64-darwin" (
-    ctx@{ inputs', ... }:
+    { inputs', ... }:
     inputs.nix-darwin.lib.darwinSystem {
       modules = [
         ./darwin/hikuo-macbook
@@ -23,7 +23,7 @@
             };
           };
         }
-      ];
+      ] ++ lib.filesystem.listFilesRecursive ../modules/nix-darwin;
     }
   );
 }
