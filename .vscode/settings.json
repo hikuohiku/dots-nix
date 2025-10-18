@@ -1,0 +1,23 @@
+{
+  "nix.enableLanguageServer": true,
+  "nix.hiddenLanguageServerErrors": ["textDocument/definition"],
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "nixpkgs": {
+        "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs { }"
+      },
+      "options": {
+        "home-manager-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.hikuo-macbook.options.home-manager.users.type.getSubOptions []"
+        },
+        "nix-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.hikuo-macbook.options"
+        },
+        "nixos": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.hikuo-desktop.options"
+        }
+      }
+    }
+  }
+}
