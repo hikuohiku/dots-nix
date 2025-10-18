@@ -16,6 +16,9 @@
         },
         "nixos": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.hikuo-desktop.options"
+        },
+        "nixpkgs": {
+          "expr": "{ lib = (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs.lib; }"
         }
       }
     }
