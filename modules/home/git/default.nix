@@ -1,4 +1,4 @@
-{ pkgs, userInfo, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./darwin.nix
@@ -8,36 +8,21 @@
   git-darwin.enable = pkgs.stdenv.isDarwin;
   git-linux.enable = pkgs.stdenv.isLinux;
 
-  # git
-  programs.git = {
-    enable = true;
-    userName = userInfo.git.username;
-    userEmail = userInfo.git.email;
-    ignores = [
-      ".DS_Store"
-    ];
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-      pull.rebase = true;
-      fetch.prune = true;
-      gpg.format = "ssh";
-      user.signingkey = "~/.ssh/id_ed25519.pub";
-      commit.gpgsign = true;
-    };
-    delta = {
-      enable = true;
-      options = {
-        dark = true;
-      };
-    };
-  };
-
-  # ghq
   home.packages = with pkgs; [
+    git
+    delta
+    gnupg
     ghq
   ];
+
+  xdg.configFile = {
+    "git/config" = {
+      source = ./config;
+    };
+    "git/ignore" = {
+      source = ./ignore;
+    };
+  };
 
   # lazygit
   programs.lazygit = {
