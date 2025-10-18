@@ -13,5 +13,6 @@
     uv
     nil
     nixfmt-rfc-style
+    nixd
   ];
 }
