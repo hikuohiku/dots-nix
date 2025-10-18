@@ -37,19 +37,10 @@
   # ghq
   home.packages = with pkgs; [
     ghq
-    jujutsu
-    lazyjj
   ];
 
   # lazygit
   programs.lazygit = {
     enable = true;
-  };
-
-  # jj config
-  xdg.configFile = {
-    "jj/config.toml" = {
-      source = ./config.toml;
-    };
   };
 }
