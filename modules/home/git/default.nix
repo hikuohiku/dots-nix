@@ -1,12 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  imports = [
-    ./darwin.nix
-    ./linux.nix
-  ];
-
-  git-darwin.enable = pkgs.stdenv.isDarwin;
-  git-linux.enable = pkgs.stdenv.isLinux;
+  imports = lib.fileset.fileFilter (file: file.hasExt "nix") ./lazygit |> lib.fileset.toList;
 
   home.packages = with pkgs; [
     git
