@@ -9,6 +9,8 @@ jobs:
       - uses: cachix/install-nix-action@v30
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            experimental-features = pipe-operators
       - run: nix flake check
       - name: Eval NixOS configuration # Build すると GitHub ホステッドランナーのストレージを使い果たしてしまうっぽいのでしかたない
         run: nix eval .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel --raw
