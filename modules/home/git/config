@@ -13,9 +13,6 @@
 [gpg]
 	format = "ssh"
 
-[gpg "openpgp"]
-	program = "/nix/store/5v8q62s03c31q7n5slpiyf1plcgyk8dv-gnupg-2.4.8/bin/gpg"
-
 [init]
 	defaultBranch = "main"
 
