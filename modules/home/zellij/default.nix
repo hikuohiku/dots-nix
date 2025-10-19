@@ -11,7 +11,9 @@
   programs.fish.interactiveShellInit = (
     lib.mkOrder 200 ''
       if test "$TERM" = "alacritty"
-        eval (zellij setup --generate-auto-start fish | sed 's/^\( *\)zellij attach -c$/\1zellij attach -c general/' | string collect)
+        if not set -q ZELLIJ
+          zellij
+        end
       end
     ''
   );
