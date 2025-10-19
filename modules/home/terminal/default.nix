@@ -3,7 +3,6 @@
   imports = [
     ./linux.nix
     ./darwin.nix
-    ./zellij.nix
   ];
 
   terminal-linux.enable = pkgs.stdenv.isLinux;
@@ -107,16 +106,5 @@
   # starship
   programs.starship = {
     enable = true;
-  };
-
-  # zellij
-  # alacrittyでのみターミナル起動時にzellijを起動するためにカスタムモジュールを作成している ./zellij.nix
-  programs.my-zellij = {
-    enable = true;
-    enableFishIntegration = true;
-    # settings = {
-    #   default_mode = "locked";
-    #   ui.pane_frames.rounded_corners = true;
-    # };
   };
 }
