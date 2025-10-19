@@ -87,7 +87,6 @@
     ];
     interactiveShellInit = ''
       bind ctrl-s '__ghq_repository_search'
-      bind ctrl-q delete-or-exit
       bind shift-tab complete
       bind tab '
         if commandline --search-field >/dev/null
@@ -96,7 +95,7 @@
           commandline -f complete-and-search
         end
       '
-      fzf_configure_bindings --git_log= --git_status= --processes= --directory=ctrl-d
+      fzf_configure_bindings --git_log= --git_status= --processes= --directory=ctrl-q
       complete -c uv -n '__fish_seen_subcommand_from remove' -xa '(yq -r ".project.dependencies[]" pyproject.toml)'
       complete -c ghq -n '__fish_seen_subcommand_from get' -xa "(gh repo list --json name,owner --jq '.[] | select(.owner.login==\"hikuohiku\") | .owner.login + \"/\" + .name' 2>/dev/null)"
       set -g fzf_fd_opts --no-ignore
