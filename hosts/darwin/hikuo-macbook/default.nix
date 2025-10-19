@@ -33,6 +33,4 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-
-  nix.enable = false;
 }
