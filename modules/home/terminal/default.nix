@@ -21,10 +21,6 @@
     claude-code
   ];
 
-  # alacritty
-  xdg.configFile."alacritty/alacritty.toml" = {
-    source = ./alacritty.toml;
-  };
   # kitty
   programs.kitty.enable = true;
 

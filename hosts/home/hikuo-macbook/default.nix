@@ -8,6 +8,7 @@
     ../../../modules/home/core
     ../../../modules/home/fonts
     ../../../modules/home/terminal
+    ../../../modules/home/alacritty
     ../../../modules/home/git
     ../../../modules/home/editor
     ../../../modules/home/browser
