@@ -21,10 +21,6 @@
             userInfo = {
               username = "hikuo";
               wallpaperPath = "/Users/hikuo/Pictures/wallpaper.jpg";
-              git = {
-                username = "hikuohiku";
-                email = "hikuohiku@gmail.com";
-              };
             };
           };
         }
