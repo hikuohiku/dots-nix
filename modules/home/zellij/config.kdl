@@ -251,8 +251,8 @@ ui {
 
 // Choose the theme that is specified in the themes section.
 // Default: default
-//
-// theme "dracula"
+// 透明色サポートがない https://github.com/zellij-org/zellij/issues/865
+theme "one-half-dark"
 
 // Choose the base input mode of zellij.
 // Default: normal
