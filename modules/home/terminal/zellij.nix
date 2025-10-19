@@ -95,7 +95,7 @@ in
     #   '');
     programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration (
       mkOrder 200 ''
-        if test "$TERM" = "alacritty-256color"
+        if test "$TERM" = "alacritty"
           eval (${zellijCmd} setup --generate-auto-start fish | sed 's/^\( *\)zellij attach -c$/\1zellij attach -c general/' | string collect)
         end
       ''

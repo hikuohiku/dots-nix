@@ -6,7 +6,7 @@ shape = "Beam"
 shape = "Block"
 
 [env]
-TERM = "alacritty-256color"
+TERM = "alacritty"
 
 [font]
 size = 12
