@@ -8,14 +8,20 @@
         "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs { }"
       },
       "options": {
-        "home-manager-darwin": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.hikuo-macbook.options.home-manager.users.type.getSubOptions []"
+        "nixos": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.hikuo-desktop.options"
         },
         "nix-darwin": {
           "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.hikuo-macbook.options"
         },
-        "nixos": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.hikuo-desktop.options"
+        "home-manager-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.hikuo-macbook.options.home-manager.users.type.getSubOptions []"
+        },
+        "flake-parts": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").debug.options"
+        },
+        "flake-parts2": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").currentSystem.options"
         },
         "nixpkgs": {
           "expr": "{ lib = (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs.lib; }"

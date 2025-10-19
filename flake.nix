@@ -54,6 +54,7 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true; # option定義をnixdに公開する
       systems = [
         "x86_64-linux"
         "aarch64-darwin"
