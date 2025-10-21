@@ -4,6 +4,7 @@
 }:
 rec {
   imports = [
+    ../../../modules/home/my.nix
     ../../../modules/core
     ../../../modules/home/terminal
     ../../../modules/home/alacritty

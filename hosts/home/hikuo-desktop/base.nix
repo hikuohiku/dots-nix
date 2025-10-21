@@ -4,6 +4,7 @@
 }:
 rec {
   imports = [
+    ../../../modules/home/my.nix
     ../../../modules/home/core
     ../../../modules/home/fonts
     ../../../modules/home/terminal

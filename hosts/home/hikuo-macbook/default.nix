@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ../../../modules/home/my.nix
     ../../../modules/home/core
     ../../../modules/home/fonts
     ../../../modules/home/terminal
@@ -16,7 +17,8 @@
     ../../../modules/home/cli-tools.nix
     ../../../modules/home/gui-tools
     ../../../modules/home/fileServer.nix
-    ../../../modules/home/darwin/yabai.nix
+    ../../../modules/home/yabai
+    ../../../modules/home/skhd
     ../../../modules/home/runtimes/typescript.nix
     ../../../modules/home/runtimes/actions.nix
   ];
