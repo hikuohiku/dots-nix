@@ -19,6 +19,7 @@
     "insomnia"
     "tailscale-app"
     "alacritty"
+    "core-tunnel"
   ];
 
   homebrew.masApps = {
