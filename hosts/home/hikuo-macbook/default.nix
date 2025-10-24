@@ -21,6 +21,7 @@
     ../../../modules/home/skhd
     ../../../modules/home/runtimes/typescript.nix
     ../../../modules/home/runtimes/actions.nix
+    ../../../modules/home/pac
   ];
 
   # home-manager
