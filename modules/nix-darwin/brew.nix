@@ -20,6 +20,7 @@
     "tailscale-app"
     "alacritty"
     "core-tunnel"
+    "notchnook"
   ];
 
   homebrew.masApps = {
