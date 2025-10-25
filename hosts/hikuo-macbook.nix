@@ -1,7 +1,7 @@
 {
   withSystem,
   inputs,
-  lib,
+  mylib,
   ...
 }:
 {
@@ -25,7 +25,7 @@
           };
         }
       ]
-      ++ lib.filesystem.listFilesRecursive ../modules/nix-darwin;
+      ++ mylib.listModules ../modules/nix-darwin;
     }
   );
 }

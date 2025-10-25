@@ -51,14 +51,34 @@
   outputs =
     inputs@{
       flake-parts,
+      nixpkgs,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true; # option定義をnixdに公開する
+
       systems = [
         "x86_64-linux"
         "aarch64-darwin"
       ];
+
+      _module.args = {
+        mylib = {
+          listModules =
+            path:
+            let
+              entries = builtins.readDir path;
+
+              # Filter to only include .nix files and directories
+              isNixFileOrDir =
+                name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
+
+              filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
+            in
+            map (name: path + "/${name}") (builtins.attrNames filteredNames);
+        };
+      };
+
       imports = [
         inputs.home-manager.flakeModules.home-manager
         inputs.treefmt-nix.flakeModule
