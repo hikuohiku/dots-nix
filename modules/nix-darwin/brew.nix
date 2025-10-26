@@ -21,6 +21,7 @@
     "alacritty"
     "core-tunnel"
     "notchnook"
+    "launchcontrol"
   ];
 
   homebrew.masApps = {
