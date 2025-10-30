@@ -1,15 +1,11 @@
 { pkgs, ... }:
 {
-  launchd.daemons."openfortivpn" = {
-    command = "${pkgs.openfortivpn}/bin/openfortivpn -c /Users/hikuo/.vpn/config";
-    serviceConfig = {
-      Disabled = true;
-      StandardErrorPath = "/tmp/openfortivpn.error.log";
-      StandardOutPath = "/tmp/openfortivpn.log";
-    };
-  };
-
   homebrew.casks = [
     "xbar"
   ];
+
+  security.sudo.extraConfig = ''
+    %admin ALL=(ALL) NOPASSWD: ${pkgs.openfortivpn}/bin/openfortivpn
+    %admin ALL=(ALL) NOPASSWD: /usr/bin/killall -2 openfortivpn
+  '';
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get current status of a OpenFortiVPN connection with options to connect/disconnect.
 # Commands that require admin permissions should be whitelisted with 'visudo', e.g.:
@@ -11,13 +11,6 @@
 # username=FOO
 # password=MYPASSWORDCHARACHTERS
 # trusted-cert=MYCERTIFICATECHARACHTERS
-
-# <xbar.title>OpenFortiVPN</xbar.title>
-# <xbar.version>v1.0</xbar.version>
-# <xbar.author>Emran Mobaraki Novin</xbar.author>
-# <xbar.author.github>emranovin</xbar.author.github>
-# <xbar.desc>Displays status of a OpenFortiVPN interface with option to connect/disconnect.</xbar.desc>
-# <xbar.image>https://i.imgur.com/v2aW5mo.png</xbar.image>
 
 VPN_EXECUTABLE=@openfortivpn@
 VPN_EXECUTABLE_PARAMS="-c$HOME/Documents/.fortivpn-config" # Optional
