@@ -14,7 +14,12 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.hikuo = import ./home/hikuo-macbook;
+          home-manager.users.hikuo = {
+            imports = [
+              ./home/hikuo-macbook
+            ]
+            ++ mylib.listModules ../modules/nix-darwin/home;
+          };
 
           home-manager.extraSpecialArgs = {
             inherit inputs inputs';

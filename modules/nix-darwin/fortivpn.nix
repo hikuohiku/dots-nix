@@ -8,4 +8,8 @@
       StandardOutPath = "/tmp/openfortivpn.log";
     };
   };
+
+  homebrew.casks = [
+    "xbar"
+  ];
 }
