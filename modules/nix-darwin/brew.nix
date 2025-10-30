@@ -22,6 +22,7 @@
     "core-tunnel"
     "notchnook"
     "launchcontrol"
+    "xbar"
   ];
 
   homebrew.masApps = {
