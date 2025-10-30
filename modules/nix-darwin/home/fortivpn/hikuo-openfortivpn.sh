@@ -26,11 +26,23 @@ case "$1" in
         sudo "$VPN_EXECUTABLE" "$VPN_EXECUTABLE_PARAMS" &> /dev/null &
         # Wait for connection so menu item refreshes instantly
         until eval "$VPN_CONNECTED"; do sleep 1; done
+
+        # Set auto proxy URL
+        networksetup -setautoproxyurl "Wi-Fi" "file:///Users/hikuo/proxy.pac"
+
+        # Start autossh-socks service
+        launchctl start org.nixos.autossh-socks
         ;;
     disconnect)
             eval "$VPN_DISCONNECT_CMD"
         # Wait for disconnection so menu item refreshes instantly
         until [ -z "$(eval "$VPN_CONNECTED")" ]; do sleep 1; done
+
+        # Disable auto proxy
+        networksetup -setautoproxystate "Wi-Fi" off
+
+        # Stop autossh-socks service
+        launchctl stop org.nixos.autossh-socks
         ;;
 esac
 
