@@ -33,5 +33,6 @@
 
   homebrew.brews = [
     "ghcup"
+    "swiftly"
   ];
 }
