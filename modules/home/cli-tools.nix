@@ -45,6 +45,7 @@
     ranger # file manager
     lazydocker
     dive
+    just
   ];
 
   programs = {
