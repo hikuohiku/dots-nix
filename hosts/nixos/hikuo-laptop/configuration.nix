@@ -55,7 +55,7 @@
       source-han-sans-vf-ttf
       plemoljp
       plemoljp-nf
-      noto-fonts-emoji
+      noto-fonts-color-emoji
     ];
     enableDefaultPackages = false;
     fontDir.enable = true;

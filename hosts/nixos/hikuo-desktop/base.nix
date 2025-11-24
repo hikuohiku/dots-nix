@@ -76,7 +76,7 @@
       sarasa-gothic
       plemoljp
       plemoljp-nf
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.symbols-only
     ];
     enableDefaultPackages = false;
