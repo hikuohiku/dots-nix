@@ -3,6 +3,7 @@
   homebrew.casks = [
     "zen"
     "google-chrome"
+    "google-chrome@canary"
     "firefox"
     "chromium"
     "orbstack"
