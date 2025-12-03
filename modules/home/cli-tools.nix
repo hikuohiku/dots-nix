@@ -46,6 +46,8 @@
     lazydocker
     dive
     just
+
+    terraform
   ];
 
   programs = {
