@@ -48,6 +48,7 @@
     just
 
     terraform
+    nushell
   ];
 
   programs = {
