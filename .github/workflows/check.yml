@@ -2,7 +2,7 @@ name: Nix Flake Check
 on:
   push:
 jobs:
-  fmt-check:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,3 +16,7 @@ jobs:
         run: nix eval .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel --raw
       - name: Eval Home-Manager configuration
         run: nix eval .#homeConfigurations.hikuo.activationPackage --raw
+      - name: check hikuo-macbook
+        working-directory: machines/hikuo-macbook
+        run: nix eval .#darwinConfigurations.hikuo-macbook.system --raw
+
