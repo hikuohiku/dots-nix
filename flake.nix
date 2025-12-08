@@ -32,6 +32,10 @@
       url = "github:decors/fish-ghq";
       flake = false;
     };
+    fish-fzf-bd = {
+      url = "github:yuys13/fish-fzf-bd";
+      flake = false;
+    };
 
     catppuccin.url = "github:catppuccin/nix";
     diniamo = {

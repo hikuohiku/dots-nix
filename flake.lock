@@ -269,6 +269,22 @@
         "type": "github"
       }
     },
+    "fish-fzf-bd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737971088,
+        "narHash": "sha256-NAErU+F7CTf0wOfR1zfxw2TRBLPIHe5QDjEhyjCNLJE=",
+        "owner": "yuys13",
+        "repo": "fish-fzf-bd",
+        "rev": "fcbe9f6a75510365638dc6f790544c55ecb0ec3b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yuys13",
+        "repo": "fish-fzf-bd",
+        "type": "github"
+      }
+    },
     "fish-ghq": {
       "flake": false,
       "locked": {
@@ -1323,6 +1339,7 @@
         "aylur": "aylur",
         "catppuccin": "catppuccin",
         "diniamo": "diniamo",
+        "fish-fzf-bd": "fish-fzf-bd",
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager_2",

@@ -84,6 +84,10 @@
         name = "fish-ghq";
         src = inputs.fish-ghq;
       }
+      {
+        name = "fish-fzf-bd";
+        src = inputs.fish-fzf-bd;
+      }
     ];
     interactiveShellInit = ''
       bind ctrl-s '__ghq_repository_search'
