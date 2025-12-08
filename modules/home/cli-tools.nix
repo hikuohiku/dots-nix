@@ -48,7 +48,8 @@
     just
 
     terraform
-    nushell
+    kubernetes-helm
+    cachix
   ];
 
   programs = {
