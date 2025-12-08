@@ -89,7 +89,6 @@
         ./hosts/nixos/hikuo-desktop
         ./hosts/hikuo-laptop.nix
         ./hosts/home/hikuo-desktop
-        ./hosts/hikuo-macbook.nix
       ];
 
       perSystem =

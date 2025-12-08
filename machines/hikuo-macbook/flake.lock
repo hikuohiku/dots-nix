@@ -1,0 +1,125 @@
+{
+  "nodes": {
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764885363,
+        "narHash": "sha256-P6UHmw6enwxmP5wP4Lv722+tgpq1PFDAPAdtj7l/16U=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "95042630028d613080393e0f03c694b77883c7db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
+    "fish-fzf-bd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737971088,
+        "narHash": "sha256-NAErU+F7CTf0wOfR1zfxw2TRBLPIHe5QDjEhyjCNLJE=",
+        "owner": "yuys13",
+        "repo": "fish-fzf-bd",
+        "rev": "fcbe9f6a75510365638dc6f790544c55ecb0ec3b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yuys13",
+        "repo": "fish-fzf-bd",
+        "type": "github"
+      }
+    },
+    "fish-ghq": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626409029,
+        "narHash": "sha256-6b1zmjtemNLNPx4qsXtm27AbtjwIZWkzJAo21/aVZzM=",
+        "owner": "decors",
+        "repo": "fish-ghq",
+        "rev": "cafaaabe63c124bf0714f89ec715cfe9ece87fa2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "decors",
+        "repo": "fish-ghq",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765202646,
+        "narHash": "sha256-Cgceqa+xPgI8JiS1fMaviGw4dthTeW2RqE6RUR4OcS8=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "caa47b637d877124ac891a64abc14de09fce1675",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765065051,
+        "narHash": "sha256-b7W9WsvyMOkUScNxbzS45KEJp0iiqRPyJ1I3JBE+oEE=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "7e22bf538aa3e0937effcb1cee73d5f1bcc26f79",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1764947035,
+        "narHash": "sha256-EYHSjVM4Ox4lvCXUMiKKs2vETUSL5mx+J2FfutM7T9w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a672be65651c80d3f592a89b3945466584a22069",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "catppuccin": "catppuccin",
+        "fish-fzf-bd": "fish-fzf-bd",
+        "fish-ghq": "fish-ghq",
+        "home-manager": "home-manager",
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
