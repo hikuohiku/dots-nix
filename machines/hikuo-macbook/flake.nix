@@ -2,6 +2,8 @@
   description = "hikuo-macbook darwin configuration";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
@@ -31,49 +33,29 @@
 
   outputs =
     inputs@{
-      self,
+      flake-parts,
       nixpkgs,
-      nix-darwin,
-      home-manager,
       ...
     }:
-    let
-      system = "aarch64-darwin";
-      pkgs = import nixpkgs { inherit system; };
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "aarch64-darwin" ];
 
-      listModules =
-        path:
-        let
-          entries = builtins.readDir path;
-          isNixFileOrDir =
-            name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-          filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
-        in
-        map (name: path + "/${name}") (builtins.attrNames filteredNames);
-    in
-    {
-      darwinConfigurations.hikuo-macbook = nix-darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./host.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hikuo = {
-              imports = [ ./home.nix ] ++ listModules ../../modules/nix-darwin/home;
-            };
-
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-              userInfo = {
-                username = "hikuo";
-                wallpaperPath = "/Users/hikuo/Pictures/wallpaper.jpg";
-              };
-            };
-          }
-        ] ++ listModules ../../modules/nix-darwin;
+      _module.args = {
+        mylib = {
+          listModules =
+            path:
+            let
+              entries = builtins.readDir path;
+              isNixFileOrDir =
+                name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
+              filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
+            in
+            map (name: path + "/${name}") (builtins.attrNames filteredNames);
+        };
       };
+
+      imports = [
+        ./darwin.nix
+      ];
     };
 }
