@@ -29,6 +29,11 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dots-lib = {
+      url = "path:../..";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -41,17 +46,7 @@
       systems = [ "aarch64-darwin" ];
 
       _module.args = {
-        mylib = {
-          listModules =
-            path:
-            let
-              entries = builtins.readDir path;
-              isNixFileOrDir =
-                name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-              filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
-            in
-            map (name: path + "/${name}") (builtins.attrNames filteredNames);
-        };
+        mylib = inputs.dots-lib.lib;
       };
 
       imports = [

@@ -19,4 +19,3 @@ jobs:
       - name: check hikuo-macbook
         working-directory: machines/hikuo-macbook
         run: nix eval .#darwinConfigurations.hikuo-macbook.system --raw
-

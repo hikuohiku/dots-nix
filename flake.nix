@@ -58,52 +58,54 @@
       nixpkgs,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      debug = true; # option定義をnixdに公開する
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { config, ... }:
+      {
+        debug = true; # option定義をnixdに公開する
 
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+        ];
 
-      _module.args = {
-        mylib = {
+        flake.lib = {
           listModules =
             path:
             let
               entries = builtins.readDir path;
-
-              # Filter to only include .nix files and directories
               isNixFileOrDir =
                 name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-
               filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
             in
             map (name: path + "/${name}") (builtins.attrNames filteredNames);
         };
-      };
 
-      imports = [
-        inputs.home-manager.flakeModules.home-manager
-        inputs.treefmt-nix.flakeModule
-        ./hosts/nixos/hikuo-desktop
-        ./hosts/hikuo-laptop.nix
-        ./hosts/home/hikuo-desktop
-      ];
+        _module.args = {
+          mylib = config.flake.lib;
+        };
 
-      perSystem =
-        { ... }:
-        {
-          treefmt = {
-            projectRootFile = "flake.nix";
-            programs = {
-              nixfmt-rfc-style.enable = true;
-              yamlfmt.enable = true;
-            };
+        imports = [
+          inputs.home-manager.flakeModules.home-manager
+          inputs.treefmt-nix.flakeModule
+          ./hosts/nixos/hikuo-desktop
+          ./hosts/hikuo-laptop.nix
+          ./hosts/home/hikuo-desktop
+        ];
 
-            settings.formatter = {
+        perSystem =
+          { ... }:
+          {
+            treefmt = {
+              projectRootFile = "flake.nix";
+              programs = {
+                nixfmt-rfc-style.enable = true;
+                yamlfmt.enable = true;
+              };
+
+              settings.formatter = {
+              };
             };
           };
-        };
-    };
+      }
+    );
 }
