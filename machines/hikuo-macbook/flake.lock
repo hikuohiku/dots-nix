@@ -22,22 +22,22 @@
     "aquamarine": {
       "inputs": {
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -78,18 +78,18 @@
       "inputs": {
         "ags": "ags",
         "astal": [
-          "dots-lib",
+          "mylib",
           "astal"
         ],
         "firefox-gnome-theme": "firefox-gnome-theme",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "hyprland-hyprspace": "hyprland-hyprspace",
         "hyprland-plugins": "hyprland-plugins",
         "lf-icons": "lf-icons",
         "matugen": "matugen",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ]
       },
@@ -149,10 +149,10 @@
       "inputs": {
         "dnix": "dnix",
         "dsync": "dsync",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "flint": "flint",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ],
         "nq": "nq",
@@ -179,13 +179,13 @@
       "inputs": {
         "fenix": "fenix",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nq",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nq",
           "systems"
@@ -208,13 +208,13 @@
     "dnix": {
       "inputs": {
         "flake-parts": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "flake-parts"
         ],
         "git-hooks-nix": "git-hooks-nix",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ],
@@ -235,44 +235,15 @@
         "type": "github"
       }
     },
-    "dots-lib": {
-      "inputs": {
-        "astal": "astal",
-        "aylur": "aylur",
-        "catppuccin": "catppuccin_2",
-        "diniamo": "diniamo",
-        "fish-fzf-bd": "fish-fzf-bd",
-        "fish-ghq": "fish-ghq",
-        "flake-parts": "flake-parts_2",
-        "home-manager": "home-manager_2",
-        "hyprland": "hyprland_2",
-        "nix-darwin": "nix-darwin",
-        "nixos-hardware": "nixos-hardware",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": "treefmt-nix",
-        "zen-browser": "zen-browser"
-      },
-      "locked": {
-        "path": "../..",
-        "type": "path"
-      },
-      "original": {
-        "path": "../..",
-        "type": "path"
-      },
-      "parent": []
-    },
     "dsync": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "systems"
         ]
@@ -294,7 +265,7 @@
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nq",
           "dix",
@@ -430,18 +401,14 @@
     },
     "flake-parts": {
       "inputs": {
-        "nixpkgs-lib": [
-          "dots-lib",
-          "diniamo",
-          "nixpkgs"
-        ]
+        "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1743550720,
-        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
+        "lastModified": 1763759067,
+        "narHash": "sha256-LlLt2Jo/gMNYAwOgdRQBrsRoOz7BPRkzvNaI/fzXi2Q=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
+        "rev": "2cccadc7357c0ba201788ae99c4dfa90728ef5e0",
         "type": "github"
       },
       "original": {
@@ -452,14 +419,18 @@
     },
     "flake-parts_2": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": [
+          "mylib",
+          "diniamo",
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1763759067,
-        "narHash": "sha256-LlLt2Jo/gMNYAwOgdRQBrsRoOz7BPRkzvNaI/fzXi2Q=",
+        "lastModified": 1743550720,
+        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "2cccadc7357c0ba201788ae99c4dfa90728ef5e0",
+        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
         "type": "github"
       },
       "original": {
@@ -489,7 +460,7 @@
     "flint": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ]
@@ -512,12 +483,12 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "gitignore": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "dnix"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "dnix",
           "nixpkgs"
@@ -539,7 +510,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "pre-commit-hooks",
           "nixpkgs"
@@ -562,7 +533,27 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765202646,
+        "narHash": "sha256-Cgceqa+xPgI8JiS1fMaviGw4dthTeW2RqE6RUR4OcS8=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "caa47b637d877124ac891a64abc14de09fce1675",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "mylib",
           "aylur",
           "nixpkgs"
         ]
@@ -581,10 +572,10 @@
         "type": "github"
       }
     },
-    "home-manager_2": {
+    "home-manager_3": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ]
       },
@@ -602,10 +593,10 @@
         "type": "github"
       }
     },
-    "home-manager_3": {
+    "home-manager_4": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "zen-browser",
           "nixpkgs"
         ]
@@ -624,42 +615,22 @@
         "type": "github"
       }
     },
-    "home-manager_4": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1765202646,
-        "narHash": "sha256-Cgceqa+xPgI8JiS1fMaviGw4dthTeW2RqE6RUR4OcS8=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "caa47b637d877124ac891a64abc14de09fce1675",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "hyprlang"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "systems"
@@ -682,17 +653,17 @@
     "hyprcursor_2": {
       "inputs": {
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprlang"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -714,17 +685,17 @@
     "hyprgraphics": {
       "inputs": {
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -772,38 +743,38 @@
     "hyprland-guiutils": {
       "inputs": {
         "aquamarine": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprlang"
         ],
         "hyprtoolkit": "hyprtoolkit",
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -825,7 +796,7 @@
     "hyprland-hyprspace": {
       "inputs": {
         "hyprland": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland"
         ]
@@ -847,19 +818,19 @@
     "hyprland-plugins": {
       "inputs": {
         "hyprland": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland-plugins",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland-plugins",
           "hyprland",
@@ -883,14 +854,14 @@
     "hyprland-protocols": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "xdph",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "xdph",
@@ -914,12 +885,12 @@
     "hyprland-protocols_2": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -971,19 +942,19 @@
     "hyprlang": {
       "inputs": {
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "hyprutils"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "systems"
@@ -1006,17 +977,17 @@
     "hyprlang_2": {
       "inputs": {
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -1038,43 +1009,43 @@
     "hyprtoolkit": {
       "inputs": {
         "aquamarine": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "aquamarine"
         ],
         "hyprgraphics": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "hyprgraphics"
         ],
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "hyprlang"
         ],
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-guiutils",
           "systems"
@@ -1097,13 +1068,13 @@
     "hyprutils": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "systems"
@@ -1126,12 +1097,12 @@
     "hyprutils_2": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -1153,13 +1124,13 @@
     "hyprwayland-scanner": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "systems"
@@ -1182,12 +1153,12 @@
     "hyprwayland-scanner_2": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -1209,17 +1180,17 @@
     "hyprwire": {
       "inputs": {
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -1273,10 +1244,39 @@
         "type": "github"
       }
     },
+    "mylib": {
+      "inputs": {
+        "astal": "astal",
+        "aylur": "aylur",
+        "catppuccin": "catppuccin_2",
+        "diniamo": "diniamo",
+        "fish-fzf-bd": "fish-fzf-bd_2",
+        "fish-ghq": "fish-ghq_2",
+        "flake-parts": "flake-parts_3",
+        "home-manager": "home-manager_3",
+        "hyprland": "hyprland_2",
+        "nix-darwin": "nix-darwin",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix",
+        "zen-browser": "zen-browser"
+      },
+      "locked": {
+        "path": "../..",
+        "type": "path"
+      },
+      "original": {
+        "path": "../..",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ]
       },
@@ -1510,17 +1510,17 @@
       "inputs": {
         "dix": "dix",
         "flake-parts": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "flake-parts"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "systems"
         ]
@@ -1544,7 +1544,7 @@
         "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ]
@@ -1566,11 +1566,11 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
-        "dots-lib": "dots-lib",
-        "fish-fzf-bd": "fish-fzf-bd_2",
-        "fish-ghq": "fish-ghq_2",
-        "flake-parts": "flake-parts_3",
-        "home-manager": "home-manager_4",
+        "fish-fzf-bd": "fish-fzf-bd",
+        "fish-ghq": "fish-ghq",
+        "flake-parts": "flake-parts",
+        "home-manager": "home-manager",
+        "mylib": "mylib",
         "nix-darwin": "nix-darwin_2",
         "nixpkgs": "nixpkgs_7"
       }
@@ -1655,7 +1655,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ]
       },
@@ -1676,7 +1676,7 @@
     "watt": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ]
@@ -1698,12 +1698,12 @@
     "wayhibitor": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "systems"
         ]
@@ -1725,12 +1725,12 @@
     "wiremix": {
       "inputs": {
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "diniamo",
           "systems"
         ]
@@ -1753,19 +1753,19 @@
       "inputs": {
         "hyprland-protocols": "hyprland-protocols",
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "hyprlang"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "aylur",
           "hyprland",
           "systems"
@@ -1788,32 +1788,32 @@
     "xdph_2": {
       "inputs": {
         "hyprland-protocols": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprland-protocols"
         ],
         "hyprlang": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprlang"
         ],
         "hyprutils": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprutils"
         ],
         "hyprwayland-scanner": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "hyprwayland-scanner"
         ],
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "nixpkgs"
         ],
         "systems": [
-          "dots-lib",
+          "mylib",
           "hyprland",
           "systems"
         ]
@@ -1834,9 +1834,9 @@
     },
     "zen-browser": {
       "inputs": {
-        "home-manager": "home-manager_3",
+        "home-manager": "home-manager_4",
         "nixpkgs": [
-          "dots-lib",
+          "mylib",
           "nixpkgs"
         ]
       },

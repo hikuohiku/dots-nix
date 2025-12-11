@@ -39,13 +39,12 @@
   outputs =
     inputs@{
       flake-parts,
-      nixpkgs,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "aarch64-darwin" ];
       imports = [
-        ./darwin.nix
+        ./configuration.nix
       ];
     };
 }
