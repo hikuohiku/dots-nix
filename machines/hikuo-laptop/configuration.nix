@@ -1,26 +1,19 @@
-{ withSystem, inputs, ... }:
+{
+  withSystem,
+  inputs,
+  ...
+}:
 {
   flake.nixosConfigurations.hikuo-laptop = withSystem "x86_64-linux" (
-    ctx@{ inputs', ... }:
+    { inputs', ... }:
     inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs inputs';
-        userInfo = {
-          username = "hikuo";
-        };
-        systemInfo = {
-          hostname = "hikuo-laptop";
-        };
-      };
       modules = [
-        ./nixos/hikuo-laptop/configuration.nix
-        ./nixos/hikuo-laptop/distributed-builds.nix
         inputs.nixos-hardware.nixosModules.microsoft-surface-laptop-amd
         inputs.home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.hikuo = import ./home/hikuo-laptop;
+          home-manager.users.hikuo = import ./modules/home;
           home-manager.backupFileExtension = "backup";
 
           home-manager.extraSpecialArgs = {
@@ -35,7 +28,18 @@
             };
           };
         }
-      ];
+      ]
+      ++ inputs.mylib.lib.listModules ./modules;
+
+      specialArgs = {
+        inherit inputs inputs';
+        userInfo = {
+          username = "hikuo";
+        };
+        systemInfo = {
+          hostname = "hikuo-laptop";
+        };
+      };
     }
   );
 }

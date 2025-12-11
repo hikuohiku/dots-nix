@@ -4,25 +4,23 @@
 }:
 rec {
   imports = [
-    ../../../modules/home/my.nix
-    ../../../modules/home/core
-    ../../../modules/home/fonts
-    ../../../modules/home/terminal
-    ../../../modules/home/alacritty
-    ../../../modules/home/zellij
-    ../../../modules/home/git
-    ../../../modules/home/editor
-    ../../../modules/home/browser
-    ../../../modules/home/cli-tools.nix
-    ../../../modules/home/gui-tools
-    ../../../modules/home/fileServer.nix
-    ../../../modules/home/unixporn/aylur
+    ../../../../modules/home/my.nix
+    ../../../../modules/home/core
+    ../../../../modules/home/terminal
+    ../../../../modules/home/alacritty
+    ../../../../modules/home/zellij
+    ../../../../modules/home/git
+    ../../../../modules/home/editor
+    ../../../../modules/home/cli-tools.nix
+    ../../../../modules/home/fileServer.nix
   ];
+
+  catppuccin.enable = true;
+  catppuccin.flavor = "latte";
 
   # nixpkgs
   nixpkgs.config = {
     allowUnfree = true;
-    allowBroken = true;
   };
 
   # home-manager
@@ -35,8 +33,6 @@ rec {
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
   };
-
-  xdg.mimeApps.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
