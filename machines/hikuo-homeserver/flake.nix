@@ -23,7 +23,7 @@
     catppuccin.url = "github:catppuccin/nix";
 
     mylib = {
-      url = "path:../..";
+      url = "github:hikuohiku/dots-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
