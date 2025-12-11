@@ -1,7 +1,6 @@
 {
   withSystem,
   inputs,
-  mylib,
   ...
 }:
 {
@@ -17,8 +16,7 @@
           home-manager.users.hikuo = {
             imports = [
               ./home.nix
-            ]
-            ++ mylib.listModules ../../modules/nix-darwin/home;
+            ] ++ inputs.mylib.lib.listModules ../../modules/nix-darwin/home;
           };
 
           home-manager.extraSpecialArgs = {
@@ -29,8 +27,7 @@
             };
           };
         }
-      ]
-      ++ mylib.listModules ../../modules/nix-darwin;
+      ] ++ inputs.mylib.lib.listModules ../../modules/nix-darwin;
     }
   );
 }

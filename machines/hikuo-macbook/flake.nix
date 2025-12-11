@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dots-lib = {
+    mylib = {
       url = "path:../..";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -44,11 +44,6 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "aarch64-darwin" ];
-
-      _module.args = {
-        mylib = inputs.dots-lib.lib;
-      };
-
       imports = [
         ./darwin.nix
       ];
