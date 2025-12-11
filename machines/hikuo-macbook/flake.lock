@@ -117,14 +117,18 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "path": "../..",
-        "type": "path"
+        "lastModified": 1765474272,
+        "narHash": "sha256-S+NUQfU1JTd3De3jLyaDWdatitDdvJXbJNlg0+3hU2k=",
+        "owner": "hikuohiku",
+        "repo": "dots-nix",
+        "rev": "93b003ea4c096818642ede594dae60e15cc12a8b",
+        "type": "github"
       },
       "original": {
-        "path": "../..",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "hikuohiku",
+        "repo": "dots-nix",
+        "type": "github"
+      }
     },
     "nix-darwin": {
       "inputs": {
