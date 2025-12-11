@@ -4,18 +4,26 @@
 }:
 rec {
   imports = [
-    ../../../modules/home/my.nix
-    ../../../modules/home/core
-    ../../../modules/home/fonts
-    ../../../modules/home/terminal
-    ../../../modules/home/alacritty
-    ../../../modules/home/zellij
-    ../../../modules/home/git
-    ../../../modules/home/editor
-    ../../../modules/home/browser
-    ../../../modules/home/cli-tools.nix
-    ../../../modules/home/gui-tools
+    ../../../../modules/home/my.nix
+    ../../../../modules/home/core
+    ../../../../modules/home/fonts
+    ../../../../modules/home/terminal
+    ../../../../modules/home/alacritty
+    ../../../../modules/home/zellij
+    ../../../../modules/home/git
+    ../../../../modules/home/editor
+    ../../../../modules/home/browser
+    ../../../../modules/home/cli-tools.nix
+    ../../../../modules/home/gui-tools
+    ../../../../modules/home/fileServer.nix
+    ../../../../modules/home/unixporn/aylur
   ];
+
+  # nixpkgs
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
 
   # home-manager
   home.username = userInfo.username;
@@ -37,5 +45,5 @@ rec {
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 }
