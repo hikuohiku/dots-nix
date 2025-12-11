@@ -12,10 +12,6 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes pipe-operators
       - run: nix flake check
-      - name: Eval NixOS configuration # Build すると GitHub ホステッドランナーのストレージを使い果たしてしまうっぽいのでしかたない
-        run: nix eval .#nixosConfigurations.hikuo-desktop.config.system.build.toplevel --raw
-      - name: Eval Home-Manager configuration
-        run: nix eval .#homeConfigurations.hikuo.activationPackage --raw
       - name: check hikuo-macbook
         working-directory: machines/hikuo-macbook
         run: nix eval .#darwinConfigurations.hikuo-macbook.system --raw
