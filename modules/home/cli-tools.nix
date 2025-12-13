@@ -50,6 +50,7 @@
     terraform
     kubernetes-helm
     cachix
+    doppler
   ];
 
   programs = {
