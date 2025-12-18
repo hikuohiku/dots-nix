@@ -11,8 +11,8 @@ TERM = "alacritty"
 [font]
 size = 12
 [font.normal]
-family = "PlemolJP35 Console NF"
-style = "Medium"
+family = "PlemolJP Console NF"
+style = "Regular"
 
 [window]
 blur = true
