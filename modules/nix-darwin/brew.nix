@@ -24,6 +24,7 @@
     "notchnook"
     "launchcontrol"
     "xbar"
+    "ente"
   ];
 
   homebrew.masApps = {
