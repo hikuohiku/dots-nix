@@ -32,9 +32,11 @@
           # Helper to create a module that imports default.nix + OS-specific files
           mkModuleWithPlatform =
             path:
+            { pkgs, ... }:
             let
-              isLinux = builtins.match ".*-linux" builtins.currentSystem != null;
-              isDarwin = builtins.match ".*-darwin" builtins.currentSystem != null;
+              system = pkgs.system;
+              isLinux = builtins.match ".*-linux" system != null;
+              isDarwin = builtins.match ".*-darwin" system != null;
             in
             {
               imports = [
