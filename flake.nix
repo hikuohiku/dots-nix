@@ -29,20 +29,43 @@
         ];
 
         flake.lib = {
+          # Helper to create a module that imports default.nix + OS-specific files
+          mkModuleWithPlatform =
+            path:
+            { pkgs, lib, ... }:
+            {
+              imports = [
+                (path + "/default.nix")
+              ]
+              ++ lib.optionals (pkgs.stdenv.isLinux && builtins.pathExists (path + "/linux.nix")) [
+                (path + "/linux.nix")
+              ]
+              ++ lib.optionals (pkgs.stdenv.isDarwin && builtins.pathExists (path + "/darwin.nix")) [
+                (path + "/darwin.nix")
+              ];
+            };
+
           # Helper to convert directory entries to module attrset
           mkModulesFromDir =
             path:
             let
+              inherit (inputs.self.lib) mkModuleWithPlatform;
               entries = builtins.readDir path;
               isNixFileOrDir =
                 name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
               filteredEntries = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
               toModuleName = name: nixpkgs.lib.strings.removeSuffix ".nix" name;
+              mkModule =
+                name: entryType:
+                let
+                  modulePath = path + "/${name}";
+                in
+                if entryType == "directory" then mkModuleWithPlatform modulePath else modulePath;
             in
             builtins.listToAttrs (
               map (name: {
                 name = toModuleName name;
-                value = path + "/${name}";
+                value = mkModule name filteredEntries.${name};
               }) (builtins.attrNames filteredEntries)
             );
         };

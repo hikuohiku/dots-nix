@@ -5,12 +5,6 @@
   ...
 }:
 {
-  imports = [
-    ./linux.nix
-  ];
-
-  editor-linux.enable = pkgs.stdenv.isLinux;
-
   home.packages = with pkgs; [
     neovim
     neovide
