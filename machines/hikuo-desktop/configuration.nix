@@ -7,13 +7,12 @@
   flake.nixosConfigurations.hikuo-desktop = withSystem "x86_64-linux" (
     { inputs', ... }:
     inputs.nixpkgs.lib.nixosSystem {
-      modules =
-        [
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.mylib.nixosModules.default
-        ]
-        ++ builtins.attrValues (inputs.mylib.lib.mkModulesFromDir ./modules);
+      modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.catppuccin.nixosModules.catppuccin
+        inputs.mylib.nixosModules.default
+      ]
+      ++ builtins.attrValues (inputs.mylib.lib.mkModulesFromDir ./modules);
 
       specialArgs = {
         inherit inputs inputs';
