@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ lib, pkgs, ... }:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   # fish
   programs.fish = {
     enable = true;

@@ -1,5 +1,5 @@
-{ ... }:
-{
+{ lib, pkgs, ... }:
+lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
   # fish
   programs.fish = {
     enable = true;

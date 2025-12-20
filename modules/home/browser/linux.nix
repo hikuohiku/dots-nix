@@ -1,5 +1,5 @@
-{ inputs', ... }:
-{
+{ lib, pkgs, inputs', ... }:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   home.packages = [
     inputs'.zen-browser.packages.default
   ];

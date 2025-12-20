@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ lib, pkgs, ... }:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   # vscode
   programs.vscode = {
     enable = true;

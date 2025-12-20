@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ lib, pkgs, ... }:
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   home.packages = with pkgs; [
     pavucontrol # PulseAudio GUI
     nautilus # file manager
