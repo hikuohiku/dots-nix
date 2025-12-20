@@ -117,11 +117,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1766231747,
-        "narHash": "sha256-NZGzVyRW13BlnjZQ2MD17a2JxcBscM9XoLkIUrQIkzY=",
+        "lastModified": 1766243323,
+        "narHash": "sha256-eYUvynp1Pi8U0kMxfWb0f5QRRjqDqVL0zfqfz7hVu1A=",
         "owner": "hikuohiku",
         "repo": "dots-nix",
-        "rev": "4620759df0977d69705bab449bc0b975833e9338",
+        "rev": "012db88bd01a1c7b1686608e59c5296d4887291d",
         "type": "github"
       },
       "original": {
