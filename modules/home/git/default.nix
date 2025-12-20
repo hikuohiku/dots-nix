@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    (inputs.self.lib.mkModuleWithPlatform ./lazygit)
+    (inputs.mylib.lib.mkModuleWithPlatform ./lazygit)
   ];
 
   home.packages = with pkgs; [
