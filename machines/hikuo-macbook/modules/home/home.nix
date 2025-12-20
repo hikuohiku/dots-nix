@@ -21,6 +21,8 @@
     ../../../../modules/home/skhd
     ../../../../modules/home/runtimes/typescript.nix
     ../../../../modules/home/runtimes/actions.nix
+    ../../../../modules/home/fortivpn
+    ../../../../modules/home/fortivpn/darwin.nix
   ];
 
   # home-manager
