@@ -10,9 +10,9 @@
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.catppuccin.nixosModules.catppuccin
+        inputs.mylib.nixosModules.default
       ]
-      ++ inputs.mylib.lib.listModules ./modules
-      ++ inputs.mylib.lib.listModules ../../modules/nixos;
+      ++ builtins.attrValues (inputs.mylib.lib.mkModulesFromDir ./modules);
 
       specialArgs = {
         inherit inputs inputs';

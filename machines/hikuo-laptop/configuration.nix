@@ -29,7 +29,7 @@
           };
         }
       ]
-      ++ inputs.mylib.lib.listModules ./modules;
+      ++ builtins.attrValues (inputs.mylib.lib.mkModulesFromDir ./modules);
 
       specialArgs = {
         inherit inputs inputs';

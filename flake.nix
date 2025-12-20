@@ -29,16 +29,44 @@
         ];
 
         flake.lib = {
-          listModules =
+          # Helper to convert directory entries to module attrset
+          mkModulesFromDir =
             path:
             let
               entries = builtins.readDir path;
               isNixFileOrDir =
                 name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-              filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
+              filteredEntries = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
+              toModuleName = name: nixpkgs.lib.strings.removeSuffix ".nix" name;
             in
-            map (name: path + "/${name}") (builtins.attrNames filteredNames);
+            builtins.listToAttrs (
+              map (name: {
+                name = toModuleName name;
+                value = path + "/${name}";
+              }) (builtins.attrNames filteredEntries)
+            );
         };
+
+        # home-manager modules
+        flake.homeManagerModules =
+          let
+            modules = inputs.self.lib.mkModulesFromDir ./modules/home;
+          in
+          modules // { default.imports = builtins.attrValues modules; };
+
+        # nix-darwin modules
+        flake.darwinModules =
+          let
+            modules = inputs.self.lib.mkModulesFromDir ./modules/nix-darwin;
+          in
+          modules // { default.imports = builtins.attrValues modules; };
+
+        # NixOS modules
+        flake.nixosModules =
+          let
+            modules = inputs.self.lib.mkModulesFromDir ./modules/nixos;
+          in
+          modules // { default.imports = builtins.attrValues modules; };
 
         imports = [
           inputs.treefmt-nix.flakeModule

@@ -9,9 +9,9 @@
     inputs.nix-darwin.lib.darwinSystem {
       modules = [
         inputs.home-manager.darwinModules.home-manager
+        inputs.mylib.darwinModules.default
       ]
-      ++ inputs.mylib.lib.listModules ./modules
-      ++ inputs.mylib.lib.listModules ../../modules/nix-darwin;
+      ++ builtins.attrValues (inputs.mylib.lib.mkModulesFromDir ./modules);
 
       specialArgs = {
         inherit inputs inputs';

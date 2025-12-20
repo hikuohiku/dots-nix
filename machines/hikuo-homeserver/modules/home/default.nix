@@ -1,18 +1,19 @@
 {
+  inputs,
   userInfo,
   ...
 }:
 rec {
-  imports = [
-    ../../../../modules/home/my.nix
-    ../../../../modules/home/core
-    ../../../../modules/home/terminal
-    ../../../../modules/home/alacritty
-    ../../../../modules/home/zellij
-    ../../../../modules/home/git
-    ../../../../modules/home/editor
-    ../../../../modules/home/cli-tools.nix
-    ../../../../modules/home/fileServer.nix
+  imports = with inputs.mylib.homeManagerModules; [
+    my
+    core
+    terminal
+    alacritty
+    zellij
+    git
+    editor
+    cli-tools
+    fileServer
   ];
 
   catppuccin.enable = true;
