@@ -1,20 +1,21 @@
 {
+  inputs,
   userInfo,
   ...
 }:
 rec {
-  imports = [
-    ../../../../modules/home/my.nix
-    ../../../../modules/home/core
-    ../../../../modules/home/fonts
-    ../../../../modules/home/terminal
-    ../../../../modules/home/alacritty
-    ../../../../modules/home/zellij
-    ../../../../modules/home/git
-    ../../../../modules/home/editor
-    ../../../../modules/home/browser
-    ../../../../modules/home/cli-tools.nix
-    ../../../../modules/home/gui-tools
+  imports = with inputs.mylib.homeManagerModules; [
+    my
+    core
+    fonts
+    terminal
+    alacritty
+    zellij
+    git
+    editor
+    browser
+    cli-tools
+    gui-tools
   ];
 
   # home-manager

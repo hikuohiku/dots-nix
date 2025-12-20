@@ -5,8 +5,8 @@
   home-manager.users.hikuo = {
     imports = [
       ./home.nix
-    ]
-    ++ inputs.mylib.lib.listModules ../../../../modules/nix-darwin/home;
+      inputs.mylib.darwinModules.home
+    ];
   };
 
   home-manager.extraSpecialArgs = {

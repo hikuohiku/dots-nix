@@ -29,16 +29,6 @@
         ];
 
         flake.lib = {
-          listModules =
-            path:
-            let
-              entries = builtins.readDir path;
-              isNixFileOrDir =
-                name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-              filteredNames = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
-            in
-            map (name: path + "/${name}") (builtins.attrNames filteredNames);
-
           # Helper to convert directory entries to module attrset
           mkModulesFromDir =
             path:
