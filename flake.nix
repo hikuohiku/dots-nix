@@ -31,15 +31,16 @@
         flake.lib = {
           # Helper to create a module that imports default.nix + OS-specific files
           mkModuleWithPlatform = path: {
-            imports = [
-              (path + "/default.nix")
-            ]
-            ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/linux.nix")) [
-              (path + "/linux.nix")
-            ]
-            ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/darwin.nix")) [
-              (path + "/darwin.nix")
-            ];
+            imports =
+              nixpkgs.lib.optionals (builtins.pathExists (path + "/default.nix")) [
+                (path + "/default.nix")
+              ]
+              ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/linux.nix")) [
+                (path + "/linux.nix")
+              ]
+              ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/darwin.nix")) [
+                (path + "/darwin.nix")
+              ];
           };
 
           # Helper to convert directory entries to module attrset
