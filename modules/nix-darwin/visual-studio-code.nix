@@ -8,6 +8,9 @@
     "com.microsoft.VSCode" = {
       ApplePressAndHoldEnabled = false;
     };
+    "com.google.antigravity" = {
+      ApplePressAndHoldEnabled = false;
+    };
   };
 
 }

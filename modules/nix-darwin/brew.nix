@@ -24,7 +24,7 @@
     "notchnook"
     "launchcontrol"
     "xbar"
-    "ente"
+    "ghostty"
   ];
 
   homebrew.masApps = {
