@@ -32,15 +32,18 @@
           # Helper to create a module that imports default.nix + OS-specific files
           mkModuleWithPlatform =
             path:
-            { pkgs, lib, ... }:
+            let
+              isLinux = builtins.match ".*-linux" builtins.currentSystem != null;
+              isDarwin = builtins.match ".*-darwin" builtins.currentSystem != null;
+            in
             {
               imports = [
                 (path + "/default.nix")
               ]
-              ++ lib.optionals (pkgs.stdenv.isLinux && builtins.pathExists (path + "/linux.nix")) [
+              ++ nixpkgs.lib.optionals (isLinux && builtins.pathExists (path + "/linux.nix")) [
                 (path + "/linux.nix")
               ]
-              ++ lib.optionals (pkgs.stdenv.isDarwin && builtins.pathExists (path + "/darwin.nix")) [
+              ++ nixpkgs.lib.optionals (isDarwin && builtins.pathExists (path + "/darwin.nix")) [
                 (path + "/darwin.nix")
               ];
             };
