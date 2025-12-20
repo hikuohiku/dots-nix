@@ -60,26 +60,23 @@
         # home-manager modules
         flake.homeManagerModules =
           let
-            modulesDir = ./modules/home;
-            modules = inputs.self.lib.mkModulesFromDir modulesDir;
+            modules = inputs.self.lib.mkModulesFromDir ./modules/home;
           in
-          modules // { default = modulesDir; };
+          modules // { default.imports = builtins.attrValues modules; };
 
         # nix-darwin modules
         flake.darwinModules =
           let
-            modulesDir = ./modules/nix-darwin;
-            modules = inputs.self.lib.mkModulesFromDir modulesDir;
+            modules = inputs.self.lib.mkModulesFromDir ./modules/nix-darwin;
           in
-          modules // { default = modulesDir; };
+          modules // { default.imports = builtins.attrValues modules; };
 
         # NixOS modules
         flake.nixosModules =
           let
-            modulesDir = ./modules/nixos;
-            modules = inputs.self.lib.mkModulesFromDir modulesDir;
+            modules = inputs.self.lib.mkModulesFromDir ./modules/nixos;
           in
-          modules // { default = modulesDir; };
+          modules // { default.imports = builtins.attrValues modules; };
 
         imports = [
           inputs.treefmt-nix.flakeModule
