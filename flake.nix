@@ -34,14 +34,15 @@
             path:
             { pkgs, lib, ... }:
             {
-              imports =
-                [ (path + "/default.nix") ]
-                ++ lib.optionals (pkgs.stdenv.isLinux && builtins.pathExists (path + "/linux.nix")) [
-                  (path + "/linux.nix")
-                ]
-                ++ lib.optionals (pkgs.stdenv.isDarwin && builtins.pathExists (path + "/darwin.nix")) [
-                  (path + "/darwin.nix")
-                ];
+              imports = [
+                (path + "/default.nix")
+              ]
+              ++ lib.optionals (pkgs.stdenv.isLinux && builtins.pathExists (path + "/linux.nix")) [
+                (path + "/linux.nix")
+              ]
+              ++ lib.optionals (pkgs.stdenv.isDarwin && builtins.pathExists (path + "/darwin.nix")) [
+                (path + "/darwin.nix")
+              ];
             };
 
           # Helper to convert directory entries to module attrset
