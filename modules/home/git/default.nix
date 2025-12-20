@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
+{ inputs, pkgs, ... }:
 {
-  imports = lib.fileset.fileFilter (file: file.hasExt "nix") ./lazygit |> lib.fileset.toList;
+  imports = [
+    (inputs.self.lib.mkModuleWithPlatform ./lazygit)
+  ];
 
   home.packages = with pkgs; [
     git

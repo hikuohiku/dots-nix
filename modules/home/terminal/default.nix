@@ -1,13 +1,5 @@
 { inputs, pkgs, ... }:
 {
-  imports = [
-    ./linux.nix
-    ./darwin.nix
-  ];
-
-  terminal-linux.enable = pkgs.stdenv.isLinux;
-  terminal-darwin.enable = pkgs.stdenv.isDarwin;
-
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
     LS_COLORS = "$(vivid generate tokyonight-moon)";
