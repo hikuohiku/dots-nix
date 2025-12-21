@@ -1,4 +1,9 @@
-{ mylib, inputs, pkgs, ... }:
+{
+  mylib,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = mylib.listPlatformModules ./.;
   home.sessionVariables = {
