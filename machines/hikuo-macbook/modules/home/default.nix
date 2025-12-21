@@ -3,9 +3,22 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.hikuo = {
-    imports = [
+    imports = with inputs.my.homeManagerModules; [
       ./home.nix
-      inputs.my.darwinModules.home
+      my
+      core
+      fonts
+      terminal
+      zellij
+      git
+      editor
+      browser
+      cli-tools
+      gui-tools
+      fileServer
+      yabai
+      skhd
+      fortivpn
     ];
   };
 

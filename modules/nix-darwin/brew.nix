@@ -19,7 +19,6 @@
     "forklift"
     "insomnia"
     "tailscale-app"
-    "alacritty"
     "core-tunnel"
     "notchnook"
     "launchcontrol"

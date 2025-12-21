@@ -4,27 +4,6 @@
   ...
 }:
 {
-  imports = [
-    ../../../../modules/home/my.nix
-    ../../../../modules/home/core
-    ../../../../modules/home/fonts
-    ../../../../modules/home/terminal
-    ../../../../modules/home/alacritty
-    ../../../../modules/home/zellij
-    ../../../../modules/home/git
-    ../../../../modules/home/editor
-    ../../../../modules/home/browser
-    ../../../../modules/home/cli-tools.nix
-    ../../../../modules/home/gui-tools
-    ../../../../modules/home/fileServer.nix
-    ../../../../modules/home/yabai
-    ../../../../modules/home/skhd
-    ../../../../modules/home/runtimes/typescript.nix
-    ../../../../modules/home/runtimes/actions.nix
-    ../../../../modules/home/fortivpn
-    ../../../../modules/home/fortivpn/darwin.nix
-  ];
-
   # home-manager
   home.username = userInfo.username;
   home.homeDirectory = lib.mkForce "/Users/${userInfo.username}";
