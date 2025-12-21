@@ -1,6 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    (inputs.mylib.lib.mkModuleWithPlatform ./pac)
-  ];
+    ./pac
+  ]
+  ++ inputs.mylib.lib.listPlatformModules ./.;
 }

@@ -29,41 +29,29 @@
         ];
 
         flake.lib = {
-          # Helper to create a module that imports default.nix + OS-specific files
-          mkModuleWithPlatform = path: {
-            imports =
-              nixpkgs.lib.optionals (builtins.pathExists (path + "/default.nix")) [
-                (path + "/default.nix")
-              ]
-              ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/linux.nix")) [
-                (path + "/linux.nix")
-              ]
-              ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/darwin.nix")) [
-                (path + "/darwin.nix")
-              ];
-          };
+          listPlatformModules =
+            path:
+            nixpkgs.lib.optionals (builtins.pathExists (path + "/linux.nix")) [
+              (path + "/linux.nix")
+            ]
+            ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/darwin.nix")) [
+              (path + "/darwin.nix")
+            ];
 
           # Helper to convert directory entries to module attrset
           mkModulesFromDir =
             path:
             let
-              inherit (inputs.self.lib) mkModuleWithPlatform;
               entries = builtins.readDir path;
               isNixFileOrDir =
                 name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
               filteredEntries = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
               toModuleName = name: nixpkgs.lib.strings.removeSuffix ".nix" name;
-              mkModule =
-                name: entryType:
-                let
-                  modulePath = path + "/${name}";
-                in
-                if entryType == "directory" then mkModuleWithPlatform modulePath else modulePath;
             in
             builtins.listToAttrs (
               map (name: {
                 name = toModuleName name;
-                value = mkModule name filteredEntries.${name};
+                value = path + "/${name}";
               }) (builtins.attrNames filteredEntries)
             );
         };
