@@ -10,6 +10,7 @@
       inherit pkgs;
       extraSpecialArgs = {
         inherit inputs inputs';
+        mylib = inputs.my.lib;
         userInfo = {
           username = "hikuo";
           git = {

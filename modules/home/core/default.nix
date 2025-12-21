@@ -1,6 +1,6 @@
-{ inputs, pkgs, ... }:
+{ mylib, pkgs, ... }:
 {
-  imports = inputs.my.lib.listPlatformModules ./.;
+  imports = mylib.listPlatformModules ./.;
   home.packages = with pkgs; [
     # ========== Language Environment ==========
     nodejs

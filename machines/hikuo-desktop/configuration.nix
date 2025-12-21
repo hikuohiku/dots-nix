@@ -16,6 +16,7 @@
 
       specialArgs = {
         inherit inputs inputs';
+        mylib = inputs.my.lib;
         userInfo = {
           username = "hikuo";
         };
@@ -32,6 +33,7 @@
       inherit pkgs;
       extraSpecialArgs = {
         inherit inputs inputs';
+        mylib = inputs.my.lib;
         userInfo = {
           username = "hikuo";
           wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";

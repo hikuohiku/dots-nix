@@ -15,6 +15,7 @@
 
       specialArgs = {
         inherit inputs inputs';
+        mylib = inputs.my.lib;
       };
     }
   );

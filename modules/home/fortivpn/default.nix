@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ mylib, ... }:
 {
   imports = [
     ./pac
   ]
-  ++ inputs.my.lib.listPlatformModules ./.;
+  ++ mylib.listPlatformModules ./.;
 }

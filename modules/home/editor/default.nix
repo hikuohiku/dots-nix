@@ -1,12 +1,12 @@
 {
-  inputs,
+  mylib,
   self,
   config,
   pkgs,
   ...
 }:
 {
-  imports = inputs.my.lib.listPlatformModules ./.;
+  imports = mylib.listPlatformModules ./.;
   home.packages = with pkgs; [
     neovim
     neovide
