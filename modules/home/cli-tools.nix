@@ -51,6 +51,9 @@
     kubernetes-helm
     cachix
     doppler
+    treefmt
+    nixfmt
+    yamlfmt
   ];
 
   programs = {

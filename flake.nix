@@ -3,13 +3,7 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -76,25 +70,6 @@
             modules = inputs.self.lib.mkModulesFromDir ./modules/nixos;
           in
           modules // { default.imports = builtins.attrValues modules; };
-
-        imports = [
-          inputs.treefmt-nix.flakeModule
-        ];
-
-        perSystem =
-          { ... }:
-          {
-            treefmt = {
-              projectRootFile = "flake.nix";
-              programs = {
-                nixfmt-rfc-style.enable = true;
-                yamlfmt.enable = true;
-              };
-
-              settings.formatter = {
-              };
-            };
-          };
       }
     );
 }
