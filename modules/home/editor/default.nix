@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = inputs.mylib.lib.listPlatformModules ./.;
+  imports = inputs.my.lib.listPlatformModules ./.;
   home.packages = with pkgs; [
     neovim
     neovide

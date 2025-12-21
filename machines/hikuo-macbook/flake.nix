@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mylib = {
+    my = {
       url = "path:../..";
       inputs.nixpkgs.follows = "nixpkgs";
     };

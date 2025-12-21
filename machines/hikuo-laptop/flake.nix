@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mylib = {
+    my = {
       url = "github:hikuohiku/dots-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };

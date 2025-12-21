@@ -1,4 +1,4 @@
 { inputs, ... }:
 {
-  imports = inputs.mylib.lib.listPlatformModules ./.;
+  imports = inputs.my.lib.listPlatformModules ./.;
 }

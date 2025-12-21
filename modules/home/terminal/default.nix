@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-  imports = inputs.mylib.lib.listPlatformModules ./.;
+  imports = inputs.my.lib.listPlatformModules ./.;
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
     LS_COLORS = "$(vivid generate tokyonight-moon)";

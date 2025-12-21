@@ -4,7 +4,7 @@
   ...
 }:
 rec {
-  imports = with inputs.mylib.homeManagerModules; [
+  imports = with inputs.my.homeManagerModules; [
     my
     core
     terminal

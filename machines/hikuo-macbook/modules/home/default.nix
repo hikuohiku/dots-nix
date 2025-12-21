@@ -5,7 +5,7 @@
   home-manager.users.hikuo = {
     imports = [
       ./home.nix
-      inputs.mylib.darwinModules.home
+      inputs.my.darwinModules.home
     ];
   };
 

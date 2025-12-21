@@ -108,7 +108,7 @@
         "type": "github"
       }
     },
-    "mylib": {
+    "my": {
       "inputs": {
         "flake-parts": "flake-parts_2",
         "nixpkgs": [
@@ -200,7 +200,7 @@
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "mylib": "mylib",
+        "my": "my",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs"
       }
@@ -208,7 +208,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "mylib",
+          "my",
           "nixpkgs"
         ]
       },

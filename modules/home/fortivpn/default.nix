@@ -3,5 +3,5 @@
   imports = [
     ./pac
   ]
-  ++ inputs.mylib.lib.listPlatformModules ./.;
+  ++ inputs.my.lib.listPlatformModules ./.;
 }
