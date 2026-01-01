@@ -37,5 +37,6 @@
     "swiftly"
     "xcodes"
     "aria2"
+    "mint"
   ];
 }
