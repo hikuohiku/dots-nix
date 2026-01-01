@@ -36,5 +36,6 @@
     "ghcup"
     "swiftly"
     "xcodes"
+    "aria2"
   ];
 }
