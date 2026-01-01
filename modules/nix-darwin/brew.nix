@@ -23,6 +23,7 @@
     "notchnook"
     "launchcontrol"
     "xbar"
+    "xcodes-app"
   ];
 
   homebrew.masApps = {
@@ -34,5 +35,6 @@
   homebrew.brews = [
     "ghcup"
     "swiftly"
+    "xcodes"
   ];
 }
