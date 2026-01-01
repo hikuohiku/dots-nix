@@ -38,5 +38,7 @@
     "xcodes"
     "aria2"
     "mint"
+    "fastlane"
+    "swift-protobuf"
   ];
 }

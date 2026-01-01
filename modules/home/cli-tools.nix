@@ -78,6 +78,7 @@
       enable = true;
       nix-direnv.enable = true;
     };
+    rbenv.enable = true;
   };
 
   home.sessionVariables = {
