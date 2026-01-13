@@ -54,6 +54,12 @@
     treefmt
     nixfmt
     yamlfmt
+    (texlive.withPackages (
+      ps: with ps; [
+        latexindent
+        chktex
+      ]
+    ))
   ];
 
   programs = {
