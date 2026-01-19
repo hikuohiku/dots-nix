@@ -16,8 +16,8 @@
       cli-tools
       gui-tools
       fileServer
-      yabai
-      skhd
+      # yabai
+      # skhd
       fortivpn
     ];
   };
