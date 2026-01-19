@@ -24,6 +24,7 @@
     "launchcontrol"
     "xbar"
     "xcodes-app"
+    "glide"
   ];
 
   homebrew.masApps = {
