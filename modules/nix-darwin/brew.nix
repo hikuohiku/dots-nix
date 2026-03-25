@@ -25,6 +25,8 @@
     "xbar"
     "xcodes-app"
     "glide"
+    "claude-code"
+    "mactex"
   ];
 
   homebrew.masApps = {

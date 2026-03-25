@@ -15,7 +15,6 @@
   home.packages = with pkgs; [
     grc
     vivid # LS_COLORS
-    claude-code
   ];
 
   # kitty
@@ -102,6 +101,7 @@
       complete -c ghq -n '__fish_seen_subcommand_from get' -xa "(gh repo list --json name,owner --jq '.[] | select(.owner.login==\"hikuohiku\") | .owner.login + \"/\" + .name' 2>/dev/null)"
       set -g fzf_fd_opts --no-ignore
       set PATH $HOME/.ghcup/bin $PATH
+      set PATH /Library/TeX/texbin $PATH
       # Added by Antigravity
       fish_add_path /Users/hikuo/.antigravity/antigravity/bin
     '';
