@@ -1,4 +1,3 @@
+# Migrated to modules-2/syncthing/
 { ... }:
-{
-  services.syncthing.enable = true;
-}
+{ }

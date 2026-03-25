@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# yabai-move-to-empty
+# 現在のアクティブウィンドウを「空のスペース」に移動し、そのスペースへフォーカスする。
+# 依存: yabai, jq, (fallbackとして osascript)
+set -euo pipefail
+
+err() { printf '[yabai-move-to-empty] %s\n' "$*" >&2; }
+
+require() {
+  command -v "$1" >/dev/null 2>&1 || { err "require: $1 not found"; exit 1; }
+}
+require yabai
+require jq
+
+# アクティブウィンドウが無い場合の軽いガード
+if ! yabai -m query --windows --window >/dev/null 2>&1; then
+  err "no active window to move"
+  exit 1
+fi
+
+# 移動するウィンドウのIDを保存
+window_id="$(yabai -m query --windows --window | jq -r '.id')"
+
+# 1) 既存の空スペースを探す
+spaces_json="$(yabai -m query --spaces)"
+empty_idx="$(echo "$spaces_json" | jq -r 'map(select((.windows|length)==0)) | .[0].index // empty')"
+
+target_idx=""
+if [[ -n "${empty_idx:-}" ]]; then
+  target_idx="$empty_idx"
+else
+  # 2) 空が無ければ作成を試みる（yabaiのspace --create）
+  if yabai -m space --create >/dev/null 2>&1; then
+    sleep 0.05
+    target_idx="$(yabai -m query --spaces | jq '.[-1].index')"
+  else
+    # 3) それも不可ならAppleScriptで右にデスクトップ追加（Mission Control）
+    if command -v osascript >/dev/null 2>&1; then
+      osascript -e 'tell application "System Events" to key code 124 using control down' || true
+      sleep 0.3
+      target_idx="$(yabai -m query --spaces | jq '.[-1].index')"
+    else
+      err "no empty space and cannot create (osascript not available)"
+      exit 1
+    fi
+  fi
+fi
+
+# 4) ウィンドウを移動して、そのスペースへフォーカス
+if [[ -z "${target_idx:-}" ]]; then
+  err "failed to determine target space index"
+  exit 1
+fi
+
+yabai -m window --space "$target_idx"
+yabai -m space --focus "$target_idx"
+yabai -m window --focus "$window_id"

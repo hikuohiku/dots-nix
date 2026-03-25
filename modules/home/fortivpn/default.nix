@@ -1,7 +1,3 @@
-{ mylib, ... }:
-{
-  imports = [
-    ./pac
-  ]
-  ++ mylib.listPlatformModules ./.;
-}
+# Migrated to modules-2/fortivpn/
+{ ... }:
+{ }

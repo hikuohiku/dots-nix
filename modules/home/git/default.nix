@@ -1,26 +1,3 @@
-{ inputs, pkgs, ... }:
-{
-  imports = [
-    ./lazygit
-  ];
-
-  home.packages = with pkgs; [
-    git
-    delta
-    ghq
-  ];
-
-  xdg.configFile = {
-    "git/config" = {
-      source = ./config;
-    };
-    "git/ignore" = {
-      source = ./ignore;
-    };
-  };
-
-  # lazygit
-  programs.lazygit = {
-    enable = true;
-  };
-}
+# Migrated to modules-2/git/ and modules-2/lazygit/
+{ ... }:
+{ }

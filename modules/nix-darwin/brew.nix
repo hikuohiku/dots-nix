@@ -1,7 +1,7 @@
 { ... }:
 {
   homebrew.casks = [
-    "zen"
+    # "zen"  # Migrated to modules-2/zen/
     "google-chrome"
     "google-chrome@canary"
     "firefox"
