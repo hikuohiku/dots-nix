@@ -31,6 +31,9 @@
     mymodule.apps.lazygit.enable = true;
     mymodule.apps.zellij.enable = true;
     mymodule.apps.syncthing.enable = true;
+    mymodule.apps.bat.enable = true;
+    mymodule.apps.eza.enable = true;
+    mymodule.apps.fzf.enable = true;
     # mymodule.apps.yabai.enable = true;
     # mymodule.apps.skhd.enable = true;
   };

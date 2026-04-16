@@ -62,24 +62,8 @@
     ))
   ];
 
+  # bat, eza, fzf: Migrated to modules-2
   programs = {
-    bat.enable = true;
-    eza = {
-      enable = true;
-      enableFishIntegration = false;
-    };
-    fzf = {
-      enable = true;
-      enableFishIntegration = false;
-      defaultOptions = [
-        "--cycle"
-        "--layout=reverse"
-        "--border"
-        "--height=90%"
-        "--preview-window=wrap"
-        ''--marker="*"''
-      ];
-    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;

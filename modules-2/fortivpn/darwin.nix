@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.mymodule.apps.fortivpn;
 
@@ -26,7 +31,7 @@ in
         ProgramArguments = [
           "${pkgs.openfortivpn}/bin/openfortivpn"
           "-c"
-          "/Users/hikuo/Documents/.fortivpn-config"
+          "/Users/hikuo/.vpn/config"
         ];
         KeepAlive = false;
         RunAtLoad = false;

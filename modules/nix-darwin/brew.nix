@@ -27,6 +27,7 @@
     "glide"
     "claude-code"
     "mactex"
+    "wireshark"
   ];
 
   homebrew.masApps = {
