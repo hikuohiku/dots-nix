@@ -11,12 +11,11 @@
         inputs.home-manager.nixosModules.home-manager
         inputs.catppuccin.nixosModules.catppuccin
         inputs.my.nixosModules.default
-      ]
-      ++ builtins.attrValues (inputs.my.lib.mkModulesFromDir ./modules);
+        ./modules/base.nix
+      ];
 
       specialArgs = {
         inherit inputs inputs';
-        mylib = inputs.my.lib;
         userInfo = {
           username = "hikuo";
         };
@@ -33,7 +32,6 @@
       inherit pkgs;
       extraSpecialArgs = {
         inherit inputs inputs';
-        mylib = inputs.my.lib;
         userInfo = {
           username = "hikuo";
           wallpaperPath = "/home/hikuo/Pictures/wallpaper.jpg";
@@ -45,6 +43,7 @@
       };
       modules = [
         ./modules/home/base.nix
+        inputs.my.homeManagerModules.default
         inputs.catppuccin.homeManagerModules.catppuccin
       ];
     }

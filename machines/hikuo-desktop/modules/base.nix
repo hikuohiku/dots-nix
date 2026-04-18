@@ -1,5 +1,7 @@
 {
   pkgs,
+  userInfo,
+  systemInfo,
   ...
 }:
 {
@@ -8,6 +10,98 @@
     ./nvidia.nix # NVIDIA固有の設定
     ./remotebuild.nix
   ];
+
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  programs.nix-ld.enable = true;
+
+  networking = {
+    hostName = systemInfo.hostname;
+    networkmanager.enable = true;
+  };
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  boot.loader = {
+    grub = {
+      enable = true;
+      useOSProber = true;
+      efiSupport = true;
+      device = "nodev";
+    };
+    efi.canTouchEfiVariables = true;
+  };
+
+  time.timeZone = "Asia/Tokyo";
+  i18n = {
+    defaultLocale = "ja_JP.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "ja_JP.UTF-8";
+      LC_IDENTIFICATION = "ja_JP.UTF-8";
+      LC_MEASUREMENT = "ja_JP.UTF-8";
+      LC_MONETARY = "ja_JP.UTF-8";
+      LC_NAME = "ja_JP.UTF-8";
+      LC_NUMERIC = "ja_JP.UTF-8";
+      LC_PAPER = "ja_JP.UTF-8";
+      LC_TELEPHONE = "ja_JP.UTF-8";
+      LC_TIME = "ja_JP.UTF-8";
+    };
+  };
+
+  services.tailscale.enable = true;
+  services.printing.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true;
+
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    dive
+    podman-tui
+    docker-compose
+  ];
+
+  users.users.${userInfo.username} = {
+    isNormalUser = true;
+    description = userInfo.username;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
+    shell = pkgs.fish;
+  };
+  programs.fish.enable = true;
+
+  system.stateVersion = "24.05";
 
   # Input method configuration
   i18n.inputMethod = {

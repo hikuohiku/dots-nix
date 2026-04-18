@@ -1,50 +1,50 @@
 {
-  inputs,
   userInfo,
   ...
 }:
 rec {
-  imports = with inputs.my.homeManagerModules; [
-    my
-    core
-    fonts
-    terminal
-    alacritty
-    zellij
-    git
-    editor
-    browser
-    cli-tools
-    gui-tools
-    fileServer
-    unixporn
-  ];
+  mymodule.apps = {
+    core.enable = true;
+    fonts.enable = true;
+    git.enable = true;
+    cli-tools.enable = true;
+    bat.enable = true;
+    eza.enable = true;
+    fzf.enable = true;
+    gui-tools.enable = true;
 
-  # nixpkgs
+    fish.enable = true;
+    kitty.enable = true;
+    zellij.enable = true;
+    alacritty.enable = true;
+
+    neovim.enable = true;
+    vscode.enable = true;
+    obsidian.enable = true;
+
+    zen.enable = true;
+    firefox.enable = true;
+
+    syncthing.enable = true;
+
+    aylur.enable = true;
+    ml4w.enable = true;
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
   };
 
-  # home-manager
   home.username = userInfo.username;
   home.homeDirectory = "/home/${userInfo.username}";
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # session environment variables
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${home.homeDirectory}/.config";
   };
 
   xdg.mimeApps.enable = true;
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.05";
 }

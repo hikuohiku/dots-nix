@@ -1,5 +1,5 @@
 {
-  description = "hiro's dotfiles - shared library";
+  description = "hiro's dotfiles - shared modules";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -7,69 +7,17 @@
   };
 
   outputs =
-    inputs@{
-      flake-parts,
-      nixpkgs,
-      ...
-    }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      { ... }:
-      {
-        debug = true; # option定義をnixdに公開する
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
 
-        systems = [
-          "x86_64-linux"
-          "aarch64-darwin"
-        ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
-        flake.lib = {
-          listPlatformModules =
-            path:
-            nixpkgs.lib.optionals (builtins.pathExists (path + "/linux.nix")) [
-              (path + "/linux.nix")
-            ]
-            ++ nixpkgs.lib.optionals (builtins.pathExists (path + "/darwin.nix")) [
-              (path + "/darwin.nix")
-            ];
-
-          # Helper to convert directory entries to module attrset
-          mkModulesFromDir =
-            path:
-            let
-              entries = builtins.readDir path;
-              isNixFileOrDir =
-                name: type: type == "directory" || (type == "regular" && nixpkgs.lib.strings.hasSuffix ".nix" name);
-              filteredEntries = nixpkgs.lib.attrsets.filterAttrs isNixFileOrDir entries;
-              toModuleName = name: nixpkgs.lib.strings.removeSuffix ".nix" name;
-            in
-            builtins.listToAttrs (
-              map (name: {
-                name = toModuleName name;
-                value = path + "/${name}";
-              }) (builtins.attrNames filteredEntries)
-            );
-        };
-
-        # home-manager modules
-        flake.homeManagerModules =
-          let
-            modules = inputs.self.lib.mkModulesFromDir ./modules/home;
-          in
-          modules // { default.imports = builtins.attrValues modules; };
-
-        # nix-darwin modules
-        flake.darwinModules =
-          let
-            modules = inputs.self.lib.mkModulesFromDir ./modules/nix-darwin;
-          in
-          modules // { default.imports = builtins.attrValues modules; };
-
-        # NixOS modules
-        flake.nixosModules =
-          let
-            modules = inputs.self.lib.mkModulesFromDir ./modules/nixos;
-          in
-          modules // { default.imports = builtins.attrValues modules; };
-      }
-    );
+      flake.darwinModules.default = ./modules/darwin.nix;
+      flake.homeManagerModules.default = ./modules/home.nix;
+      flake.nixosModules.default = ./modules/nixos.nix;
+    };
 }
