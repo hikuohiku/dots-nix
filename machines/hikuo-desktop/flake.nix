@@ -11,19 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-
-    aylur = {
-      url = "github:Aylur/dotfiles";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.astal.follows = "astal";
-    };
-    astal = {
-      url = "github:Aylur/astal";
-    };
-
     fish-ghq = {
       url = "github:decors/fish-ghq";
       flake = false;

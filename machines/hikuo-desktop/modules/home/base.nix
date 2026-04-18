@@ -1,8 +1,13 @@
 {
   userInfo,
+  pkgs,
   ...
 }:
 rec {
+  home.packages = [
+    pkgs.claude-code
+  ];
+
   mymodule.apps = {
     core.enable = true;
     fonts.enable = true;
@@ -27,8 +32,8 @@ rec {
 
     syncthing.enable = true;
 
-    aylur.enable = true;
-    ml4w.enable = true;
+    # aylur.enable = true;
+    # ml4w.enable = true;
   };
 
   nixpkgs.config = {
