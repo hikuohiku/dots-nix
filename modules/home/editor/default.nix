@@ -1,5 +1,3 @@
-# neovim/vscode: Migrated to modules-2/neovim/ and modules-2/vscode/
-{ mylib, ... }:
-{
-  imports = mylib.listPlatformModules ./.;
-}
+# Migrated to modules-2/neovim/ + modules-2/vscode/ + modules-2/obsidian/
+{ ... }:
+{ }

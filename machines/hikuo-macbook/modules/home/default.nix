@@ -3,23 +3,8 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.hikuo = {
-    imports = with inputs.my.homeManagerModules; [
+    imports = [
       ./home.nix
-      # my  # Deprecated: no longer needed
-      core
-      fonts
-      terminal
-      # zellij  # Migrated to modules-2
-      # git  # Migrated to modules-2
-      editor
-      browser
-      cli-tools
-      gui-tools
-      # fileServer  # Migrated to modules-2/syncthing
-      # yabai
-      # skhd
-      # fortivpn  # Migrated to modules-2
-    ] ++ [
       ../../../../modules-2/home.nix
     ];
     mymodule.apps.alacritty.enable = true;
@@ -34,6 +19,11 @@
     mymodule.apps.bat.enable = true;
     mymodule.apps.eza.enable = true;
     mymodule.apps.fzf.enable = true;
+    mymodule.apps.core.enable = true;
+    mymodule.apps.fonts.enable = true;
+    mymodule.apps.fish.enable = true;
+    mymodule.apps.kitty.enable = true;
+    mymodule.apps.cli-tools.enable = true;
     # mymodule.apps.yabai.enable = true;
     # mymodule.apps.skhd.enable = true;
   };

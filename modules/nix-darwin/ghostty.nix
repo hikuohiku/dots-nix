@@ -1,5 +1,3 @@
-{
-  homebrew.casks = [
-    "ghostty"
-  ];
-}
+# Migrated to modules-2/ghostty/
+{ ... }:
+{ }

@@ -1,4 +1,3 @@
+# Migrated to modules-2/system/
 { ... }:
-{
-  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
-}
+{ }

@@ -1,7 +1,3 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    act
-  ];
-
-}
+# Migrated to modules-2/actions/
+{ ... }:
+{ }

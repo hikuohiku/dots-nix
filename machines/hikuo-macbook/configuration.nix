@@ -18,6 +18,14 @@
           mymodule.apps.vscode.enable = true;
           mymodule.apps.fortivpn.enable = true;
           mymodule.apps.syncthing.enable = true;
+          mymodule.apps.nix.enable = true;
+          mymodule.apps.system.enable = true;
+          mymodule.apps.touchid.enable = true;
+          mymodule.apps.linux-builder.enable = true;
+          mymodule.apps.karabiner.enable = true;
+          mymodule.apps.ghostty.enable = true;
+          mymodule.apps.fonts.enable = true;
+          mymodule.apps.brew.enable = true;
           # mymodule.apps.yabai.enable = true;
           # mymodule.apps.skhd.enable = true;
         }

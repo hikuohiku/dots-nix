@@ -1,9 +1,3 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    deno
-    pnpm
-    nodePackages_latest.prettier
-  ];
-
-}
+# Migrated to modules-2/typescript/
+{ ... }:
+{ }

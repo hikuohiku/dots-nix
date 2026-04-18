@@ -1,11 +1,3 @@
-{ pkgs, ... }:
-{
-  fonts = {
-    packages = with pkgs; [
-      nerd-fonts.symbols-only
-      sarasa-gothic
-      plemoljp
-      plemoljp-nf
-    ];
-  };
-}
+# Migrated to modules-2/fonts/
+{ ... }:
+{ }

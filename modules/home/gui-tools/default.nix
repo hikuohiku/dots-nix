@@ -1,4 +1,3 @@
-{ mylib, ... }:
-{
-  imports = mylib.listPlatformModules ./.;
-}
+# Migrated to modules-2/gui-tools/
+{ ... }:
+{ }

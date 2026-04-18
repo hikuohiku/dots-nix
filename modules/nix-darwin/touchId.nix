@@ -1,8 +1,3 @@
+# Migrated to modules-2/touchid/
 { ... }:
-{
-  security.pam.services.sudo_local = {
-    enable = true;
-    touchIdAuth = true;
-    reattach = true;
-  };
-}
+{ }
