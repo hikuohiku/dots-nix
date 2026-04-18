@@ -44,7 +44,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "aarch64-darwin" ];
       imports = [
-        ./configuration.nix
+        ./darwin.nix
       ];
     };
 }

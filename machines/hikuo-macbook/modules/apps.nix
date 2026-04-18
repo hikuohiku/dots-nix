@@ -1,0 +1,28 @@
+{
+  mymodule.apps.alacritty.enable = true;
+  mymodule.apps.bat.enable = true;
+  mymodule.apps.brew.enable = true;
+  mymodule.apps.cli-tools.enable = true;
+  mymodule.apps.core.enable = true;
+  mymodule.apps.eza.enable = true;
+  mymodule.apps.fish.enable = true;
+  mymodule.apps.fonts.enable = true;
+  mymodule.apps.fortivpn.enable = true;
+  mymodule.apps.fzf.enable = true;
+  mymodule.apps.ghostty.enable = true;
+  mymodule.apps.git.enable = true;
+  mymodule.apps.karabiner.enable = true;
+  mymodule.apps.kitty.enable = true;
+  mymodule.apps.lazygit.enable = true;
+  mymodule.apps.linux-builder.enable = true;
+  mymodule.apps.neovim.enable = true;
+  mymodule.apps.nix.enable = true;
+  mymodule.apps.syncthing.enable = true;
+  mymodule.apps.system.enable = true;
+  mymodule.apps.touchid.enable = true;
+  mymodule.apps.vscode.enable = true;
+  mymodule.apps.zellij.enable = true;
+  mymodule.apps.zen.enable = true;
+  # mymodule.apps.skhd.enable = true;
+  # mymodule.apps.yabai.enable = true;
+}
