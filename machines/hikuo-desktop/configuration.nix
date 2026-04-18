@@ -12,6 +12,7 @@
         inputs.catppuccin.nixosModules.catppuccin
         inputs.my.nixosModules.default
         ./modules/base.nix
+        ./modules/apps.nix
       ];
 
       specialArgs = {
@@ -43,6 +44,7 @@
       };
       modules = [
         ./modules/home/base.nix
+        ./modules/apps.nix
         inputs.my.homeManagerModules.default
         inputs.catppuccin.homeManagerModules.catppuccin
       ];
