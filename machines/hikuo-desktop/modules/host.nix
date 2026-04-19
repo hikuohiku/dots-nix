@@ -1,6 +1,5 @@
 {
   pkgs,
-  userInfo,
   systemInfo,
   ...
 }:
@@ -28,7 +27,10 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
 
   programs.nix-ld.enable = true;
 
@@ -89,9 +91,9 @@
     docker-compose
   ];
 
-  users.users.${userInfo.username} = {
+  users.users.hikuo = {
     isNormalUser = true;
-    description = userInfo.username;
+    description = "hikuo";
     extraGroups = [
       "networkmanager"
       "wheel"
