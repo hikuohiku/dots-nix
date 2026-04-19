@@ -154,7 +154,6 @@
     };
   };
   services.desktopManager.plasma6.enable = true;
-  programs.hyprland.enable = true;
 
   # Flatpak support
   services.flatpak.enable = true;

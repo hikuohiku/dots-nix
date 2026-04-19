@@ -17,6 +17,4 @@
   mymodule.apps.vscode.enable = true;
   mymodule.apps.zellij.enable = true;
   mymodule.apps.zen.enable = true;
-  # mymodule.apps.aylur.enable = true;
-  # mymodule.apps.ml4w.enable = true;
 }
