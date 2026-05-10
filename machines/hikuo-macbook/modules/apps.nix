@@ -26,4 +26,5 @@
   mymodule.apps.skhd.enable = true;
   mymodule.apps.yabai.enable = true;
   mymodule.apps.yabai.enableService = false;
+  mymodule.apps.zed.enable = true;
 }
