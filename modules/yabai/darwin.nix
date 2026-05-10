@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.yabai ];
 
-    launchd.user.agents.yabai = {
+    launchd.user.agents.yabai = lib.mkIf cfg.enableService {
       serviceConfig.ProgramArguments = [ "${yabaiWrapper}/bin/yabai" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
@@ -22,7 +22,7 @@ in
       };
     };
 
-    launchd.daemons.yabai-sa = {
+    launchd.daemons.yabai-sa = lib.mkIf cfg.enableService {
       script = "${yabaiWrapper}/bin/yabai --load-sa";
       serviceConfig.RunAtLoad = true;
       serviceConfig.KeepAlive.SuccessfulExit = false;
