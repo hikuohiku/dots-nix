@@ -2,3 +2,6 @@
 .claude/state/
 .claude/memory/
 .claude/sessions/
+
+# Claude Code (dynamic/generated files)
+.claude-plugin/
