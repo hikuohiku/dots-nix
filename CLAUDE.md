@@ -38,3 +38,8 @@ nix fmt
 - `my.apps.<app>.enable = true;` でアプリケーションを有効化する設計
 - darwin/home-manager/nixos で共有可能な設定は共通モジュールに抽出する
 - ハードコードされたパスやユーザー名は避け、`config` から参照する
+
+## Git Workflow
+
+- 個人管理リポジトリのため main ブランチへ直接コミットしてよい
+- コミット後はコンフリクトがないことを確認した上で即座に `git push` する

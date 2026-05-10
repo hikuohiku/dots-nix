@@ -1,1 +1,4 @@
-.claude/
+.claude/settings.local.json
+.claude/state/
+.claude/memory/
+.claude/sessions/
