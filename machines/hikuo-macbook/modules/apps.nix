@@ -11,7 +11,6 @@
   mymodule.apps.fzf.enable = true;
   mymodule.apps.ghostty.enable = true;
   mymodule.apps.git.enable = true;
-  mymodule.apps.glide.enable = true;
   mymodule.apps.karabiner.enable = true;
   mymodule.apps.kitty.enable = true;
   mymodule.apps.lazygit.enable = true;
@@ -24,6 +23,6 @@
   mymodule.apps.vscode.enable = true;
   mymodule.apps.zellij.enable = true;
   mymodule.apps.zen.enable = true;
-  # mymodule.apps.skhd.enable = true;
-  # mymodule.apps.yabai.enable = true;
+  mymodule.apps.skhd.enable = true;
+  mymodule.apps.yabai.enable = true;
 }

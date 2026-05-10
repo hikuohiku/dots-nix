@@ -116,11 +116,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776592997,
-        "narHash": "sha256-AwfI9LCFXf/yWvNYAVg2QKH5mSHkKBBnQPD1mTjwKY8=",
+        "lastModified": 1778410957,
+        "narHash": "sha256-CtHsjzqJBulv0EatCxXlFRa8BZNS870tFxVJFM9Gc9s=",
         "owner": "hikuohiku",
         "repo": "dots-nix",
-        "rev": "36a18adceaa2377f96696b38ce0e6f36e9710e67",
+        "rev": "44a3b4a7d22d94c61692ee01889f71cbde559586",
         "type": "github"
       },
       "original": {
