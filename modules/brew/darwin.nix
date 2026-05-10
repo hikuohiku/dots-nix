@@ -24,7 +24,6 @@
       "launchcontrol"
       "xbar"
       "xcodes-app"
-      "glide"
       "claude-code"
       "mactex"
       "wireshark"
