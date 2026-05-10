@@ -25,4 +25,5 @@
   mymodule.apps.zen.enable = true;
   mymodule.apps.skhd.enable = true;
   mymodule.apps.yabai.enable = true;
+  mymodule.apps.yabai.enableService = false;
 }
