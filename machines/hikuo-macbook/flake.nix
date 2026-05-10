@@ -31,7 +31,7 @@
     };
 
     my = {
-      url = "path:../..";
+      url = "github:hikuohiku/dots-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
