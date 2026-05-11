@@ -7,7 +7,7 @@
 1. 対象マシンの `flake.nix` で `my` input の URL を `path:../../` に書き換える
 2. 新しいモジュールファイルが未 stage なら `git add` する（Nix flake は git tracked ファイルのみ認識するため）
 3. `nix flake update my --flake ./machines/<machine>` を実行して lock を更新する
-4. `nix eval` や `darwin-rebuild build` / `nixos-rebuild build` でビルド検証する
+4. `nix eval` や `darwin-rebuild build --no-out-link` / `nixos-rebuild build --no-out-link` でビルド検証する
 5. 検証完了後、`flake.nix` の `my` input を元の GitHub URL に戻す
 6. `flake.lock` の `my` エントリも元に戻す（`git checkout -- machines/<machine>/flake.lock`）
 
@@ -38,7 +38,7 @@ machine_dir="machines/${ARGUMENTS:-hikuo-macbook}"
 # flake.nix 内の my.url を "path:../../" に変更
 # git add modules/<new-module>/
 # nix flake update my --flake ./$machine_dir
-# darwin-rebuild build --flake ./$machine_dir  (or nixos-rebuild build)
+# darwin-rebuild build --no-out-link --flake ./$machine_dir  (or nixos-rebuild build --no-out-link)
 # flake.nix の my.url を "github:hikuohiku/dots-nix" に戻す
 # git checkout -- $machine_dir/flake.lock
 
