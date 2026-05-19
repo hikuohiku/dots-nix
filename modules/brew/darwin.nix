@@ -28,6 +28,7 @@
       "mactex"
       "wireshark"
       "puremac"
+      "codex"
     ];
 
     homebrew.masApps = {
