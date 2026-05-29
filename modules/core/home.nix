@@ -8,7 +8,7 @@
         cargo
         uv
         nil
-        nixfmt-rfc-style
+        nixfmt
         nixd
       ])
       ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux (with pkgs; [

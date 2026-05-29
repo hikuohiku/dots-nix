@@ -20,4 +20,5 @@
   xdg.mimeApps.enable = true;
 
   home.stateVersion = "24.05";
+  home.enableNixpkgsReleaseCheck = false;
 }

@@ -16,7 +16,7 @@
       ./home.nix
       inputs.my.homeManagerModules.default
       ./apps.nix
-      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.catppuccin.homeModules.catppuccin
     ];
   };
 
