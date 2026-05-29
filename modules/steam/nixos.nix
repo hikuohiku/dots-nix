@@ -6,7 +6,7 @@
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
-      extest.enable = true;
+      extest.enable = false;
       gamescopeSession.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
@@ -18,7 +18,10 @@
       capSysNice = true;
     };
 
-    environment.systemPackages = [ pkgs.protonup-qt ];
+    environment.systemPackages = [
+      pkgs.protonup-qt
+      pkgs.xwayland-satellite
+    ];
 
     # nixpkgs の bubblewrap は setuid モード非対応のため上書き
     # virtualisation.containers.enable が setuid=true で追加するものと競合する
