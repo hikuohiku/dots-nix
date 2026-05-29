@@ -19,5 +19,15 @@
     };
 
     environment.systemPackages = [ pkgs.protonup-qt ];
+
+    # nixpkgs の bubblewrap は setuid モード非対応のため上書き
+    # virtualisation.containers.enable が setuid=true で追加するものと競合する
+    security.wrappers.bwrap = lib.mkForce {
+      owner = "root";
+      group = "root";
+      source = "${pkgs.bubblewrap}/bin/bwrap";
+      setuid = false;
+      capabilities = "";
+    };
   };
 }
