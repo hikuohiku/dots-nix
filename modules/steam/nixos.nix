@@ -21,6 +21,7 @@
     environment.systemPackages = [
       pkgs.protonup-qt
       pkgs.xwayland-satellite
+      pkgs.protontricks
     ];
 
     # nixpkgs の bubblewrap は setuid モード非対応のため上書き
