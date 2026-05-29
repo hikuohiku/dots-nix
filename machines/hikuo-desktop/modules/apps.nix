@@ -18,4 +18,5 @@
   mymodule.apps.zellij.enable = true;
   mymodule.apps.zen.enable = true;
   mymodule.apps.niri.enable = true;
+  mymodule.apps.steam.enable = true;
 }
