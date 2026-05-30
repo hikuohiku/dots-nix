@@ -20,6 +20,7 @@ in
             "/dev/rtc", "/dev/hpet",
             "/dev/dri/renderD128"
           ]
+          seccomp_sandbox = 0
         '';
       };
     };
