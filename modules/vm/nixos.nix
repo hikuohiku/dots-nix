@@ -11,6 +11,10 @@
 
     networking.firewall.trustedInterfaces = [ "virbr0" ];
 
+    systemd.services.libvirtd.environment = {
+      __EGL_VENDOR_LIBRARY_DIRS = "/run/opengl-driver/share/glvnd/egl_vendor.d";
+    };
+
     programs.virt-manager.enable = true;
 
     environment.systemPackages = [
