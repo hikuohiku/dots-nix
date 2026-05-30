@@ -98,6 +98,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "libvirtd"
     ];
     shell = pkgs.fish;
   };

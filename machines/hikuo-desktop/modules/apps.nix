@@ -20,4 +20,5 @@
   mymodule.apps.niri.enable = true;
   mymodule.apps.steam.enable = true;
   mymodule.apps.vicinae.enable = true;
+  mymodule.apps.vm.enable = true;
 }
