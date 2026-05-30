@@ -12,6 +12,15 @@ in
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
+        verbatimConfig = ''
+          cgroup_device_acl = [
+            "/dev/null", "/dev/full", "/dev/zero",
+            "/dev/random", "/dev/urandom",
+            "/dev/ptmx", "/dev/kvm",
+            "/dev/rtc", "/dev/hpet",
+            "/dev/dri/renderD128"
+          ]
+        '';
       };
     };
 
