@@ -15,6 +15,7 @@
     imports = [
       ./home.nix
       inputs.my.homeManagerModules.default
+      inputs.vicinae.homeManagerModules.default
       ./apps.nix
       inputs.catppuccin.homeModules.catppuccin
     ];

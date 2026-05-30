@@ -11,6 +11,7 @@
         inputs.home-manager.nixosModules.home-manager
         inputs.catppuccin.nixosModules.catppuccin
         inputs.my.nixosModules.default
+        inputs.vicinae.nixosModules.default
         ./modules/configuration.nix
       ];
 
