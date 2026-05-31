@@ -73,6 +73,27 @@
         "type": "github"
       }
     },
+    "dms": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780202106,
+        "narHash": "sha256-kHxlZkZvAmrtEgciNOfKx20sBEr3+iN4f4HabXsegLo=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "2ca2bc5fb8e7dd69722d6c36637401f30328e333",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "type": "github"
+      }
+    },
     "dsync": {
       "inputs": {
         "nixpkgs": [
@@ -151,6 +172,22 @@
       "original": {
         "owner": "decors",
         "repo": "fish-ghq",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
         "type": "github"
       }
     },
@@ -281,11 +318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780210325,
-        "narHash": "sha256-xKG3dNU3f4pAiBkVqA6xD09vl0iv5U9hbpShGuVRU24=",
+        "lastModified": 1780210340,
+        "narHash": "sha256-E34s5TPwukHbYeKIcT7oWvyheK08it02jITokPegHFw=",
         "owner": "hikuohiku",
         "repo": "dots-nix",
-        "rev": "51572d3f08d288641742e2457870377b8b764b68",
+        "rev": "536789ac7c13da06d86f829b35a4285c1d00c592",
         "type": "github"
       },
       "original": {
@@ -387,6 +424,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "diniamo": "diniamo",
+        "dms": "dms",
         "fish-fzf-bd": "fish-fzf-bd",
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts_2",

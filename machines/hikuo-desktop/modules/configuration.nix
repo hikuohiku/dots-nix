@@ -18,6 +18,7 @@
       inputs.vicinae.homeManagerModules.default
       ./apps.nix
       inputs.catppuccin.homeModules.catppuccin
+      inputs.dms.homeModules.dank-material-shell
     ];
   };
 

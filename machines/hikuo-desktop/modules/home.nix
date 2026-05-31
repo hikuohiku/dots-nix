@@ -19,6 +19,11 @@
 
   xdg.mimeApps.enable = true;
 
+  programs.dank-material-shell = {
+    enable = true;
+    systemd.enable = true;
+  };
+
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
 }
