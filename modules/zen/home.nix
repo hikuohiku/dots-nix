@@ -16,12 +16,12 @@ in
         inputs'.zen-browser.packages.default
       ];
       xdg.mimeApps.defaultApplications = {
-        "text/html" = "zen.desktop";
-        "application/xhtml+xml" = "zen.desktop";
-        "x-scheme-handler/http" = "zen.desktop";
-        "x-scheme-handler/https" = "zen.desktop";
-        "x-scheme-handler/ftp" = "zen.desktop";
-        "x-scheme-handler/about" = "zen.desktop";
+        "text/html" = "zen-beta.desktop";
+        "application/xhtml+xml" = "zen-beta.desktop";
+        "x-scheme-handler/http" = "zen-beta.desktop";
+        "x-scheme-handler/https" = "zen-beta.desktop";
+        "x-scheme-handler/ftp" = "zen-beta.desktop";
+        "x-scheme-handler/about" = "zen-beta.desktop";
       };
     })
   ]);
