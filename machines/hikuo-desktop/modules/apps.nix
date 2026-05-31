@@ -19,6 +19,7 @@
   mymodule.apps.zen.enable = true;
   mymodule.apps.niri.enable = true;
   mymodule.apps.steam.enable = true;
+  mymodule.apps.affinity.enable = true;
   mymodule.apps.vicinae.enable = true;
   mymodule.apps.vm.enable = false;
 }
