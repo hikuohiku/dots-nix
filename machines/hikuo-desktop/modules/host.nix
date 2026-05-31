@@ -86,6 +86,10 @@
     vmware.host.enable = true;
   };
 
+  systemd.tmpfiles.rules = [
+    "d /mnt/vm-shared 0755 hikuo users -"
+  ];
+
   environment.systemPackages = with pkgs; [
     dive
     podman-tui
