@@ -21,7 +21,6 @@
 
   programs.dank-material-shell = {
     enable = true;
-    systemd.enable = true;
   };
 
   home.stateVersion = "24.05";

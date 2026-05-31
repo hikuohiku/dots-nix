@@ -65,7 +65,6 @@
     screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
     spawn-at-startup = [
-      { argv = [ "dms" "run" ]; }
       { argv = [ "xwayland-satellite" ]; }
     ];
 
