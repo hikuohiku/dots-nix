@@ -12,6 +12,7 @@
         inputs.catppuccin.nixosModules.catppuccin
         inputs.my.nixosModules.default
         inputs.vicinae.nixosModules.default
+        inputs.niri-flake.nixosModules.niri
         ./modules/configuration.nix
       ];
 

@@ -9,6 +9,8 @@
     ./apps.nix
   ];
 
+  programs.niri.package = inputs'.niri-flake.packages.niri-unstable;
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.hikuo = {
@@ -19,6 +21,8 @@
       ./apps.nix
       inputs.catppuccin.homeModules.catppuccin
       inputs.dms.homeModules.dank-material-shell
+      inputs.dms.homeModules.niri
+      ./niri.nix
     ];
   };
 
