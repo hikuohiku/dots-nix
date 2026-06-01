@@ -21,4 +21,5 @@
   mymodule.apps.steam.enable = true;
   mymodule.apps.vicinae.enable = true;
   mymodule.apps.vm.enable = false;
+  mymodule.apps.fortivpn.enable = true;
 }
