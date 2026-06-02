@@ -15,6 +15,7 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.openfortivpn}/bin/openfortivpn -c /etc/openfortivpn/config";
+        ExecStartPost = "${addVpnRoute}/bin/_add-vpn-route";
         Type = "simple";
         Restart = "no";
       };
@@ -24,7 +25,6 @@ in
     security.sudo.extraConfig = ''
       %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl start openfortivpn
       %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl stop openfortivpn
-      %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/_add-vpn-route
     '';
 
     environment.systemPackages = [ addVpnRoute ];
