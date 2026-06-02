@@ -3,8 +3,8 @@ let
   cfg = config.mymodule.apps.fortivpn;
 
   addVpnRoute = pkgs.writeShellScriptBin "_add-vpn-route" ''
-    if ! ip route show | grep -q "^133.10.204.26.*ppp0"; then
-      ip route add 133.10.204.26 dev ppp0
+    if ! ${pkgs.iproute2}/bin/ip route show | grep -q "^133.10.204.26.*ppp0"; then
+      ${pkgs.iproute2}/bin/ip route add 133.10.204.26 dev ppp0
     fi
   '';
 in
