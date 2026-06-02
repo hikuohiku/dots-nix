@@ -15,6 +15,16 @@ in
       wantedBy = [ ];
     };
 
+    environment.etc."ppp/ip-up" = {
+      mode = "0755";
+      text = ''
+        #!/bin/sh
+        if [ "$1" = "ppp-tmuvpn" ]; then
+          ${pkgs.iproute2}/bin/ip link set "$1" mtu 1300
+        fi
+      '';
+    };
+
     security.sudo.extraConfig = ''
       %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl start openfortivpn
       %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl stop openfortivpn
