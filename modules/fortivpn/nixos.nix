@@ -14,7 +14,7 @@ in
       description = "openfortivpn VPN client";
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.openfortivpn}/bin/openfortivpn -c /root/.vpn/config";
+        ExecStart = "${pkgs.openfortivpn}/bin/openfortivpn -c /etc/openfortivpn/config";
         Type = "simple";
         Restart = "no";
       };
