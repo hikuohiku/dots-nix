@@ -22,4 +22,5 @@
   mymodule.apps.vicinae.enable = true;
   mymodule.apps.vm.enable = false;
   mymodule.apps.fortivpn.enable = true;
+  mymodule.apps.zed.enable = true;
 }
