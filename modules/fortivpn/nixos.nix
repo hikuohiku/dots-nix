@@ -21,6 +21,7 @@ in
         #!/bin/sh
         if [ "$1" = "ppp-tmuvpn" ]; then
           ${pkgs.iproute2}/bin/ip link set "$1" mtu 1300
+          ${pkgs.iproute2}/bin/ip route add 133.10.0.0/16 dev "$1"
         fi
       '';
     };
