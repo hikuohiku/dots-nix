@@ -30,14 +30,14 @@ Configuration outputs:
 2. If a new file must be visible to Nix flakes during validation, prefer `git add -N <path>` so the path is tracked intent-only. Use normal `git add` only when preparing the final commit.
 3. Use `--override-input my .` so the machine flake evaluates the current local repository.
 4. For targeted checks, run `nix eval` against the option or value affected by the change.
-5. For broader checks, run the platform build command with `--no-out-link`.
+5. For broader checks, run the platform build command. Use `--no-out-link` only for commands that support it; `darwin-rebuild build` in this repository does not.
 6. If validation fails, stop before committing and report the failure with the relevant command output.
 
 Examples:
 
 ```bash
 nix eval ./machines/hikuo-macbook#darwinConfigurations.hikuo-macbook.config.<option> --override-input my .
-darwin-rebuild build --no-out-link --flake ./machines/hikuo-macbook --override-input my .
+darwin-rebuild build --flake ./machines/hikuo-macbook --override-input my .
 
 nix eval ./machines/hikuo-desktop#nixosConfigurations.hikuo-desktop.config.<option> --override-input my .
 nixos-rebuild build --no-out-link --flake ./machines/hikuo-desktop --override-input my .

@@ -5,7 +5,7 @@
 ## Phase 1: ローカルビルド検証
 
 1. 新しいモジュールファイルが Nix flake から見えない場合は `git add -N <path>` で intent-to-add する（最終コミットの stage とは分ける）
-2. `nix eval` や `darwin-rebuild build --no-out-link` / `nixos-rebuild build --no-out-link` に `--override-input my .` を付けて、ローカル checkout の共有モジュールを評価する
+2. `nix eval` や `darwin-rebuild build` / `nixos-rebuild build --no-out-link` に `--override-input my .` を付けて、ローカル checkout の共有モジュールを評価する
 3. 対象マシンごとの出力を使う
    - macOS: `./machines/hikuo-macbook#darwinConfigurations.hikuo-macbook`
    - NixOS: `./machines/hikuo-desktop#nixosConfigurations.hikuo-desktop`
@@ -41,7 +41,7 @@ machine_dir="machines/${ARGUMENTS:-hikuo-macbook}"
 #
 # macOS:
 # nix eval ./$machine_dir#darwinConfigurations.hikuo-macbook.config.<option> --override-input my .
-# darwin-rebuild build --no-out-link --flake ./$machine_dir --override-input my .
+# darwin-rebuild build --flake ./$machine_dir --override-input my .
 #
 # NixOS:
 # nix eval ./$machine_dir#nixosConfigurations.hikuo-desktop.config.<option> --override-input my .

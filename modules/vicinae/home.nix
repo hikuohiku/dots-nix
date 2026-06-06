@@ -1,14 +1,16 @@
-{ config, lib, ... }:
+{ config, lib, options, ... }:
 {
-  config = lib.mkIf config.mymodule.apps.vicinae.enable {
-    services.vicinae = {
-      enable = true;
-      systemd = {
+  config = lib.optionalAttrs
+    (lib.hasAttrByPath [ "services" "vicinae" ] options)
+    {
+      services.vicinae = lib.mkIf config.mymodule.apps.vicinae.enable {
         enable = true;
-        environment = {
-          USE_LAYER_SHELL = 1;
+        systemd = {
+          enable = true;
+          environment = {
+            USE_LAYER_SHELL = 1;
+          };
         };
       };
     };
-  };
 }
