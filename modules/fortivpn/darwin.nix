@@ -9,8 +9,8 @@ let
 
   addVpnRoute = pkgs.writeShellScriptBin "_add-vpn-route" ''
     # Check if route already exists (idempotent)
-    if ! netstat -rn | grep -q "^133.10.204.26.*ppp0"; then
-      /sbin/route add -host 133.10.204.26 -interface ppp0
+    if ! /sbin/route -n get 133.10.0.1 2>/dev/null | /usr/bin/grep -q "interface: ppp0"; then
+      /sbin/route add -net 133.10.0.0/16 -interface ppp0
     fi
   '';
 in
@@ -32,6 +32,7 @@ in
           "${pkgs.openfortivpn}/bin/openfortivpn"
           "-c"
           "/Users/hikuo/.vpn/config"
+          "--no-routes"
         ];
         KeepAlive = false;
         RunAtLoad = false;
