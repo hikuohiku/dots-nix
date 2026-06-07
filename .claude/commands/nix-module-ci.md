@@ -15,6 +15,21 @@
 
 ビルドが失敗した場合はここで止めて原因を報告する。
 
+## Phase 1.5: プッシュ前の動作確認ゲート
+
+Phase 1 のビルドが通っても、コミット・プッシュの前に AskUserQuestion で実機での
+動作確認結果を尋ねる。ビルド成功は「評価・ビルドが通る」保証にすぎず、意図通りに
+動くかは実機適用 (`switch`) でしか分からないため。
+
+- 必要なら先にローカル checkout を適用して確認できる
+  - macOS: `darwin-rebuild switch --flake ./machines/<machine> --override-input my .`
+  - NixOS: `sudo nixos-rebuild switch --flake ./machines/<machine> --override-input my .`
+- AskUserQuestion の選択肢の例:
+  - 動作確認 OK → push する
+  - 確認できない / 不要 → push する
+  - まだ push しない（保留）
+- 「まだ push しない」が選ばれたら Phase 2/3 を実行せずに止まる
+
 ## Phase 2: モジュール変更のコミット・プッシュ
 
 dots-nix flake に含まれるモジュール実装部分（`modules/`, `flake.nix` など）の変更をコミットしてプッシュする。
