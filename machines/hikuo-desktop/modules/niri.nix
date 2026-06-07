@@ -20,7 +20,7 @@
         height = 2160;
         refresh = 60.0;
       };
-      scale = 1.5;
+      scale = 2.0;
       position = {
         x = 0;
         y = 0;
@@ -37,8 +37,8 @@
       scale = 1.0;
       transform.rotation = 270;
       position = {
-        x = 2560;
-        y = -560;
+        x = 1920;
+        y = -740;
       };
     };
 
@@ -223,6 +223,7 @@
       "Print".action.screenshot = [];
       "Ctrl+Print".action.screenshot-screen = [];
       "Alt+Print".action.screenshot-window = [];
+      "Mod+Shift+5".action.screenshot = [];
 
       # System
       "Mod+Escape" = { allow-inhibiting = false; action.toggle-keyboard-shortcuts-inhibit = []; };
