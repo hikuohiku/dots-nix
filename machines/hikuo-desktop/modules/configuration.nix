@@ -11,6 +11,11 @@
 
   programs.niri.package = inputs'.niri-flake.packages.niri-unstable;
 
+  catppuccin = {
+    enable = true;
+    autoEnable = false;
+  };
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "bak";
