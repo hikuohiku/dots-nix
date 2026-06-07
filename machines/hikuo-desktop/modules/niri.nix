@@ -88,7 +88,7 @@
 
       "Mod+A" = {
         hotkey-overlay.title = "Open a Terminal";
-        action.spawn = [ "ghostty" ];
+        action.spawn = [ "alacritty" ];
       };
       "Mod+Space" = {
         hotkey-overlay.title = "Open Launcher";
