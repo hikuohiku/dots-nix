@@ -1,32 +1,28 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.mymodule.apps.lazygit;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 in
 {
-  config = lib.mkIf cfg.enable {
-    programs.lazygit = {
-      enable = true;
-      settings = {
-        git = {
-          autoForwardBranches = "allBranches";
-          allBranchesLogCmds = [
-            "git log --graph --color=always --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(#a0a0a0 reverse)%h%Creset %C(cyan)%ad%Creset %C(#dd4814)%ae%Creset %C(yellow reverse)%d%Creset %n%C(white bold)%s%Creset%n'"
-          ];
-          branchLogCmd = "git log --graph --color=always --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(#a0a0a0 reverse)%h%Creset %C(cyan)%ad%Creset %C(#dd4814)%ae%Creset %C(yellow reverse)%d%Creset %n%C(white bold)%s%Creset%n' {{branchName}}";
-          pagers = [
-            {
-              colorArg = "always";
-              pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
-            }
-          ];
-        };
-        gui = {
-          language = "ja";
-          nerdFontsVersion = "3";
-        };
-        os.editPreset = "vscode";
-        promptToReturnFromSubprocess = false;
-      };
-    };
-  };
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      home.packages = [ pkgs.lazygit ];
+    }
+    (lib.mkIf isDarwin {
+      home.file."Library/Application Support/lazygit/config.yml".source = ./config.yml;
+    })
+    (lib.mkIf (!isDarwin) {
+      xdg.configFile."lazygit/config.yml".source = ./config.yml;
+    })
+    (lib.mkIf config.programs.fish.enable {
+      programs.fish.functions.lg = ''
+        set -lx LAZYGIT_NEW_DIR_FILE (mktemp)
+        lazygit $argv
+        if test -s $LAZYGIT_NEW_DIR_FILE
+          cd (cat $LAZYGIT_NEW_DIR_FILE)
+        end
+        rm -f $LAZYGIT_NEW_DIR_FILE
+      '';
+    })
+  ]);
 }
