@@ -8,6 +8,7 @@
     ./hardware.nix # ハードウェア設定
     ./nvidia.nix # NVIDIA固有の設定
     ./remotebuild.nix
+    ./claude-rebuild.nix # Claude Code 用 nixos-rebuild NOPASSWD
   ];
 
   nix = {

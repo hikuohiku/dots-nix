@@ -32,6 +32,11 @@ sudo nixos-rebuild switch --flake ./machines/hikuo-desktop
 nix flake update
 ```
 
+`hikuo-desktop` では `nixos-rebuild` が NOPASSWD 化されており
+(`machines/hikuo-desktop/modules/claude-rebuild.nix`)、`/nix-module-ci hikuo-desktop`
+はビルド成功後に自動で `switch` する（switch は activation がワークディレクトリ外へ
+書き込むため Bash サンドボックスを無効化して実行）。
+
 ### フォーマットについて（メモ）
 
 `nix fmt` は flake が nix 式として評価できないと動かず、flake 自体が設定本体である

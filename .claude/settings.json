@@ -6,6 +6,7 @@
     "allow": [
       "Bash(nix:*)",
       "Bash(darwin-rebuild:*)",
+      "Bash(sudo nixos-rebuild:*)",
       "Bash(nixos-rebuild:*)",
       "Bash(git:*)",
       "Bash(ls:*)",
