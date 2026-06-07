@@ -8,6 +8,7 @@
   mymodule.apps.fish.enable = true;
   mymodule.apps.fonts.enable = true;
   mymodule.apps.fzf.enable = true;
+  mymodule.apps.ghostty.enable = true;
   mymodule.apps.git.enable = true;
   mymodule.apps.lazygit.enable = true;
   mymodule.apps.gui-tools.enable = true;
