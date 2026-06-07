@@ -1,23 +1,32 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.mymodule.apps.lazygit;
-  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-  isLinux = pkgs.stdenv.hostPlatform.isLinux;
 in
 {
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      programs.lazygit.enable = true;
-    }
-    (lib.mkIf isDarwin {
-      home.file."Library/Application Support/lazygit/config.yml" = {
-        source = ./config.yml;
+  config = lib.mkIf cfg.enable {
+    programs.lazygit = {
+      enable = true;
+      settings = {
+        git = {
+          autoForwardBranches = "allBranches";
+          allBranchesLogCmds = [
+            "git log --graph --color=always --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(#a0a0a0 reverse)%h%Creset %C(cyan)%ad%Creset %C(#dd4814)%ae%Creset %C(yellow reverse)%d%Creset %n%C(white bold)%s%Creset%n'"
+          ];
+          branchLogCmd = "git log --graph --color=always --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(#a0a0a0 reverse)%h%Creset %C(cyan)%ad%Creset %C(#dd4814)%ae%Creset %C(yellow reverse)%d%Creset %n%C(white bold)%s%Creset%n' {{branchName}}";
+          pagers = [
+            {
+              colorArg = "always";
+              pager = "delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+            }
+          ];
+        };
+        gui = {
+          language = "ja";
+          nerdFontsVersion = "3";
+        };
+        os.editPreset = "vscode";
+        promptToReturnFromSubprocess = false;
       };
-    })
-    (lib.mkIf isLinux {
-      xdg.configFile."lazygit/config.yml" = {
-        source = ./config.yml;
-      };
-    })
-  ]);
+    };
+  };
 }
