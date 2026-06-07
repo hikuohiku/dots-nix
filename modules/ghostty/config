@@ -1,0 +1,3 @@
+# 直接バイナリ起動(niri の spawn など)でも single-instance を有効化し、
+# 2回目以降のウィンドウ起動を高速化する。
+gtk-single-instance = true
