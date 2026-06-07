@@ -1,14 +1,9 @@
 {
   lib,
   userInfo,
-  pkgs,
   ...
 }:
 {
-  home.packages = [
-    pkgs.claude-code
-  ];
-
   home.username = userInfo.username;
   home.homeDirectory = lib.mkForce "/home/${userInfo.username}";
   programs.home-manager.enable = true;
