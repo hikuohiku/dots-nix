@@ -2,6 +2,7 @@
   mymodule.apps.alacritty.enable = true;
   mymodule.apps.bat.enable = true;
   mymodule.apps.claude.enable = true;
+  mymodule.apps.codex.enable = true;
   mymodule.apps.cli-tools.enable = true;
   mymodule.apps.core.enable = true;
   mymodule.apps.eza.enable = true;
