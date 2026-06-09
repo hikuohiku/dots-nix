@@ -18,7 +18,8 @@
 ## Phase 1.5: 実機適用 + プッシュゲート
 
 ビルド成功は「評価・ビルドが通る」保証にすぎず、意図通りに動くかは実機適用 (`switch`)
-でしか分からない。対象マシンによって扱いが分かれる。
+でしか分からない。両マシンとも rebuild が NOPASSWD 化されているため、ビルドが通ったら
+自動で switch する（使う rebuild コマンドだけマシンごとに異なる）。
 
 ### NixOS (hikuo-desktop): ビルド成功で自動適用
 
@@ -40,18 +41,25 @@ sudo nixos-rebuild switch --flake ./machines/hikuo-desktop --override-input my .
   - まだ push しない（保留）
 - 「まだ push しない」が選ばれたら Phase 2/3 を実行せずに止まる。
 
-### macOS (hikuo-macbook): 従来どおり手動
+### macOS (hikuo-macbook): ビルド成功で自動適用
 
-macOS は NOPASSWD を設定していないので自動適用しない。コミット・プッシュ前に
-AskUserQuestion で実機動作確認の結果を尋ねる。
+`hikuo-macbook` も `darwin-rebuild` が NOPASSWD 化されている
+(`machines/hikuo-macbook/modules/claude-rebuild.nix`)。Phase 1 のビルドが通ったら、
+確認を挟まず**自動で**ローカル checkout を適用する:
 
-- 必要なら先にローカル checkout を適用して確認できる
-  - `darwin-rebuild switch --flake ./machines/hikuo-macbook --override-input my .`
-- AskUserQuestion の選択肢の例:
+```
+sudo darwin-rebuild switch --flake ./machines/hikuo-macbook --override-input my .
+```
+
+- この switch は **Bash サンドボックスを無効化して実行**する（activation が
+  ワークディレクトリ外＝`/nix/var`・launchd・`/etc` などへ書き込むため。Bash ツールの
+  `dangerouslyDisableSandbox: true`）。
+- activation が失敗したらここで止めて原因を報告し、**push しない**（Phase 2/3 へ進まない）。
+- 適用が成功したら、push ゲートとして AskUserQuestion で実機の動作確認結果を尋ねる:
   - 動作確認 OK → push する
   - 確認できない / 不要 → push する
   - まだ push しない（保留）
-- 「まだ push しない」が選ばれたら Phase 2/3 を実行せずに止まる
+- 「まだ push しない」が選ばれたら Phase 2/3 を実行せずに止まる。
 
 ## Phase 2: モジュール変更のコミット・プッシュ
 
