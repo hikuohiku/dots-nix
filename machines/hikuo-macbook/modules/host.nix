@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./claude-rebuild.nix # Claude Code 用 darwin-rebuild NOPASSWD
+  ];
+
   system.primaryUser = "hikuo";
   users.knownUsers = [ "hikuo" ];
   users.users.hikuo.uid = 501;
