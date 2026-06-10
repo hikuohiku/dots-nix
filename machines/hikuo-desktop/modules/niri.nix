@@ -217,7 +217,10 @@
       # Floating / tabbed
       "Mod+V".action.toggle-window-floating = [];
       "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = [];
-      "Mod+W".action.toggle-column-tabbed-display = [];
+      "Mod+W" = {
+        hotkey-overlay.title = "Open Zen Browser";
+        action.spawn = [ "zen-beta" ];
+      };
 
       # Screenshot
       "Print".action.screenshot = [];
