@@ -74,7 +74,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+A hotkey-overlay-title="Open a Terminal" { spawn "alacritty"; }
+    Mod+A hotkey-overlay-title="Open a Terminal" { spawn "niri-focus-or-spawn" "Alacritty" "alacritty"; }
     Mod+BracketLeft { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
     Mod+C { center-column; }
@@ -121,6 +121,7 @@ binds {
     Mod+L { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Minus { set-column-width "-10%"; }
+    Mod+N hotkey-overlay-title="Open Focused App" { spawn "niri-spawn-focused-app"; }
     Mod+O repeat=false { toggle-overview; }
     "Mod+Page_Down" { focus-workspace-down; }
     "Mod+Page_Up" { focus-workspace-up; }
@@ -160,7 +161,7 @@ binds {
     Mod+Space hotkey-overlay-title="Open Launcher" { spawn "vicinae" "toggle"; }
     Mod+Up { focus-window-up; }
     Mod+V { toggle-window-floating; }
-    Mod+W hotkey-overlay-title="Open Zen Browser" { spawn "zen-beta"; }
+    Mod+W hotkey-overlay-title="Open Zen Browser" { spawn "niri-focus-or-spawn" "zen-beta" "zen-beta"; }
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollLeft { focus-column-left; }
     Mod+WheelScrollRight { focus-column-right; }
