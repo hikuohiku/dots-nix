@@ -52,18 +52,10 @@ check_ssh() {
 
 # --- Actions ---
 
-add_route() {
-    sudo _add-vpn-route
-}
-
 connect_vpn() {
+    # ルート/MTU は /etc/ppp/ip-up フックが接続時に自動設定する
     sudo launchctl start "$VPN_SERVICE"
     until check_vpn; do sleep 1; done
-}
-
-setup_connection() {
-    connect_vpn
-    add_route
 }
 
 disconnect_vpn() {
@@ -91,7 +83,7 @@ stop_ssh() {
 
 case "$1" in
     connect_all)
-        setup_connection
+        connect_vpn
         enable_proxy
         start_ssh
         ;;
@@ -101,7 +93,7 @@ case "$1" in
         stop_ssh
         ;;
     toggle_vpn)
-        if check_vpn; then disconnect_vpn; else setup_connection; fi
+        if check_vpn; then disconnect_vpn; else connect_vpn; fi
         ;;
     toggle_proxy)
         if check_proxy; then disable_proxy; else enable_proxy; fi
