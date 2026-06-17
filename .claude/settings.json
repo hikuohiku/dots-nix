@@ -1,6 +1,6 @@
 {
   "enabledPlugins": {
-    "claude-code-harness@claude-code-harness-marketplace": true
+    "claude-code-harness@claude-code-harness-marketplace": false
   },
   "permissions": {
     "allow": [
