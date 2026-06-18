@@ -318,11 +318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781773501,
-        "narHash": "sha256-S95C1wJN4WTmw5pbypQladGH5F3b7ZjgVlVBmemJYKc=",
+        "lastModified": 1781774444,
+        "narHash": "sha256-+F0igGLTtMrUGsYZeAHRWubVuQZS71V9HBLSnXcoWEI=",
         "owner": "hikuohiku",
         "repo": "dots-nix",
-        "rev": "de46db7631cb26243fcbc81c079ddfb3b3da8d9e",
+        "rev": "fa8cd539589bbe7663c6a5ad2b88766ff5ed2a3e",
         "type": "github"
       },
       "original": {
