@@ -75,6 +75,7 @@ binds {
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
     Mod+A hotkey-overlay-title="Open a Terminal" { spawn "niri-focus-or-spawn" "Alacritty" "alacritty"; }
+    Mod+B hotkey-overlay-title="Toggle Bluetooth Panel" { spawn "dms" "ipc" "call" "control-center" "toggle"; }
     Mod+BracketLeft { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
     Mod+C { center-column; }

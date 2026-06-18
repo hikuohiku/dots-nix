@@ -77,12 +77,6 @@
   services.tailscale.enable = true;
   services.printing.enable = true;
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-  services.blueman.enable = true;
-
   virtualisation = {
     containers.enable = true;
     podman = {
