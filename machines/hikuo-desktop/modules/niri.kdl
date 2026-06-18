@@ -155,6 +155,7 @@ binds {
     "Mod+Shift+Page_Up" { move-workspace-up; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+Right { focus-monitor-right; }
+    Mod+Shift+S hotkey-overlay-title="Toggle Stream Display (HDMI-A-1 FHD@1)" { spawn "niri-toggle-stream-display"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Shift+Up { focus-monitor-up; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }

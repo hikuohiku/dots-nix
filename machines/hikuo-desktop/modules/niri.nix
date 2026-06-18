@@ -45,6 +45,35 @@ let
     '';
   };
 
+  # HDMI-A-1 を「FHD 等倍 (1920x1080 @scale1)」と「通常 (4K @scale2)」でトグルする。
+  # Sunshine の software エンコードは 4K キャプチャが重いので、配信時だけ FHD 等倍に落とす。
+  # niri msg output は一時変更 (niri 再起動でリセット) なので nix の恒久設定は変えない。
+  niriToggleStreamDisplay = pkgs.writeShellApplication {
+    name = "niri-toggle-stream-display";
+    runtimeInputs = [
+      niriPackage
+      pkgs.jq
+      pkgs.libnotify
+    ];
+    text = ''
+      out="HDMI-A-1"
+      width="$(niri msg --json outputs \
+        | jq -r --arg o "$out" '.[$o].modes[.[$o].current_mode].width')"
+
+      if [ "$width" = "3840" ]; then
+        # 4K -> 配信用 FHD 等倍
+        niri msg output "$out" mode 1920x1080@60.000
+        niri msg output "$out" scale 1
+        notify-send -t 2000 "Display" "$out: 1920x1080 @1 (stream)" || true
+      else
+        # 復帰: 4K @2
+        niri msg output "$out" mode 3840x2160@60.000
+        niri msg output "$out" scale 2
+        notify-send -t 2000 "Display" "$out: 3840x2160 @2 (normal)" || true
+      fi
+    '';
+  };
+
   niriSpawnFocusedApp = pkgs.writeShellApplication {
     name = "niri-spawn-focused-app";
     runtimeInputs = [
@@ -106,6 +135,7 @@ in
   home.packages = [
     niriFocusOrSpawn
     niriSpawnFocusedApp
+    niriToggleStreamDisplay
   ];
 
   programs.niri.package = niriPackage;
