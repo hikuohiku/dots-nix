@@ -59,6 +59,12 @@ let
         Alacritty)
           exec alacritty
           ;;
+        code)
+          exec code --enable-wayland-ime --new-window
+          ;;
+        Slack)
+          exec slack
+          ;;
         zen-beta)
           exec zen-beta
           ;;

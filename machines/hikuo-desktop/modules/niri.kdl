@@ -129,6 +129,7 @@ binds {
     Mod+Q { close-window; }
     Mod+R { switch-preset-column-width; }
     Mod+Right { focus-column-right; }
+    Mod+S hotkey-overlay-title="Open Slack" { spawn "niri-focus-or-spawn" "Slack" "slack"; }
     Mod+Shift+5 { screenshot; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
@@ -160,7 +161,7 @@ binds {
     Mod+Shift+WheelScrollUp { focus-column-left; }
     Mod+Space hotkey-overlay-title="Open Launcher" { spawn "vicinae" "toggle"; }
     Mod+Up { focus-window-up; }
-    Mod+V { toggle-window-floating; }
+    Mod+V hotkey-overlay-title="Open Visual Studio Code" { spawn "niri-focus-or-spawn" "code" "code" "--enable-wayland-ime"; }
     Mod+W hotkey-overlay-title="Open Zen Browser" { spawn "niri-focus-or-spawn" "zen-beta" "zen-beta"; }
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollLeft { focus-column-left; }
