@@ -28,4 +28,5 @@
   mymodule.apps.vm.enable = false;
   mymodule.apps.fortivpn.enable = true;
   mymodule.apps.zed.enable = true;
+  mymodule.apps.sunshine.enable = true;
 }

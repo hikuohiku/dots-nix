@@ -104,6 +104,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "uinput" # Sunshine の仮想マウス入力 (/dev/uinput) に必要
     ];
     shell = pkgs.fish;
   };
