@@ -7,12 +7,19 @@ let
     runtimeInputs = [ pkgs.jq ];
     text = builtins.readFile ../yabai/yabai-move-to-empty;
   };
+
+  yabaiBringApp = pkgs.writeShellApplication {
+    name = "yabai-bring-app";
+    runtimeInputs = [ pkgs.jq ];
+    text = builtins.readFile ../yabai/yabai-bring-app;
+  };
 in
 {
   config = lib.mkIf cfg.enable {
     xdg.configFile."skhd/skhdrc" = {
       source = pkgs.replaceVars ./skhdrc {
         yabaiMoveToEmpty = "${yabaiMoveToEmpty}/bin/yabai-move-to-empty";
+        yabaiBringApp = "${yabaiBringApp}/bin/yabai-bring-app";
       };
     };
   };

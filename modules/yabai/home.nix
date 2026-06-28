@@ -7,6 +7,12 @@ let
     runtimeInputs = [ pkgs.jq ];
     text = builtins.readFile ./yabai-move-to-empty;
   };
+
+  bringApp = pkgs.writeShellApplication {
+    name = "yabai-bring-app";
+    runtimeInputs = [ pkgs.jq ];
+    text = builtins.readFile ./yabai-bring-app;
+  };
 in
 {
   config = lib.mkIf cfg.enable {
@@ -14,6 +20,9 @@ in
       source = ./yabairc;
     };
 
-    home.packages = [ moveToEmpty ];
+    home.packages = [
+      moveToEmpty
+      bringApp
+    ];
   };
 }

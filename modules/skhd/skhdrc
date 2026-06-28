@@ -40,3 +40,17 @@ cmd + alt - f : yabai -m config focus_follows_mouse $([ $(yabai -m config focus_
 
 # windowを空のスペースに移動
 alt - g : @yabaiMoveToEmpty@
+
+# bring app to current desktop
+alt - a : @yabaiBringApp@ Ghostty
+alt - b : @yabaiBringApp@ Bitwarden
+alt - c : @yabaiBringApp@ Calendar
+alt - d : @yabaiBringApp@ Discord
+alt - e : @yabaiBringApp@ Finder
+alt - m : @yabaiBringApp@ メール Mail
+alt - n : @yabaiBringApp@ Notion
+alt - o : @yabaiBringApp@ OrbStack
+alt - s : @yabaiBringApp@ Slack
+alt - v : @yabaiBringApp@ Code "Visual Studio Code"
+alt - w : @yabaiBringApp@ Zen
+alt - z : @yabaiBringApp@ Zotero

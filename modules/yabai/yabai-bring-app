@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# yabai-bring-app
+# 対象アプリの代表ウィンドウを現在のスペースに呼び寄せてフォーカスする。
+# 依存: yabai, jq, open
+set -euo pipefail
+
+err() { printf '[yabai-bring-app] %s\n' "$*" >&2; }
+notify() {
+  /usr/bin/osascript -e "display notification \"$*\" with title \"yabai-bring-app\"" >/dev/null 2>&1 || true
+}
+fail() {
+  err "$*"
+  notify "$*"
+  exit 1
+}
+
+require() {
+  command -v "$1" >/dev/null 2>&1 || fail "require: $1 not found"
+}
+require yabai
+require jq
+require open
+
+if [[ $# -lt 1 ]]; then
+  fail "usage: yabai-bring-app <yabai-app-name> [open-app-name]"
+fi
+
+app_name="$1"
+open_app_name="${2:-$app_name}"
+
+space_json="$(yabai -m query --spaces --space)"
+space_idx="$(echo "$space_json" | jq -r '.index')"
+display_id="$(echo "$space_json" | jq -r '.display')"
+windows_json="$(yabai -m query --windows)"
+
+current_space_window_id="$(
+  jq -nr \
+    --arg app_name "$app_name" \
+    --argjson space_idx "$space_idx" \
+    --argjson windows "$windows_json" '
+      $windows
+      | map(select(
+          .app == $app_name
+          and .space == $space_idx
+          and ."has-ax-reference" == true
+          and ."is-minimized" != true
+        ))
+      | sort_by(.id)
+      | reverse
+      | .[0].id // empty
+    '
+)"
+
+if [[ -n "${current_space_window_id:-}" ]]; then
+  yabai -m window --focus "$current_space_window_id" || fail "failed to focus $app_name"
+  exit 0
+fi
+
+target_window_ids="$(
+  jq -nr \
+    --arg app_name "$app_name" \
+    --argjson display_id "$display_id" \
+    --argjson windows "$windows_json" '
+      $windows
+      | map(select(
+          .app == $app_name
+          and ."has-ax-reference" == true
+          and ."can-move" == true
+          and ."is-sticky" != true
+        ))
+      | sort_by(
+          (if ."is-minimized" == true then 0 else 1 end),
+          (if ."is-hidden" == true then 0 else 1 end),
+          (if .display == $display_id then 1 else 0 end),
+          .id
+        )
+      | reverse
+      | map(.id)
+      | .[]
+    '
+)"
+
+if [[ -z "${target_window_ids:-}" ]]; then
+  open -a "$open_app_name" || fail "failed to open $open_app_name"
+  exit 0
+fi
+
+target_window_id="$(printf '%s\n' "$target_window_ids" | head -n 1)"
+
+while IFS= read -r window_id; do
+  [[ -n "$window_id" ]] || continue
+  yabai -m window "$window_id" --space "$space_idx" || fail "failed to move $app_name to current space"
+done <<<"$target_window_ids"
+
+yabai -m space --focus "$space_idx" >/dev/null 2>&1 || true
+yabai -m window --focus "$target_window_id" || fail "failed to focus $app_name"
