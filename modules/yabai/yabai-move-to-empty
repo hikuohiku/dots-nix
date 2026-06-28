@@ -5,53 +5,87 @@
 set -euo pipefail
 
 err() { printf '[yabai-move-to-empty] %s\n' "$*" >&2; }
+notify() {
+  /usr/bin/osascript -e "display notification \"$*\" with title \"yabai-move-to-empty\"" >/dev/null 2>&1 || true
+}
+fail() {
+  err "$*"
+  notify "$*"
+  exit 1
+}
 
 require() {
-  command -v "$1" >/dev/null 2>&1 || { err "require: $1 not found"; exit 1; }
+  command -v "$1" >/dev/null 2>&1 || fail "require: $1 not found"
 }
 require yabai
 require jq
 
 # アクティブウィンドウが無い場合の軽いガード
 if ! yabai -m query --windows --window >/dev/null 2>&1; then
-  err "no active window to move"
-  exit 1
+  fail "no active window to move"
 fi
 
-# 移動するウィンドウのIDを保存
-window_id="$(yabai -m query --windows --window | jq -r '.id')"
+# 移動するウィンドウの情報を保存
+window_json="$(yabai -m query --windows --window)"
+window_id="$(echo "$window_json" | jq -r '.id')"
+display_id="$(echo "$window_json" | jq -r '.display')"
+
+find_empty_space() {
+  local spaces_json windows_json
+  spaces_json="$(yabai -m query --spaces --display "$display_id")"
+  windows_json="$(yabai -m query --windows)"
+
+  jq -nr \
+    --argjson spaces "$spaces_json" \
+    --argjson windows "$windows_json" '
+      ($windows
+        | map(select(
+            (."is-sticky" != true)
+            and (."has-ax-reference" == true)
+            and (."can-move" == true)
+          ))
+        | map(.id)
+      ) as $occupied_window_ids
+      | $spaces
+      | map(select(."is-native-fullscreen" == false))
+      | map(select(
+          all((.windows // [])[]; . as $window_id | ($occupied_window_ids | index($window_id)) == null)
+        ))
+      | .[0].index // empty
+    '
+}
+
+create_space() {
+  if yabai -m space --create >/dev/null 2>&1; then
+    return 0
+  fi
+
+  sudo -n yabai --load-sa >/dev/null 2>&1 || return 1
+  sleep 0.1
+  yabai -m space --create >/dev/null 2>&1
+}
 
 # 1) 既存の空スペースを探す
-spaces_json="$(yabai -m query --spaces)"
-empty_idx="$(echo "$spaces_json" | jq -r 'map(select((.windows|length)==0)) | .[0].index // empty')"
+empty_idx="$(find_empty_space)"
 
 target_idx=""
 if [[ -n "${empty_idx:-}" ]]; then
   target_idx="$empty_idx"
 else
   # 2) 空が無ければ作成を試みる（yabaiのspace --create）
-  if yabai -m space --create >/dev/null 2>&1; then
+  if create_space; then
     sleep 0.05
-    target_idx="$(yabai -m query --spaces | jq '.[-1].index')"
+    target_idx="$(find_empty_space)"
   else
-    # 3) それも不可ならAppleScriptで右にデスクトップ追加（Mission Control）
-    if command -v osascript >/dev/null 2>&1; then
-      osascript -e 'tell application "System Events" to key code 124 using control down' || true
-      sleep 0.3
-      target_idx="$(yabai -m query --spaces | jq '.[-1].index')"
-    else
-      err "no empty space and cannot create (osascript not available)"
-      exit 1
-    fi
+    fail "no empty space and cannot create a new space"
   fi
 fi
 
 # 4) ウィンドウを移動して、そのスペースへフォーカス
 if [[ -z "${target_idx:-}" ]]; then
-  err "failed to determine target space index"
-  exit 1
+  fail "failed to determine target space index"
 fi
 
-yabai -m window --space "$target_idx"
-yabai -m space --focus "$target_idx"
-yabai -m window --focus "$window_id"
+yabai -m window --space "$target_idx" || fail "failed to move window to space $target_idx"
+yabai -m space --focus "$target_idx" || fail "failed to focus space $target_idx"
+yabai -m window --focus "$window_id" || fail "failed to refocus moved window"
