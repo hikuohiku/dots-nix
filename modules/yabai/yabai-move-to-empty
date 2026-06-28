@@ -8,6 +8,9 @@ err() { printf '[yabai-move-to-empty] %s\n' "$*" >&2; }
 notify() {
   /usr/bin/osascript -e "display notification \"$*\" with title \"yabai-move-to-empty\"" >/dev/null 2>&1 || true
 }
+play_noop_sound() {
+  /usr/bin/afplay /System/Library/Sounds/Pop.aiff >/dev/null 2>&1 || true
+}
 fail() {
   err "$*"
   notify "$*"
@@ -29,6 +32,7 @@ fi
 window_json="$(yabai -m query --windows --window)"
 window_id="$(echo "$window_json" | jq -r '.id')"
 display_id="$(echo "$window_json" | jq -r '.display')"
+space_idx="$(echo "$window_json" | jq -r '.space')"
 
 find_empty_space() {
   local spaces_json windows_json
@@ -55,6 +59,31 @@ find_empty_space() {
     '
 }
 
+current_space_window_count() {
+  local spaces_json windows_json
+  spaces_json="$(yabai -m query --spaces --display "$display_id")"
+  windows_json="$(yabai -m query --windows)"
+
+  jq -nr \
+    --argjson spaces "$spaces_json" \
+    --argjson windows "$windows_json" \
+    --argjson space_idx "$space_idx" '
+      ($windows
+        | map(select(
+            (."is-sticky" != true)
+            and (."has-ax-reference" == true)
+            and (."can-move" == true)
+          ))
+        | map(.id)
+      ) as $occupied_window_ids
+      | $spaces
+      | map(select(.index == $space_idx))
+      | .[0].windows // []
+      | map(select(. as $window_id | ($occupied_window_ids | index($window_id)) != null))
+      | length
+    '
+}
+
 create_space() {
   if yabai -m space --create >/dev/null 2>&1; then
     return 0
@@ -64,6 +93,11 @@ create_space() {
   sleep 0.1
   yabai -m space --create >/dev/null 2>&1
 }
+
+if [[ "$(current_space_window_count)" -le 1 ]]; then
+  play_noop_sound
+  exit 0
+fi
 
 # 1) 既存の空スペースを探す
 empty_idx="$(find_empty_space)"
