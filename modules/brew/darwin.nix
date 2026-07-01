@@ -24,7 +24,7 @@
       "launchcontrol"
       "xbar"
       "xcodes-app"
-      "claude-code"
+      "claude-code@latest"
       "mactex"
       "wireshark"
       "puremac"
