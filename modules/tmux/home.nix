@@ -14,5 +14,9 @@
     xdg.configFile."tmux/tmux.conf" = {
       source = ./tmux.conf;
     };
+
+    xdg.configFile."tabby/config.yaml" = {
+      source = ./tabby.yaml;
+    };
   };
 }

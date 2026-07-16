@@ -1,0 +1,61 @@
+groups:
+  - name: Default
+    pattern: ".*"
+    theme:
+      bg: transparent
+      active_bg: transparent
+      inactive_bg: transparent
+
+terminal_title:
+  enabled: false
+
+sidebar:
+  theme: default
+  header:
+    text: " "
+    height: 1
+    padding_bottom: 1
+    centered: false
+    active_color: false
+    bold: false
+  pane_headers: false
+  new_tab_button: false
+  new_group_button: false
+  show_empty_groups: false
+  close_button: false
+  hide_predefined_colors: true
+  colors:
+    tree_bg: transparent
+
+prompt:
+  shell_integration: false
+
+indicators:
+  activity:
+    enabled: false
+  bell:
+    enabled: false
+  silence:
+    enabled: false
+  last:
+    enabled: false
+  busy:
+    enabled: false
+  input:
+    enabled: false
+
+widgets:
+  clock:
+    enabled: false
+  pet:
+    enabled: false
+  stats:
+    enabled: false
+  git:
+    enabled: false
+  session:
+    enabled: false
+  claude:
+    enabled: false
+  teamclaude:
+    enabled: false
