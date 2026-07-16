@@ -19,6 +19,7 @@
   mymodule.apps.linux-builder.enable = true;
   mymodule.apps.neovim.enable = true;
   mymodule.apps.nix.enable = true;
+  mymodule.apps.pnpm.enable = true;
   mymodule.apps.syncthing.enable = true;
   mymodule.apps.system.enable = true;
   mymodule.apps.touchid.enable = true;

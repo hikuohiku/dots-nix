@@ -1,6 +1,6 @@
 { lib, ... }:
 {
   options.mymodule.apps.typescript = {
-    enable = lib.mkEnableOption "TypeScript runtimes (deno, pnpm, prettier)";
+    enable = lib.mkEnableOption "TypeScript tools (deno, prettier)";
   };
 }

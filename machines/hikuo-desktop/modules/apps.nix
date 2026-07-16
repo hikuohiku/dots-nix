@@ -17,6 +17,7 @@
   mymodule.apps.kitty.enable = true;
   mymodule.apps.neovim.enable = true;
   mymodule.apps.obsidian.enable = true;
+  mymodule.apps.pnpm.enable = true;
   mymodule.apps.syncthing.enable = true;
   mymodule.apps.vscode.enable = true;
   mymodule.apps.zellij.enable = true;
