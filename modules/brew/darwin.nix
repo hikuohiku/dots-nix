@@ -37,6 +37,10 @@
       "Hidden Bar" = 1452453066;
     };
 
+    homebrew.taps = [
+      "modem-dev/tap"
+    ];
+
     homebrew.brews = [
       "ghcup"
       "swiftly"
@@ -45,6 +49,8 @@
       "mint"
       "fastlane"
       "swift-protobuf"
+      "hunk"
+      "herdr"
     ];
   };
 }
