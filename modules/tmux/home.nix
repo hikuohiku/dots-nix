@@ -6,6 +6,13 @@
 }:
 {
   config = lib.mkIf config.mymodule.apps.tmux.enable {
-    home.packages = [ pkgs.tmux ];
+    home.packages = with pkgs; [
+      go
+      tmux
+    ];
+
+    xdg.configFile."tmux/tmux.conf" = {
+      source = ./tmux.conf;
+    };
   };
 }
