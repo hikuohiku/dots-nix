@@ -24,6 +24,7 @@
   mymodule.apps.system.enable = true;
   mymodule.apps.touchid.enable = true;
   mymodule.apps.toggl-track.enable = true;
+  mymodule.apps.tmux.enable = true;
   mymodule.apps.vscode.enable = true;
   mymodule.apps.zellij.enable = true;
   mymodule.apps.zen.enable = true;
