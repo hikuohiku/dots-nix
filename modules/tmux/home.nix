@@ -7,7 +7,6 @@
 {
   config = lib.mkIf config.mymodule.apps.tmux.enable {
     home.packages = with pkgs; [
-      go
       tmux
     ];
 
@@ -15,8 +14,5 @@
       source = ./tmux.conf;
     };
 
-    xdg.configFile."tabby/config.yaml" = {
-      source = ./tabby.yaml;
-    };
   };
 }
