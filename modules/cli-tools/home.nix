@@ -1,78 +1,96 @@
-{ config, lib, pkgs, ... }:
 {
-  config = lib.mkIf config.mymodule.apps.cli-tools.enable {
-    home.packages = with pkgs; [
-      # nix
-      nix-output-monitor
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.mymodule.apps.cli-tools;
+  enabled = category: cfg.enable || category.enable;
+in
+{
+  config = lib.mkMerge [
+    (lib.mkIf (enabled cfg.base) {
+      home.packages = with pkgs; [
+        nix-output-monitor
+        tree
+        fastfetch
+        gomi
+        rlwrap
+        gh
+        ripgrep
+        fd
+        sd
+        unar
+        unzip
+        p7zip
+        wget
+        httpie
+        yq-go
+        jwt-cli
+        jq
+        jnv
+        btop
+        ranger
+        lazydocker
+        dive
+        just
+      ];
 
-      devenv
+      home.sessionVariables.PAGER = "bat";
+    })
 
-      tree
-      fastfetch
-      gomi # trash
-      bitwarden-cli # いつからかビルドできなくなったので使いたくなる時までは一旦コメントアウトしておく
-      vhs # terminal screen capture
-      rlwrap # readline wrapper
-      gh
+    (lib.mkIf (enabled cfg.development) {
+      home.packages = with pkgs; [
+        devenv
+        tree-sitter
+        treefmt
+        nixfmt
+        yamlfmt
+      ];
 
-      # rust replacements
-      ripgrep # grep
-      fd # find
-      sd # sed
-
-      # archive
-      unar # unarchiver
-      unzip
-      p7zip # 7z
-
-      # http
-      wget
-      httpie
-
-      # analyze data format
-      yq-go
-      jwt-cli
-      jq
-      jnv
-
-      # tree-sitter
-      tree-sitter
-
-      ansible
-      ansible-lint
-
-      # ========== TUI TOOL ==========
-      btop # resource monitor
-      ranger # file manager
-      lazydocker
-      dive
-      just
-
-      terraform
-      kubernetes-helm
-      cachix
-      doppler
-      treefmt
-      nixfmt
-      yamlfmt
-      (texlive.withPackages (
-        ps: with ps; [
-          latexindent
-          chktex
-        ]
-      ))
-    ];
-
-    programs = {
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
+      programs = {
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+        rbenv.enable = true;
       };
-      rbenv.enable = true;
-    };
+    })
 
-    home.sessionVariables = {
-      PAGER = "bat";
-    };
-  };
+    (lib.mkIf (enabled cfg.infrastructure) {
+      home.packages = with pkgs; [
+        terraform
+        kubernetes-helm
+        cachix
+        doppler
+      ];
+    })
+
+    (lib.mkIf (enabled cfg.automation) {
+      home.packages = with pkgs; [
+        ansible
+        ansible-lint
+      ];
+    })
+
+    (lib.mkIf (enabled cfg.documents) {
+      home.packages = [
+        (pkgs.texlive.withPackages (
+          ps: with ps; [
+            latexindent
+            chktex
+          ]
+        ))
+      ];
+    })
+
+    (lib.mkIf (enabled cfg.secrets) {
+      home.packages = [ pkgs.bitwarden-cli ];
+    })
+
+    (lib.mkIf (enabled cfg.recording) {
+      home.packages = [ pkgs.vhs ];
+    })
+  ];
 }
