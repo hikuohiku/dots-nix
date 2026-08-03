@@ -18,6 +18,8 @@
   mymodule.apps.neovim.enable = true;
 
   home.packages = [
+    pkgs.code-server
+    pkgs.nix
     inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
