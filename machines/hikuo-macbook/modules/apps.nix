@@ -13,6 +13,7 @@
   mymodule.apps.fzf.enable = true;
   mymodule.apps.ghostty.enable = true;
   mymodule.apps.git.enable = true;
+  mymodule.apps.herdr.enable = true;
   mymodule.apps.hunk.enable = true;
   mymodule.apps.karabiner.enable = true;
   mymodule.apps.kitty.enable = true;
