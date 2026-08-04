@@ -50,7 +50,6 @@
       "fastlane"
       "swift-protobuf"
       "hunk"
-      "herdr"
     ];
   };
 }
