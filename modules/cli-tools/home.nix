@@ -86,7 +86,11 @@ in
     })
 
     (lib.mkIf (enabled cfg.secrets) {
-      home.packages = [ pkgs.bitwarden-cli ];
+      # bws は Secrets Manager 用 (unfree)。bitwarden-cli とは別物。
+      home.packages = [
+        pkgs.bitwarden-cli
+        pkgs.bws
+      ];
     })
 
     (lib.mkIf (enabled cfg.recording) {
