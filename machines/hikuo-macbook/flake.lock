@@ -116,18 +116,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1785859132,
-        "narHash": "sha256-6OWZZAjQk6nKJzbzaoTV8CqGy3uHiw/VuqRNzAnXLv8=",
-        "owner": "hikuohiku",
-        "repo": "dots-nix",
-        "rev": "15279ccd726d8d9622767a0f12ca78c564dbf920",
-        "type": "github"
+        "path": "../..",
+        "type": "path"
       },
       "original": {
-        "owner": "hikuohiku",
-        "repo": "dots-nix",
-        "type": "github"
-      }
+        "path": "../..",
+        "type": "path"
+      },
+      "parent": []
     },
     "nix-darwin": {
       "inputs": {
