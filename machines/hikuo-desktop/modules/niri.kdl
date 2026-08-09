@@ -177,7 +177,6 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
 }
 spawn-at-startup "dms" "run"
-spawn-at-startup "xwayland-satellite"
 window-rule {
     match app-id="^org\\.wezfurlong\\.wezterm$"
     default-column-width
