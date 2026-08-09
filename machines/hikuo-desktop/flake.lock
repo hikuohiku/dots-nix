@@ -335,18 +335,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1785922035,
-        "narHash": "sha256-n5kWU+o/n26Oi89Zfhf/RLWswRxkusA1q39/vfrdRnc=",
-        "owner": "hikuohiku",
-        "repo": "dots-nix",
-        "rev": "4573d09b0495247eb57f6582d0530330500574ae",
-        "type": "github"
+        "path": "../..",
+        "type": "path"
       },
       "original": {
-        "owner": "hikuohiku",
-        "repo": "dots-nix",
-        "type": "github"
-      }
+        "path": "../..",
+        "type": "path"
+      },
+      "parent": []
     },
     "niri-flake": {
       "inputs": {
