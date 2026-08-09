@@ -37,10 +37,10 @@ in
     };
 
     environment.etc."sudoers.d/yabai".source = pkgs.runCommand "sudoers-yabai" { } ''
-      YABAI_BIN="${yabaiWrapper}/bin/yabai"
+      YABAI_BIN="${yabaiPkg}/bin/yabai"
       SHASUM=$(sha256sum "$YABAI_BIN" | cut -d' ' -f1)
       cat <<EOF >"$out"
-      %admin ALL=(root) NOPASSWD: sha256:$SHASUM $YABAI_BIN --load-sa
+      %admin ALL=(root) NOPASSWD: sha256:$SHASUM /run/current-system/sw/bin/yabai --load-sa
       EOF
     '';
   };
