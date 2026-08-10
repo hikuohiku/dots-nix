@@ -3,6 +3,9 @@
   config = lib.mkIf config.mymodule.apps.hunk.enable {
     xdg.configFile."hunk/config.toml".text = ''
       hunk_headers = false
+      theme = "dark-plus"
+      mode = "auto"
+      agent_notes = true
     '';
 
     programs.fish.functions.hunk = ''
