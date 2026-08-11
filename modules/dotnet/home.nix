@@ -5,7 +5,7 @@
   ...
 }:
 let
-  sdk = pkgs.dotnetCorePackages.sdk_8_0;
+  sdk = pkgs.dotnetCorePackages.sdk_10_0;
 in
 {
   config = lib.mkIf config.mymodule.apps.dotnet.enable {
