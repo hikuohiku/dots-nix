@@ -6,6 +6,7 @@
   mymodule.apps.codex.enable = true;
   mymodule.apps.cli-tools.enable = true;
   mymodule.apps.core.enable = true;
+  mymodule.apps.dotnet.enable = true;
   mymodule.apps.eza.enable = true;
   mymodule.apps.fish.enable = true;
   mymodule.apps.fonts.enable = true;
