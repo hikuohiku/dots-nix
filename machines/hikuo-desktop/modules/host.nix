@@ -41,6 +41,8 @@
 
   programs.nix-ld.enable = true;
 
+  hardware.i2c.enable = true;
+
   networking = {
     hostName = systemInfo.hostname;
     networkmanager.enable = true;
@@ -104,6 +106,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "i2c" # DDC/CI によるモニター制御に必要
       "uinput" # Sunshine の仮想マウス入力 (/dev/uinput) に必要
     ];
     shell = pkgs.fish;
