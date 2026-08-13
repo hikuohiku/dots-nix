@@ -43,6 +43,11 @@
     niri-flake.url = "github:sodiboo/niri-flake";
 
     vicinae.url = "github:vicinaehq/vicinae";
+
+    codex-desktop-linux = {
+      url = "github:ilysenko/codex-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
