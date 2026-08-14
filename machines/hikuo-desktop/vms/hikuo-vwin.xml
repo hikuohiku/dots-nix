@@ -4,6 +4,11 @@
 
   <memory unit='GiB'>16</memory>
   <currentMemory unit='GiB'>16</currentMemory>
+  <!-- VirtioFS はゲストメモリを virtiofsd と共有する必要がある。 -->
+  <memoryBacking>
+    <source type='memfd'/>
+    <access mode='shared'/>
+  </memoryBacking>
   <vcpu placement='static'>8</vcpu>
   <cputune>
     <vcpupin vcpu='0' cpuset='2'/>
@@ -96,6 +101,15 @@
       <target dev='sdc' bus='sata'/>
       <readonly/>
     </disk>
+
+    <!-- ホストの /mnt/vm-shared を共有する。SMB は使わない。
+         ゲストでは target dir がタグ名になり、VirtioFS サービスがドライブとして
+         マウントする。 -->
+    <filesystem type='mount' accessmode='passthrough'>
+      <driver type='virtiofs'/>
+      <source dir='/mnt/vm-shared'/>
+      <target dir='vmshared'/>
+    </filesystem>
 
     <controller type='usb' index='0' model='qemu-xhci' ports='15'/>
     <controller type='sata' index='0'/>

@@ -240,6 +240,21 @@
           <Description>Schedule Tailscale</Description>
           <CommandLine>reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v InstallTailscale /t REG_EXPAND_SZ /d "cmd /c winget install --id Tailscale.Tailscale --exact --silent --accept-package-agreements --accept-source-agreements --disable-interactivity > %LOCALAPPDATA%\Temp\unattend-tailscale.log 2>&amp;1" /f</CommandLine>
         </SynchronousCommand>
+
+        <!-- VirtioFS の共有フォルダ。viofs ドライバと VirtioFsSvc は guest tools が
+             入れるが、ユーザー空間側の WinFsp は同梱されないので winget で補う。
+             サービスの自動起動化はここで（昇格が要る）、WinFsp の導入は RunOnce で
+             行うため、共有が見えるのは 3 回目の起動から。 -->
+        <SynchronousCommand wcm:action="add">
+          <Order>6</Order>
+          <Description>Schedule WinFsp</Description>
+          <CommandLine>reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v InstallWinFsp /t REG_EXPAND_SZ /d "cmd /c winget install --id WinFsp.WinFsp --exact --silent --accept-package-agreements --accept-source-agreements --disable-interactivity > %LOCALAPPDATA%\Temp\unattend-winfsp.log 2>&amp;1" /f</CommandLine>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <Order>7</Order>
+          <Description>Start the VirtioFS service on boot</Description>
+          <CommandLine>sc.exe config VirtioFsSvc start= auto</CommandLine>
+        </SynchronousCommand>
       </FirstLogonCommands>
     </component>
   </settings>

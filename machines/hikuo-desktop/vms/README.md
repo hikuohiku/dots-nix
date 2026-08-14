@@ -54,7 +54,8 @@ virt-manager   # SPICE コンソールで進行を見る
 | インストール | 言語・キーボード、ライセンス条項、ディスク構成、インストール |
 | OOBE | ローカルユーザー `hikuo` を作成し、自動ログイン |
 | 初回ログオン | 自動ログインの恒久化、virtio-win guest tools（VirtIO ドライバ・QEMU guest agent・SPICE vdagent）を導入 |
-| 2 回目のログオン | winget で Google Chrome と Tailscale を導入 |
+| 2 回目のログオン | winget で Google Chrome、Tailscale、WinFsp を導入 |
+| 3 回目の起動 | VirtioFS の共有フォルダが `Z:` に出る |
 
 winget を初回ログオンではなく 2 回目に回しているのは、初回ログオンの時点では
 App Installer の実行エイリアスがまだ PATH に載っておらず `winget` が見つからないため。
@@ -63,7 +64,25 @@ RunOnce は昇格されないので、マシン全体へインストールする
 ログの場所は段階で違う。
 
 - 初回ログオン: `C:\Windows\Panther\unattend-guest-tools.log`
-- 2 回目のログオン: `%LOCALAPPDATA%\Temp\unattend-chrome.log`, `unattend-tailscale.log`
+- 2 回目のログオン: `%LOCALAPPDATA%\Temp\unattend-chrome.log`, `unattend-tailscale.log`,
+  `unattend-winfsp.log`
+
+## 共有フォルダ
+
+ホストの `/mnt/vm-shared` が VirtioFS でゲストの `Z:` に出る。SMB は使わない。
+読み書きとも可能で、ゲストから作ったファイルはホスト側で `hikuo:users` として見える
+（virtiofsd が root で `accessmode='passthrough'` のため所有権が素通しになる）。
+
+`Z:` が出ない場合は、ゲストで次を確認する。
+
+```
+sc query VirtioFsSvc
+```
+
+このサービスは `viofs` ドライバ（virtio-win guest tools が入れる）と **WinFsp**
+（virtio-win には同梱されないので winget で入れる）の両方が揃って初めて起動する。
+自動インストールでは WinFsp が 2 回目のログオンで入るため、サービスが実際に上がるのは
+3 回目の起動から。手で早めるなら WinFsp を入れた直後に `sc start VirtioFsSvc` でよい。
 
 ## インストール後の手動手順
 
@@ -128,7 +147,6 @@ sudo systemctl restart hikuo-vwin-define
 
 ## 現状の制限
 
-- 共有フォルダは未実装。VirtioFS でやる予定（virtio-win に `viofs` ドライバは同梱済み）
 - Secure Boot は「対応ファームウェアで UEFI 起動する」までで、鍵を登録していないので
   実際には有効になっていない。Windows 11 の要件は満たす。実 Secure Boot にするなら
   `pkgs.OVMFFull.fd` の `OVMF_VARS.ms.fd` を固定パスへリンクして `enrolled-keys=yes`
