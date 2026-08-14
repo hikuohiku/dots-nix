@@ -8,10 +8,15 @@
 let
   ddcutil = lib.getExe pkgs.ddcutil;
 
-  # 現在値が目標と一致していれば書き込まない。同じ値でも setvcp は再同期を
-  # 起こしうるため、既に望む状態なら触らない。読めなかった場合は書き込む。
-  # 消灯中でも D6/60 は実測どおりの値を返す（実機で確認済み）。
-  setvcpIfNeeded = ''
+  monitorSerials = [
+    "7VYRGD3"
+    "7VK4MD3"
+  ];
+
+  ddcHelpers = ''
+    # 現在値が目標と一致していれば書き込まない。同じ値でも setvcp は再同期を
+    # 起こしうるため、既に望む状態なら触らない。読めなかった場合は書き込む。
+    # 消灯中でも D6/60 は実測どおりの値を返す（実機で確認済み）。
     setvcp_if_needed() {
       sn=$1
       feature=$2
@@ -21,6 +26,22 @@ let
         return 0
       fi
       ${ddcutil} --sn="$sn" --noverify setvcp "$feature" "0x$want"
+    }
+
+    # 引数の関数をシリアル番号付きでモニタごとに並列実行し、全部の完了を待つ。
+    # 1 台でも失敗したら 1 を返す（wait は引数なしだと失敗を握り潰すため個別に待つ）。
+    for_each_monitor() {
+      pids=""
+      for sn in ${lib.concatStringsSep " " monitorSerials}; do
+        "$@" "$sn" &
+        pids="$pids $!"
+      done
+
+      rc=0
+      for pid in $pids; do
+        wait "$pid" || rc=1
+      done
+      return "$rc"
     }
   '';
 
@@ -32,13 +53,15 @@ let
 
     set -euo pipefail
 
-    ${setvcpIfNeeded}
+    ${ddcHelpers}
 
     # 実機では明示的な ON の後、sleep なしで HDMI1 へ切り替えられる。
-    setvcp_if_needed 7VYRGD3 D6 01
-    setvcp_if_needed 7VYRGD3 60 11
-    setvcp_if_needed 7VK4MD3 D6 01
-    setvcp_if_needed 7VK4MD3 60 11
+    monitor_on_hdmi1() {
+      setvcp_if_needed "$1" D6 01
+      setvcp_if_needed "$1" 60 11
+    }
+
+    for_each_monitor monitor_on_hdmi1
     printf '%s\n' 'Monitors: ON / HDMI1'
   '';
 
@@ -50,11 +73,14 @@ let
 
     set -euo pipefail
 
-    ${setvcpIfNeeded}
+    ${ddcHelpers}
 
     # D6 0x04 (DPM Off) は DDC で復帰できる。0x05 は復帰に物理操作が要る。
-    setvcp_if_needed 7VYRGD3 D6 04
-    setvcp_if_needed 7VK4MD3 D6 04
+    monitor_off() {
+      setvcp_if_needed "$1" D6 04
+    }
+
+    for_each_monitor monitor_off
     printf '%s\n' 'Monitors: OFF'
   '';
 in
