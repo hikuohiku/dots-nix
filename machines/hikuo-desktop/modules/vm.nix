@@ -5,6 +5,12 @@ let
   diskImage = "/var/lib/libvirt/images/hikuo-vwin.qcow2";
   diskSize = "128G";
 
+  # ゲーム用。OS ディスクとは独立に永続化し、OS を作り直しても再接続する。
+  # ホストの / に 408GB しか空きが無いので thin provision でも控えめに取る。
+  # 足りなくなったら qemu-img resize で広げる。
+  gameImage = "/var/lib/libvirt/images/hikuo-vwin-games.qcow2";
+  gameSize = "256G";
+
   domainXml = ../vms/hikuo-vwin.xml;
 
   # answer file に秘密の値が無いので、ISO は純粋な derivation で作れる。
@@ -49,6 +55,10 @@ in
 
         if [ ! -f ${diskImage} ]; then
           qemu-img create -f qcow2 ${diskImage} ${diskSize}
+        fi
+
+        if [ ! -f ${gameImage} ]; then
+          qemu-img create -f qcow2 ${gameImage} ${gameSize}
         fi
 
         virsh -c qemu:///system define ${domainXml}

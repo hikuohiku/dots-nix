@@ -11,6 +11,7 @@ KVM/QEMU + libvirt + VFIO + Looking Glass で動かす。
 | VM ハードウェア構成 | `hikuo-vwin.xml` | git（libvirt XML そのまま） |
 | Windows 無人インストール | `hikuo-vwin/autounattend.xml` | git（公式形式そのまま） |
 | Windows のディスク中身 | `/var/lib/libvirt/images/hikuo-vwin.qcow2` | 管理しない（再インストール可能） |
+| ゲームデータ | `/var/lib/libvirt/images/hikuo-vwin-games.qcow2` | 管理しない（OS を作り直しても残す） |
 | NVRAM | `/var/lib/libvirt/qemu/nvram/hikuo-vwin_VARS.fd` | 管理しない（実行時状態） |
 
 virt-manager は確認・操作用であって source of truth ではない。XML を変えたら
@@ -66,6 +67,36 @@ RunOnce は昇格されないので、マシン全体へインストールする
 - 初回ログオン: `C:\Windows\Panther\unattend-guest-tools.log`
 - 2 回目のログオン: `%LOCALAPPDATA%\Temp\unattend-chrome.log`, `unattend-tailscale.log`,
   `unattend-winfsp.log`
+
+## ゲーム用ディスク
+
+OS ディスク（`vda` / 128GiB）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
+OS が壊れて作り直しても、こちらは残して再接続する。
+
+初回だけ Windows 側での初期化が要る。ディスクの管理 (`diskmgmt.msc`) から GPT で初期化して
+NTFS でフォーマットしてもよいし、PowerShell を管理者で開いて次でもよい。`G:` の `Games` に
+する運用にしている。
+
+```powershell
+$d = Get-Disk | ? PartitionStyle -eq RAW
+Initialize-Disk -Number $d.Number -PartitionStyle GPT
+New-Partition -DiskNumber $d.Number -UseMaximumSize -DriveLetter G
+Format-Volume -DriveLetter G -FileSystem NTFS -NewFileSystemLabel Games
+```
+
+容量が足りなくなったら、VM を落としてからホストで広げる。ホストの `/` の空きが上限。
+
+```bash
+sudo qemu-img resize /var/lib/libvirt/images/hikuo-vwin-games.qcow2 +128G
+```
+
+そのあとゲスト側でパーティションを拡張する（ディスクの管理 → ボリュームの拡張）。
+
+最終形はベアメタル Windows が載っている `nvme1n1` のパススルーだが、移行が終わるまでは
+qcow2 で運用する。差し替えるときは、このディスクを `<disk type='block'>` へ書き換える。
+**`vfio-pci.ids` は使えない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
+ID で束縛すると NixOS の root ディスクまで vfio に持っていかれる。PCI アドレス指定の
+`managed='yes'` で libvirt に着脱させること。
 
 ## 共有フォルダ
 
@@ -139,9 +170,19 @@ vCPU は pinning のみで、ホストから隔離はしていない。**VM を�
 qcow2 だけ消すと NVRAM に前回の Windows Boot Manager エントリが残り、起動の挙動が
 読めなくなる。NVRAM ごと消すこと。
 
+またゲーム用ディスクは **detach してから再インストールする**。answer file は `DiskID 0` を
+`WillWipeDisk` するので、繋いだままだとディスクの列挙順しだいでゲームデータを消しかねない。
+
 ```bash
 virsh -c qemu:///system undefine hikuo-vwin --nvram
-sudo rm /var/lib/libvirt/images/hikuo-vwin.qcow2
+sudo rm /var/lib/libvirt/images/hikuo-vwin.qcow2   # ゲーム用は消さない
+sudo systemctl restart hikuo-vwin-define
+virsh -c qemu:///system detach-disk hikuo-vwin vdb --persistent
+```
+
+インストールが終わったらゲーム用ディスクを戻す。
+
+```bash
 sudo systemctl restart hikuo-vwin-define
 ```
 

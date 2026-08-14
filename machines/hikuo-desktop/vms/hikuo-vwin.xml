@@ -82,6 +82,14 @@
       <target dev='vda' bus='virtio'/>
       <boot order='1'/>
     </disk>
+    <!-- ゲーム用。OS を作り直しても残す。answer file は DiskID 0 を
+         WillWipeDisk するので、再インストールの前に detach すること
+         （README のリセット手順）。 -->
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/libvirt/images/hikuo-vwin-games.qcow2'/>
+      <target dev='vdb' bus='virtio'/>
+    </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
       <source file='/var/lib/libvirt/iso/windows11.iso'/>
