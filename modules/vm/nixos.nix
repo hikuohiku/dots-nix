@@ -24,6 +24,9 @@
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
+        # VirtioFS の共有フォルダ。libvirt はこの vhost-user 記述子から
+        # virtiofsd を見つけて起動する。
+        vhostUserPackages = [ pkgs.virtiofsd ];
         verbatimConfig = ''
           namespaces = []
           cgroup_device_acl = [
