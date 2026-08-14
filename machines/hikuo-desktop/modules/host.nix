@@ -108,6 +108,8 @@
       "docker"
       "i2c" # DDC/CI によるモニター制御に必要
       "uinput" # Sunshine の仮想マウス入力 (/dev/uinput) に必要
+      "kvm"
+      "libvirtd"
     ];
     shell = pkgs.fish;
   };

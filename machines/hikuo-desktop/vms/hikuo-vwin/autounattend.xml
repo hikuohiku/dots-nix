@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  hikuo-vwin の無人インストール用 answer file。
+
+  このリポジトリは public なので秘密の値は一切書かない。
+  - プロダクトキーは指定しない。インストール中にキー入力とエディション選択の
+    2 画面が出るので手で通す。
+  - ローカルアカウントのパスワードは空。既定ポリシー "Accounts: Limit local
+    account use of blank passwords to console logon only" により、空パスワードでの
+    RDP/SMB ログオンはブロックされる。
+-->
+<unattend xmlns="urn:schemas-microsoft-com:unattend"
+          xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+  <settings pass="windowsPE">
+    <component name="Microsoft-Windows-International-Core-WinPE"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <SetupUILanguage>
+        <UILanguage>ja-JP</UILanguage>
+      </SetupUILanguage>
+      <InputLocale>0411:00000411</InputLocale>
+      <SystemLocale>ja-JP</SystemLocale>
+      <UILanguage>ja-JP</UILanguage>
+      <UILanguageFallback>ja-JP</UILanguageFallback>
+      <UserLocale>ja-JP</UserLocale>
+    </component>
+
+    <!-- viostor が無いとシステムディスクが見えず、NetKVM が無いと OOBE 到達時点で
+         ネットワークが無いまま FirstLogonCommands の winget が走ってしまう。
+         WinPE のドライブレターは接続順で変わるため、virtio-win ISO が来うる
+         レターを総当たりで並べる。存在しないパスは警告のみで無視される。 -->
+    <component name="Microsoft-Windows-PnpCustomizationsWinPE"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <DriverPaths>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="1">
+          <Path>D:\viostor\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+          <Path>E:\viostor\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="3">
+          <Path>F:\viostor\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="4">
+          <Path>G:\viostor\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="5">
+          <Path>D:\NetKVM\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="6">
+          <Path>E:\NetKVM\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="7">
+          <Path>F:\NetKVM\w11\amd64</Path>
+        </PathAndCredentials>
+        <PathAndCredentials wcm:action="add" wcm:keyValue="8">
+          <Path>G:\NetKVM\w11\amd64</Path>
+        </PathAndCredentials>
+      </DriverPaths>
+    </component>
+
+    <component name="Microsoft-Windows-Setup"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <DiskConfiguration>
+        <Disk wcm:action="add">
+          <DiskID>0</DiskID>
+          <WillWipeDisk>true</WillWipeDisk>
+          <CreatePartitions>
+            <CreatePartition wcm:action="add">
+              <Order>1</Order>
+              <Size>300</Size>
+              <Type>EFI</Type>
+            </CreatePartition>
+            <CreatePartition wcm:action="add">
+              <Order>2</Order>
+              <Size>16</Size>
+              <Type>MSR</Type>
+            </CreatePartition>
+            <CreatePartition wcm:action="add">
+              <Order>3</Order>
+              <Extend>true</Extend>
+              <Type>Primary</Type>
+            </CreatePartition>
+          </CreatePartitions>
+          <ModifyPartitions>
+            <ModifyPartition wcm:action="add">
+              <Order>1</Order>
+              <PartitionID>1</PartitionID>
+              <Format>FAT32</Format>
+              <Label>System</Label>
+            </ModifyPartition>
+            <ModifyPartition wcm:action="add">
+              <Order>2</Order>
+              <PartitionID>3</PartitionID>
+              <Format>NTFS</Format>
+              <Label>Windows</Label>
+              <Letter>C</Letter>
+            </ModifyPartition>
+          </ModifyPartitions>
+        </Disk>
+        <WillShowUI>OnError</WillShowUI>
+      </DiskConfiguration>
+
+      <ImageInstall>
+        <OSImage>
+          <InstallTo>
+            <DiskID>0</DiskID>
+            <PartitionID>3</PartitionID>
+          </InstallTo>
+          <WillShowUI>OnError</WillShowUI>
+        </OSImage>
+      </ImageInstall>
+
+      <UserData>
+        <AcceptEula>true</AcceptEula>
+      </UserData>
+    </component>
+  </settings>
+
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-Shell-Setup"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <ComputerName>hikuo-vwin</ComputerName>
+      <TimeZone>Tokyo Standard Time</TimeZone>
+    </component>
+
+    <!-- 24H2 以降は bypassnro.cmd が削除され、OOBE が Microsoft アカウントを
+         要求しうる。BypassNRO を立てておくとローカルアカウントのまま通る。 -->
+    <component name="Microsoft-Windows-Deployment"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <RunSynchronous>
+        <RunSynchronousCommand wcm:action="add">
+          <Order>1</Order>
+          <Description>Allow local account during OOBE</Description>
+          <Path>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f</Path>
+        </RunSynchronousCommand>
+      </RunSynchronous>
+    </component>
+  </settings>
+
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-International-Core"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <InputLocale>0411:00000411</InputLocale>
+      <SystemLocale>ja-JP</SystemLocale>
+      <UILanguage>ja-JP</UILanguage>
+      <UILanguageFallback>ja-JP</UILanguageFallback>
+      <UserLocale>ja-JP</UserLocale>
+    </component>
+
+    <component name="Microsoft-Windows-Shell-Setup"
+               processorArchitecture="amd64"
+               publicKeyToken="31bf3856ad364e35"
+               language="neutral"
+               versionScope="nonSxS">
+      <UserAccounts>
+        <LocalAccounts>
+          <LocalAccount wcm:action="add">
+            <Name>hikuo</Name>
+            <DisplayName>hikuo</DisplayName>
+            <Group>Administrators</Group>
+            <Password>
+              <Value></Value>
+              <PlainText>true</PlainText>
+            </Password>
+          </LocalAccount>
+        </LocalAccounts>
+      </UserAccounts>
+
+      <!-- LogonCount を省くと無期限になる保証が無い。1 回だけ指定しておき、
+           初回ログオン時にレジストリ側で恒久化する（FirstLogonCommands の 1, 2）。 -->
+      <AutoLogon>
+        <Username>hikuo</Username>
+        <Password>
+          <Value></Value>
+          <PlainText>true</PlainText>
+        </Password>
+        <Enabled>true</Enabled>
+        <LogonCount>1</LogonCount>
+      </AutoLogon>
+
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+        <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+        <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+        <NetworkLocation>Work</NetworkLocation>
+        <ProtectYourPC>3</ProtectYourPC>
+      </OOBE>
+
+      <!-- 独自のインストーラは持ち込まない。VirtIO ドライバ・QEMU guest agent・
+           SPICE vdagent は virtio-win ISO の公式バンドルが一括で入れ、アプリは
+           winget に任せる。Looking Glass host と NVIDIA ドライバは README の手動手順。
+           出力は C:\Windows\Panther\ に残して、失敗したときに追えるようにする。 -->
+      <FirstLogonCommands>
+        <SynchronousCommand wcm:action="add">
+          <Order>1</Order>
+          <Description>Keep auto logon enabled</Description>
+          <CommandLine>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 1 /f</CommandLine>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <Order>2</Order>
+          <Description>Clear the auto logon countdown</Description>
+          <CommandLine>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoLogonCount /t REG_DWORD /d 0 /f</CommandLine>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <Order>3</Order>
+          <Description>virtio-win guest tools</Description>
+          <CommandLine>cmd /c "(for %d in (D E F G H) do @if exist %d:\virtio-win-guest-tools.exe start /wait %d:\virtio-win-guest-tools.exe /install /quiet /norestart) > C:\Windows\Panther\unattend-guest-tools.log 2>&amp;1"</CommandLine>
+        </SynchronousCommand>
+        <!-- FirstLogonCommands の時点では App Installer の実行エイリアスがまだ
+             PATH に載っておらず winget が見つからない。RunOnce へ回して次回
+             ログオン時に実行する。自動ログインが効いているので次の起動で走る。
+             RunOnce は昇格されないため、マシン全体へ入れる際に UAC が 1 度出る。
+             ログの出力先も昇格なしで書ける場所にする。 -->
+        <SynchronousCommand wcm:action="add">
+          <Order>4</Order>
+          <Description>Schedule Google Chrome</Description>
+          <CommandLine>reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v InstallChrome /t REG_EXPAND_SZ /d "cmd /c winget install --id Google.Chrome --exact --silent --accept-package-agreements --accept-source-agreements --disable-interactivity > %LOCALAPPDATA%\Temp\unattend-chrome.log 2>&amp;1" /f</CommandLine>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <Order>5</Order>
+          <Description>Schedule Tailscale</Description>
+          <CommandLine>reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v InstallTailscale /t REG_EXPAND_SZ /d "cmd /c winget install --id Tailscale.Tailscale --exact --silent --accept-package-agreements --accept-source-agreements --disable-interactivity > %LOCALAPPDATA%\Temp\unattend-tailscale.log 2>&amp;1" /f</CommandLine>
+        </SynchronousCommand>
+      </FirstLogonCommands>
+    </component>
+  </settings>
+</unattend>

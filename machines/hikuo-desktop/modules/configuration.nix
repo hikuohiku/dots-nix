@@ -7,6 +7,7 @@
   imports = [
     ./host.nix
     ./apps.nix
+    ./vm.nix
   ];
 
   programs.niri.package = inputs'.niri-flake.packages.niri-unstable;

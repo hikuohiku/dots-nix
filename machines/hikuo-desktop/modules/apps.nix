@@ -29,7 +29,7 @@
   mymodule.apps.bluetooth.enable = true;
   mymodule.apps.steam.enable = true;
   mymodule.apps.vicinae.enable = true;
-  mymodule.apps.vm.enable = false;
+  mymodule.apps.vm.enable = true;
   mymodule.apps.fortivpn.enable = true;
   mymodule.apps.zed.enable = true;
   mymodule.apps.sunshine.enable = true;
