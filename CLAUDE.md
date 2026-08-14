@@ -37,6 +37,11 @@ nix flake update
 はビルド成功後に自動で `switch` する（switch は activation がワークディレクトリ外へ
 書き込むため Bash サンドボックスを無効化して実行）。
 
+各マシンの flake は共有モジュールを `my = { url = "path:../.."; }` の相対パスで参照する。
+rev を lock しないため、ローカル checkout が常にそのまま使われる。`/nix-module-ci` の
+`--override-input my .` と `nix flake update my` はこのリポジトリでは no-op で、
+`flake.lock` も変化しない（マシン別コミットに lock の更新は含まれない）。
+
 ### フォーマットについて（メモ）
 
 `nix fmt` は flake が nix 式として評価できないと動かず、flake 自体が設定本体である
