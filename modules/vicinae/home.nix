@@ -21,6 +21,7 @@ let
       sn=$1
       feature=$2
       want=$3
+      # getvcp --brief は x1b のように小文字で返すので want も小文字で渡す。
       cur=$(${ddcutil} --sn="$sn" --brief getvcp "$feature" 2>/dev/null | awk '$1 == "VCP" { print $4 }') || cur=""
       if [ "$cur" = "x$want" ]; then
         return 0
@@ -45,25 +46,62 @@ let
     }
   '';
 
-  monitorsOnHdmi1 = pkgs.writeShellScript "vicinae-monitors-on-hdmi1" ''
-    # @vicinae.schemaVersion 1
-    # @vicinae.title Monitors: ON / HDMI1
-    # @vicinae.mode compact
-    # @vicinae.keywords ["monitor", "display", "ddc", "ddc/ci", "hdmi"]
+  # 点灯させたうえで入力を切り替えるコマンドを作る。
+  monitorsOnInput =
+    {
+      name,
+      label,
+      input,
+      keywords,
+    }:
+    pkgs.writeShellScript "vicinae-monitors-on-${name}" ''
+      # @vicinae.schemaVersion 1
+      # @vicinae.title Monitors: ON / ${label}
+      # @vicinae.mode compact
+      # @vicinae.keywords ${
+        builtins.toJSON (
+          [
+            "monitor"
+            "display"
+            "ddc"
+            "ddc/ci"
+          ]
+          ++ keywords
+        )
+      }
 
-    set -euo pipefail
+      set -euo pipefail
 
-    ${ddcHelpers}
+      ${ddcHelpers}
 
-    # 実機では明示的な ON の後、sleep なしで HDMI1 へ切り替えられる。
-    monitor_on_hdmi1() {
-      setvcp_if_needed "$1" D6 01
-      setvcp_if_needed "$1" 60 11
-    }
+      # 実機では明示的な ON の後、sleep なしで入力を切り替えられる。
+      monitor_on_input() {
+        setvcp_if_needed "$1" D6 01
+        setvcp_if_needed "$1" 60 ${input}
+      }
 
-    for_each_monitor monitor_on_hdmi1
-    printf '%s\n' 'Monitors: ON / HDMI1'
-  '';
+      for_each_monitor monitor_on_input
+      printf '%s\n' 'Monitors: ON / ${label}'
+    '';
+
+  monitorsOnHdmi1 = monitorsOnInput {
+    name = "hdmi1";
+    label = "HDMI1";
+    input = "11";
+    keywords = [ "hdmi" ];
+  };
+
+  # 0x1b は capabilities では未知値として出るが、この機種の 3 番目の入力＝USB-C。
+  monitorsOnUsbc = monitorsOnInput {
+    name = "usbc";
+    label = "USB-C";
+    input = "1b";
+    keywords = [
+      "usb-c"
+      "usbc"
+      "type-c"
+    ];
+  };
 
   monitorsOff = pkgs.writeShellScript "vicinae-monitors-off" ''
     # @vicinae.schemaVersion 1
@@ -98,6 +136,7 @@ in
 
     home.file = lib.mkIf config.mymodule.apps.vicinae.enable {
       ".local/share/vicinae/scripts/monitors-on-hdmi1".source = monitorsOnHdmi1;
+      ".local/share/vicinae/scripts/monitors-on-usbc".source = monitorsOnUsbc;
       ".local/share/vicinae/scripts/monitors-off".source = monitorsOff;
     };
   };
