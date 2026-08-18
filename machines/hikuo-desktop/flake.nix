@@ -42,6 +42,10 @@
 
     niri-flake.url = "github:sodiboo/niri-flake";
 
+    # omp (oh-my-pi)。nixpkgs は follows させない（上流が bun2nix / rust-overlay を
+    # 固定しており、ずらすと nix-community cachix に当たらず全ビルドになるため）。
+    omp.url = "github:can1357/oh-my-pi";
+
     vicinae.url = "github:vicinaehq/vicinae";
 
     codex-desktop-linux = {
