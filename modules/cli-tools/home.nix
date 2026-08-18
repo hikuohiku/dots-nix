@@ -47,6 +47,8 @@ in
         treefmt
         nixfmt
         yamlfmt
+        # omp (oh-my-pi) の plugin install は bun 依存
+        bun
       ];
 
       programs = {

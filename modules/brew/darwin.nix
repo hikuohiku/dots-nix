@@ -39,6 +39,7 @@
 
     homebrew.taps = [
       "modem-dev/tap"
+      "can1357/tap"
     ];
 
     homebrew.brews = [
@@ -50,6 +51,10 @@
       "fastlane"
       "swift-protobuf"
       "hunk"
+      # omp (oh-my-pi): pi fork のコーディングエージェント。tap の formula は
+      # release バイナリを置くだけ。skills/CLAUDE.md/plugin は ~/.claude を
+      # そのまま読むので nix 側の設定は不要。
+      "omp"
     ];
   };
 }
