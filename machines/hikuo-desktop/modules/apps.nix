@@ -14,6 +14,7 @@
   mymodule.apps.fzf.enable = true;
   mymodule.apps.ghostty.enable = true;
   mymodule.apps.git.enable = true;
+  mymodule.apps.go.enable = true;
   mymodule.apps.herdr.enable = true;
   mymodule.apps.lazygit.enable = true;
   mymodule.apps.gui-tools.enable = true;
