@@ -8,9 +8,9 @@ in
     # Codex 本体。Linux は nixpkgs から、macOS は brew(modules/brew/darwin.nix) で導入。
     home.packages = lib.optional pkgs.stdenv.isLinux pkgs.codex;
 
-    # スキルは Claude と同じ dots-skills working-tree を指す（単一ソース）。
-    # Codex 組み込みの .system/ はこの配下に再生成され、dots-skills 側 .gitignore で除外。
-    home.file.".codex/skills".source = config.lib.file.mkOutOfStoreSymlink dotsSkills;
+    # スキルは Claude と同じ dots-skills/skills の working-tree を指す。
+    home.file.".codex/skills".source = config.lib.file.mkOutOfStoreSymlink
+      "${dotsSkills}/skills";
 
     # 共通グローバル指示
     home.file.".codex/AGENTS.md".source =
