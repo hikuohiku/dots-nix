@@ -17,21 +17,24 @@ input {
     }
     mouse { natural-scroll; }
 }
-output "Dell Inc. DELL S2722DC 7VYRGD3" {
-    scale 1.000000
+// 右の縦置きサブ。mode は固定しない (この接続は帯域が足りず 4K は 30Hz 止まり
+// のため、preferred に任せる)。position の y は、メイン(論理 1920x1080)に対して
+// 論理 1080x1920 を上下中央へ合わせた値 (1080-1920)/2 = -420。
+output "Dell Inc. DELL S2722QC 7VK4MD3" {
+    scale 2.000000
     transform "270"
-    position x=1920 y=-740
-    mode "2560x1440@59.951000"
+    position x=1920 y=-420
     layout {
         default-column-width { proportion 1.0; }
     }
 }
-output "Dell Inc. DELL S2722QC 7VK4MD3" {
+// 正面のメイン。
+output "Dell Inc. DELL S2725QC FSHR464" {
     scale 2.000000
     focus-at-startup
     transform "normal"
     position x=0 y=0
-    mode "3840x2160@60.000000"
+    mode "3840x2160@60.000"
 }
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 prefer-no-csd
