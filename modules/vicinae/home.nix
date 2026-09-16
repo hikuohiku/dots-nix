@@ -9,7 +9,7 @@ let
   ddcutil = lib.getExe pkgs.ddcutil;
 
   monitorSerials = [
-    "7VYRGD3"
+    "FSHR464"
     "7VK4MD3"
   ];
 
