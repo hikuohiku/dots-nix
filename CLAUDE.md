@@ -18,9 +18,6 @@ modules/
 
 ## Commands
 
-モジュール変更の検証〜コミット〜プッシュは `/nix-module-ci` skill を使う（生の
-`darwin-rebuild` / `nixos-rebuild` を直接叩かない）。
-
 ```bash
 # macOS: 設定を適用
 darwin-rebuild switch --flake ./machines/hikuo-macbook
@@ -33,14 +30,10 @@ nix flake update
 ```
 
 `hikuo-desktop` では `nixos-rebuild` が NOPASSWD 化されており
-(`machines/hikuo-desktop/modules/claude-rebuild.nix`)、`/nix-module-ci hikuo-desktop`
-はビルド成功後に自動で `switch` する（switch は activation がワークディレクトリ外へ
-書き込むため Bash サンドボックスを無効化して実行）。
+(`machines/hikuo-desktop/modules/claude-rebuild.nix`)、適用時にパスワード入力は不要。
 
 各マシンの flake は共有モジュールを `my = { url = "path:../.."; }` の相対パスで参照する。
-rev を lock しないため、ローカル checkout が常にそのまま使われる。`/nix-module-ci` の
-`--override-input my .` と `nix flake update my` はこのリポジトリでは no-op で、
-`flake.lock` も変化しない（マシン別コミットに lock の更新は含まれない）。
+rev を lock しないため、ローカル checkout が常にそのまま使われる。
 
 ### フォーマットについて（メモ）
 
