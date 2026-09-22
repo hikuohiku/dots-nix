@@ -42,9 +42,8 @@
 
     niri-flake.url = "github:sodiboo/niri-flake";
 
-    # omp (oh-my-pi)。nixpkgs は follows させない（上流が bun2nix / rust-overlay を
-    # 固定しており、ずらすと nix-community cachix に当たらず全ビルドになるため）。
-    omp.url = "github:can1357/oh-my-pi";
+    # OMP は公式リリースの事前ビルドを持つ flake を使い、Bun 依存のローカルビルドを避ける。
+    omp.url = "github:bjin/oh-my-pi.nix";
 
     vicinae.url = "github:vicinaehq/vicinae";
 
