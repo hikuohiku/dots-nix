@@ -5,6 +5,7 @@
       pavucontrol # PulseAudio GUI
       nautilus # file manager
       mission-center
+      google-chrome
 
       # social
       slack
