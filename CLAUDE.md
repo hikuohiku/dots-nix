@@ -22,7 +22,8 @@ modules/
 # macOS: 設定を適用
 darwin-rebuild switch --flake ./machines/hikuo-macbook
 
-# NixOS: 設定を適用
+# NixOS: 設定を適用（人は nh、Claude は NOPASSWD の nixos-rebuild）
+nh os switch
 sudo nixos-rebuild switch --flake ./machines/hikuo-desktop
 
 # flake 入力を更新
@@ -31,6 +32,7 @@ nix flake update
 
 `hikuo-desktop` では `nixos-rebuild` が NOPASSWD 化されており
 (`machines/hikuo-desktop/modules/claude-rebuild.nix`)、適用時にパスワード入力は不要。
+nh は `sudo env ...` で昇格し sudoers で絞り込めないため、Claude は nixos-rebuild を使う。
 
 各マシンの flake は共有モジュールを `my = { url = "path:../.."; }` の相対パスで参照する。
 rev を lock しないため、ローカル checkout が常にそのまま使われる。

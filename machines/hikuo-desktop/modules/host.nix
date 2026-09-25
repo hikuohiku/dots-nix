@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   systemInfo,
   ...
@@ -31,10 +32,16 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    gc = {
-      automatic = true;
+  };
+
+  # `nh os switch` で適用する（Claude は NOPASSWD の nixos-rebuild を引き続き使う）。
+  programs.nh = {
+    enable = true;
+    flake = "${config.users.users.hikuo.home}/ghq/github.com/hikuohiku/dots-nix/machines/${systemInfo.hostname}";
+    clean = {
+      enable = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      extraArgs = "--keep-since 7d";
     };
   };
 

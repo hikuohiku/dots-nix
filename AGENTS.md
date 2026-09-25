@@ -22,7 +22,8 @@ modules/
 # macOS: 設定を適用
 darwin-rebuild switch --flake ./machines/hikuo-macbook
 
-# NixOS: 設定を適用
+# NixOS: 設定を適用（人は nh、Claude は NOPASSWD の nixos-rebuild）
+nh os switch
 sudo nixos-rebuild switch --flake ./machines/hikuo-desktop
 
 # flake 入力を更新
