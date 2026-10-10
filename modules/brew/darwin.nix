@@ -5,7 +5,6 @@
       "google-chrome"
       "google-chrome@canary"
       "firefox"
-      "chromium"
       "orbstack"
       "obsidian"
       "notion"
