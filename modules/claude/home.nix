@@ -17,8 +17,9 @@ in
     home.file.".claude/CLAUDE.md".source =
       config.lib.file.mkOutOfStoreSymlink "${dotsSkills}/AGENTS.md";
 
-    # statusline: stdin の JSON から model / セッション(5h)・週次リミット使用率 / git branch を
-    # 表示する。settings.json に "statusLine": { "command": "~/.claude/statusline.sh" } を手書きで
+    # statusline: stdin の JSON から model / cwd / git branch を 1 行目に、
+    # context・セッション(5h)・週次リミットの使用率ゲージとコストを 2 行目に表示する。
+    # settings.json に "statusLine": { "command": "~/.claude/statusline.sh" } を手書きで
     # 追記して有効化する（settings.json は nix 管理外）。スクリプト本体は再現性のため in-store symlink。
     home.file.".claude/statusline.sh" = {
       source = ./statusline.sh;

@@ -1,101 +1,133 @@
 #!/usr/bin/env bash
-# Claude Code statusline.
-# stdin から渡される JSON (model / rate_limits / workspace / transcript_path 等) を
-# jq で読み、1 行に整形して出力する。特にセッション(5h)/週次リミットの使用率を表示する。
-# 依存: jq, git (cli-tools 経由で PATH 上)。jq が無ければ何も出力せず終了。
+# Claude Code statusline (2 行)。
+# stdin の JSON を jq で読み、モデル / ディレクトリ / git と、
+# context・5h・7d リミットのゲージを出力する。
+# context は transcript ではなく .context_window から取る (tac は macOS に無い)。
+# 依存: jq, git。
 
 set -uo pipefail
-
 command -v jq >/dev/null 2>&1 || exit 0
 
-input=$(cat)
-
-# --- 値抽出 (欠落は空文字) ---
-# 1 値 1 行で出力し mapfile で受ける。tab IFS だと連続区切りが畳まれ空フィールドが
-# 位置ずれするため、改行区切り + mapfile(空行も保持)を使う。
-mapfile -t F < <(
-  printf '%s' "$input" | jq -r '
+# 値は \x1f 区切り 1 行で受ける。tab など IFS 空白文字だと連続区切りが畳まれ、
+# 空フィールドで位置がずれる。
+S=$'\x1f'
+IFS="$S" read -r model ctx_pct ctx_used ctx_size five_pct five_reset seven_pct \
+  cost added removed cwd effort agent branch_wt pr_num < <(
+  jq -r --arg s "$S" '[
     (.model.display_name // ""),
+    (.context_window.used_percentage // ""),
+    (.context_window.total_input_tokens // ""),
+    (.context_window.context_window_size // ""),
     (.rate_limits.five_hour.used_percentage // ""),
     (.rate_limits.five_hour.resets_at // ""),
     (.rate_limits.seven_day.used_percentage // ""),
+    (.cost.total_cost_usd // ""),
+    (.cost.total_lines_added // ""),
+    (.cost.total_lines_removed // ""),
     (.workspace.current_dir // .cwd // ""),
-    (.transcript_path // "")' 2>/dev/null
+    (.effort.level // ""),
+    (.agent.name // ""),
+    (.worktree.branch // ""),
+    (.pr.number // "")
+  ] | map(tostring) | join($s)' 2>/dev/null
 )
-model=${F[0]-}
-five_pct=${F[1]-}
-five_reset=${F[2]-}
-seven_pct=${F[3]-}
-cwd=${F[4]-}
-transcript=${F[5]-}
 
-# ANSI カラー
-C_RESET=$'\033[0m'
-C_DIM=$'\033[2m'
-C_GREEN=$'\033[32m'
-C_YELLOW=$'\033[33m'
-C_RED=$'\033[31m'
-C_CYAN=$'\033[36m'
-C_MAGENTA=$'\033[35m'
+R=$'\033[0m'; D=$'\033[2m'; B=$'\033[1m'
+GREEN=$'\033[38;5;114m'; YELLOW=$'\033[38;5;179m'; RED=$'\033[38;5;174m'
+CYAN=$'\033[38;5;110m'; MAGENTA=$'\033[38;5;176m'; GREY=$'\033[38;5;245m'
 
-# 使用率(%)に応じた色: <50 緑, <80 黄, それ以上 赤
+# 使用率 -> 色 (<50 緑 / <80 黄 / それ以上 赤)
 pct_color() {
-  local p=${1%.*}
-  [ -z "$p" ] && { printf '%s' "$C_DIM"; return; }
-  if [ "$p" -lt 50 ]; then printf '%s' "$C_GREEN"
-  elif [ "$p" -lt 80 ]; then printf '%s' "$C_YELLOW"
-  else printf '%s' "$C_RED"; fi
+  local p=${1%%.*}
+  case $p in ''|*[!0-9]*) printf '%s' "$D"; return;; esac
+  if   [ "$p" -lt 50 ]; then printf '%s' "$GREEN"
+  elif [ "$p" -lt 80 ]; then printf '%s' "$YELLOW"
+  else                       printf '%s' "$RED"; fi
 }
 
-# unix 秒 -> リセット時刻 "HH:MM" (ローカルタイム)
-fmt_reset() {
-  local target=$1
-  [ -z "$target" ] && return
-  date -d "@$target" +%H:%M 2>/dev/null
+# 使用率ゲージ。1/8 幅ブロックで端数も出す。
+gauge() {
+  local p=${1%%.*} w=${2:-10} i eighths full part out='' c
+  case $p in ''|*[!0-9]*) p=0;; esac
+  c=$(pct_color "$p")
+  eighths=$(( p * w * 8 / 100 )); full=$(( eighths / 8 )); part=$(( eighths % 8 ))
+  for (( i = 0; i < full; i++ )); do out="${out}█"; done
+  if [ "$full" -lt "$w" ] && [ "$part" -gt 0 ]; then
+    out="${out}$(printf '%s' '▏▎▍▌▋▊▉' | cut -c "$part")"
+    full=$(( full + 1 ))
+  fi
+  if [ "$full" -lt "$w" ]; then
+    out="$out$D"
+    for (( i = full; i < w; i++ )); do out="${out}░"; done
+  fi
+  printf '%s%s%s' "$c" "$out" "$R"
 }
 
-segments=()
+# 1234567 -> 1.2M / 12345 -> 12k
+human() {
+  local n=${1%%.*}
+  case $n in ''|*[!0-9]*) return;; esac
+  if   [ "$n" -ge 1000000 ]; then printf '%d.%dM' $(( n / 1000000 )) $(( n % 1000000 / 100000 ))
+  elif [ "$n" -ge 1000 ];    then printf '%dk' $(( n / 1000 ))
+  else printf '%d' "$n"; fi
+}
 
-# model
-[ -n "$model" ] && segments+=("${C_CYAN}${model}${C_RESET}")
+# 引数を ` │ ` で連結 (空は捨てる)
+join_segs() {
+  local out='' s
+  for s in "$@"; do
+    [ -z "$s" ] && continue
+    if [ -z "$out" ]; then out="$s"; else out="$out ${D}│${R} $s"; fi
+  done
+  printf '%s' "$out"
+}
 
-# 5h リミット
-if [ -n "$five_pct" ]; then
-  p=$(printf '%.0f' "$five_pct" 2>/dev/null || printf '%s' "$five_pct")
-  seg="$(pct_color "$p")5h ${p}%${C_RESET}"
-  r=$(fmt_reset "$five_reset")
-  [ -n "$r" ] && seg="${seg} ${C_DIM}↻${r}${C_RESET}"
-  segments+=("$seg")
-fi
+# --- 1 行目: モデル / ディレクトリ / git ---
+L1=()
+[ -n "$model" ] && L1+=("${CYAN}${B}󰚩 ${model}${R}${effort:+${D} ${effort}${R}}")
+[ -n "$agent" ] && L1+=("${MAGENTA}󰭹 ${agent}${R}")
+[ -n "$cwd" ] && L1+=("${GREY} ${cwd/#$HOME/'~'}${R}")
 
-# 7d リミット
-if [ -n "$seven_pct" ]; then
-  p=$(printf '%.0f' "$seven_pct" 2>/dev/null || printf '%s' "$seven_pct")
-  segments+=("$(pct_color "$p")7d ${p}%${C_RESET}")
-fi
-
-# context % (best-effort: transcript 末尾の最後の usage から概算, 上限 200k)
-if [ -n "$transcript" ] && [ -r "$transcript" ]; then
-  ctx=$(tac "$transcript" 2>/dev/null \
-    | jq -c 'select(.message.usage) | .message.usage' 2>/dev/null \
-    | head -1 \
-    | jq -r '((.input_tokens // 0) + (.cache_read_input_tokens // 0)
-             + (.cache_creation_input_tokens // 0) + (.output_tokens // 0))' 2>/dev/null)
-  if [ -n "$ctx" ] && [ "$ctx" -gt 0 ] 2>/dev/null; then
-    cpct=$(( ctx * 100 / 200000 ))
-    segments+=("$(pct_color "$cpct")ctx ${cpct}%${C_RESET}")
+if [ -n "$cwd" ] && command -v git >/dev/null 2>&1; then
+  branch=$(git -C "$cwd" rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -n "$branch" ]; then
+    dirty=''
+    git -C "$cwd" diff --quiet --ignore-submodules HEAD 2>/dev/null || dirty="${YELLOW}●${R}"
+    seg="${MAGENTA} ${branch}${R}${dirty}"
+    [ -n "$branch_wt" ] && [ "$branch_wt" != "$branch" ] && seg="$seg ${D}(wt)${R}"
+    [ -n "$pr_num" ] && seg="$seg ${D}#${pr_num}${R}"
+    L1+=("$seg")
   fi
 fi
 
-# git branch
-if [ -n "$cwd" ] && command -v git >/dev/null 2>&1; then
-  branch=$(git -C "$cwd" rev-parse --abbrev-ref HEAD 2>/dev/null)
-  [ -n "$branch" ] && segments+=("${C_MAGENTA} ${branch}${C_RESET}")
+# --- 2 行目: context / リミット / コスト ---
+L2=()
+if [ -n "$ctx_pct" ]; then
+  seg="${D}ctx${R} $(gauge "$ctx_pct" 12) $(pct_color "$ctx_pct")$(printf '%3d%%' "${ctx_pct%%.*}")${R}"
+  [ -n "$ctx_used" ] && [ -n "$ctx_size" ] &&
+    seg="$seg ${D}$(human "$ctx_used")/$(human "$ctx_size")${R}"
+  L2+=("$seg")
 fi
 
-# ` │ ` 連結で出力
-out=""
-for s in "${segments[@]}"; do
-  if [ -z "$out" ]; then out="$s"; else out="${out} ${C_DIM}│${C_RESET} ${s}"; fi
-done
-printf '%s' "$out"
+if [ -n "$five_pct" ]; then
+  p=$(printf '%.0f' "$five_pct" 2>/dev/null || printf '%s' "$five_pct")
+  seg="${D}5h${R} $(gauge "$p" 6) $(pct_color "$p")$(printf '%3d%%' "$p")${R}"
+  r=$(date -r "${five_reset%%.*}" +%H:%M 2>/dev/null)
+  [ -n "$r" ] && seg="$seg ${D}↻$r${R}"
+  L2+=("$seg")
+fi
+
+if [ -n "$seven_pct" ]; then
+  p=$(printf '%.0f' "$seven_pct" 2>/dev/null || printf '%s' "$seven_pct")
+  L2+=("${D}7d${R} $(gauge "$p" 6) $(pct_color "$p")$(printf '%3d%%' "$p")${R}")
+fi
+
+[ -n "$cost" ] && L2+=("${GREEN}\$$(printf '%.2f' "$cost" 2>/dev/null)${R}")
+if [ "${added:-0}" != "0" ] || [ "${removed:-0}" != "0" ]; then
+  L2+=("${GREEN}+${added:-0}${R}${D}/${R}${RED}-${removed:-0}${R}")
+fi
+
+printf '%s' "$(join_segs "${L1[@]-}")"
+[ ${#L2[@]} -gt 0 ] && printf '\n%s' "$(join_segs "${L2[@]}")"
+
+exit 0
