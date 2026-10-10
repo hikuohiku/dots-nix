@@ -26,7 +26,7 @@
       "xcodes-app"
       "claude-code@latest"
       "mactex"
-      "wireshark"
+      "wireshark-app"
       "puremac"
       "codex"
     ];
