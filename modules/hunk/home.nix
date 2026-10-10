@@ -12,6 +12,7 @@
       set -lx GIT_CONFIG_COUNT 1
       set -lx GIT_CONFIG_KEY_0 diff.context
       set -lx GIT_CONFIG_VALUE_0 20
+      set -lx EDITOR "code -r"
       command hunk $argv
     '';
   };
