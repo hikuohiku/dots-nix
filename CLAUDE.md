@@ -19,8 +19,9 @@ modules/
 ## Commands
 
 ```bash
-# macOS: 設定を適用
-darwin-rebuild switch --flake ./machines/hikuo-macbook
+# macOS: 設定を適用（人は nh、Claude は NOPASSWD の darwin-rebuild）
+nh darwin switch
+sudo darwin-rebuild switch --flake ./machines/hikuo-macbook
 
 # NixOS: 設定を適用（人は nh、Claude は NOPASSWD の nixos-rebuild）
 nh os switch

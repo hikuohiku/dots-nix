@@ -13,6 +13,12 @@
   programs.home-manager.enable = true;
   home.packages = lib.optional config.mymodule.apps.claude.enable pkgs.claude-code;
 
+  # `nh darwin switch` で適用する（Claude は NOPASSWD の darwin-rebuild を引き続き使う）。
+  programs.nh = {
+    enable = true;
+    flake = "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-nix/machines/hikuo-macbook";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
