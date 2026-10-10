@@ -24,9 +24,13 @@ shift + alt - n : yabai -m space --create && \
 # shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
 # shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
 
+# focus monitor
+alt - [ : yabai -m display --focus prev
+alt - ] : yabai -m display --focus next
+
 # send window to monitor and follow focus
-alt - return : yabai -m window --display recent; yabai -m display --focus recent
-shift + alt - return : yabai -m window --display prev; yabai -m display --focus prev
+shift + alt - [ : yabai -m window --display prev; yabai -m display --focus prev
+shift + alt - ] : yabai -m window --display next; yabai -m display --focus next
 
 # toggle window zoom
 ctrl + alt - f : yabai -m window --toggle native-fullscreen
