@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  upstream,
   ...
 }:
 let
@@ -89,9 +90,13 @@ in
 
     (lib.mkIf (enabled cfg.secrets) {
       # bws は Secrets Manager 用 (unfree)。bitwarden-cli とは別物。
+      # unfree で cache に無くソースビルドになるため、上流の静的バイナリを取得する。
       home.packages = [
         pkgs.bitwarden-cli
-        pkgs.bws
+        (pkgs.runCommand "bws-${upstream.bws.version}" { nativeBuildInputs = [ pkgs.unzip ]; } ''
+          unzip ${upstream.bws.src} bws
+          install -Dm755 bws $out/bin/bws
+        '')
       ];
     })
 

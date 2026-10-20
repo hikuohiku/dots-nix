@@ -1,0 +1,28 @@
+{
+  "bws": {
+    "repo": "bitwarden/sdk-sm",
+    "tagPrefix": "bws-v",
+    "version": "2.1.0",
+    "assets": {
+      "x86_64-linux": {
+        "name": "bws-x86_64-unknown-linux-musl-{version}.zip",
+        "hash": "sha256-9Z7hUOQrghKNQ3CH6brJIAU8a/3cuWDSDOk4blrJu6Y="
+      },
+      "aarch64-darwin": {
+        "name": "bws-macos-universal-{version}.zip",
+        "hash": "sha256-KGFZVFx8g02TeFxahukdUQJqXMmFhxOTbzkb6x6tJSQ="
+      }
+    }
+  },
+  "sunshine": {
+    "repo": "LizardByte/Sunshine",
+    "tagPrefix": "v",
+    "version": "2026.914.233613",
+    "assets": {
+      "x86_64-linux": {
+        "name": "Sunshine_{version}_x86_64.AppImage",
+        "hash": "sha256-b4ApeoU7z4zaEU/xMbXAqMmk2WoqnD3uHwTDnFQgaEY="
+      }
+    }
+  }
+}

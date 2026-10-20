@@ -17,7 +17,7 @@
     powerManagement.enable = true; # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
     # powerManagement.finegrained = true; # experimental
     open = false;
-    nvidiaSettings = true;
+    nvidiaSettings = false; # GUI は不使用。unfree でソースビルドになるため外す
   };
 
   # Container support
