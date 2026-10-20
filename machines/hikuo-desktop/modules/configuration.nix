@@ -1,6 +1,7 @@
 {
   inputs,
   inputs',
+  pkgs,
   ...
 }:
 {
@@ -10,7 +11,11 @@
     ./vm.nix
   ];
 
-  programs.niri.package = inputs'.niri-flake.packages.niri-unstable;
+  # niri-flake の niri-unstable は古い libglvnd にリンクされ、NVIDIA 595.104 で EGL_EXT_device_query が
+  # 見えず起動できない。キャッシュがありシステムと libglvnd が揃う nixpkgs 版を使う。
+  programs.niri.package = pkgs.niri;
+  # 既定は defaultFontPath を埋め込む override で cache に無くソースビルドになるため、素の版を使う。
+  programs.xwayland.package = pkgs.xwayland;
 
   catppuccin = {
     enable = true;

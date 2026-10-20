@@ -1,6 +1,6 @@
-{ inputs', pkgs, ... }:
+{ pkgs, ... }:
 let
-  niriPackage = inputs'.niri-flake.packages.niri-unstable;
+  niriPackage = pkgs.niri;
 
   niriFocusOrSpawn = pkgs.writeShellApplication {
     name = "niri-focus-or-spawn";
