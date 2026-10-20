@@ -1,16 +1,19 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.mymodule.apps.codex;
   dotsSkills = "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-skills";
 in
 {
   config = lib.mkIf cfg.enable {
-    # Codex 本体。Linux は nixpkgs から、macOS は brew(modules/brew/darwin.nix) で導入。
-    home.packages = lib.optional pkgs.stdenv.isLinux pkgs.codex;
+    # 公式スタンドアロン版を入れ、更新は Codex 自身のアップデート（TUI から同じインストーラを
+    # 再実行する）に任せる。
+    mymodule.nativeInstall.codex = {
+      binary = "codex";
+      install = "curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh";
+    };
 
-    # スキルは Claude と同じ dots-skills/skills の working-tree を指す。
-    home.file.".codex/skills".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotsSkills}/skills";
+    # 個人スキルは ~/.agents/skills から読み込まれる。
+    # .codex/skills は Codex が組み込みスキルを書き込むため管理しない。
 
     # 共通グローバル指示
     home.file.".codex/AGENTS.md".source =

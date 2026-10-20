@@ -23,11 +23,9 @@
       "launchcontrol"
       "xbar"
       "xcodes-app"
-      "claude-code@latest"
       "mactex"
       "wireshark-app"
       "puremac"
-      "codex"
     ];
 
     homebrew.masApps = {

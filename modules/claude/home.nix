@@ -9,6 +9,12 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    # 公式ネイティブ版を入れ、更新は Claude Code 自身の自動アップデートに任せる。
+    mymodule.nativeInstall.claude-code = {
+      binary = "claude";
+      install = "curl -fsSL https://claude.ai/install.sh | bash";
+    };
+
     # skills は dots-skills/skills の working-tree を指す out-of-store symlink で貼る。
     home.file.".claude/skills".source = config.lib.file.mkOutOfStoreSymlink "${dotsSkills}/skills";
 

@@ -11,7 +11,6 @@
   home.homeDirectory = lib.mkForce "/Users/${userInfo.username}";
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  home.packages = lib.optional config.mymodule.apps.claude.enable pkgs.claude-code;
 
   # `nh darwin switch` で適用する（Claude は NOPASSWD の darwin-rebuild を引き続き使う）。
   programs.nh = {
