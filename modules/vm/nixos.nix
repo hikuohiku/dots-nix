@@ -53,6 +53,8 @@
       })
     ];
 
+    environment.etc."looking-glass-client.ini".source = ./looking-glass-client.ini;
+
     environment.systemPackages = [
       pkgs.looking-glass-client
       pkgs.spice-gtk
