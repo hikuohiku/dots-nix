@@ -24,5 +24,16 @@
         "hash": "sha256-b4ApeoU7z4zaEU/xMbXAqMmk2WoqnD3uHwTDnFQgaEY="
       }
     }
+  },
+  "yabai": {
+    "repo": "Christian-SC26/yabai",
+    "tagPrefix": "v",
+    "version": "7.1.31",
+    "assets": {
+      "aarch64-darwin": {
+        "name": "yabai",
+        "hash": "sha256-z6z19f7dqMXkzeCQb7/kOkHliCyOJFHzep7om8wswqw="
+      }
+    }
   }
 }
