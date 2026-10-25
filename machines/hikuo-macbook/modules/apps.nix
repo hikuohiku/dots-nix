@@ -27,7 +27,6 @@
   mymodule.apps.syncthing.enable = true;
   mymodule.apps.system.enable = true;
   mymodule.apps.touchid.enable = true;
-  mymodule.apps.toggl-track.enable = true;
   mymodule.apps.tmux.enable = true;
   mymodule.apps.vscode.enable = true;
   mymodule.apps.zellij.enable = true;
@@ -35,5 +34,4 @@
   mymodule.apps.skhd.enable = true;
   mymodule.apps.yabai.enable = true;
   mymodule.apps.yabai.enableService = false;
-  mymodule.apps.zed.enable = true;
 }

@@ -3,40 +3,37 @@
   config = lib.mkIf config.mymodule.apps.brew.enable {
     homebrew.casks = [
       "google-chrome"
-      "google-chrome@canary"
-      "firefox"
+      "google-gemini"
       "orbstack"
-      "obsidian"
       "notion"
       "slack"
       "discord"
       "chatgpt"
-      "raycast"
-      "inkscape"
-      "zotero"
-      "zed"
-      "forklift"
-      "insomnia"
+      "claude"
+      "antigravity"
+      "typeless"
       "tailscale-app"
-      "core-tunnel"
+      "cloudflare-warp"
       "notchnook"
-      "launchcontrol"
-      "xbar"
+      "openusage"
+      "tinycast"
+      "moonlight"
       "xcodes-app"
-      "mactex"
-      "wireshark-app"
-      "puremac"
+      "opencode-desktop"
     ];
 
     homebrew.masApps = {
       Bitwarden = 1352778147;
-      "Perplexity: Ask Anything" = 6714467650;
-      "Hidden Bar" = 1452453066;
+      Developer = 640199958;
     };
 
     homebrew.taps = [
       "modem-dev/tap"
       "can1357/tap"
+      "anomalyco/tap"
+      "jianshuo/tap"
+      "rjyo/moshi"
+      "abue-ammar/tinycast"
     ];
 
     homebrew.brews = [
@@ -47,11 +44,18 @@
       "mint"
       "fastlane"
       "swift-protobuf"
+      "protoc-gen-grpc-swift"
+      "buf"
+      "ffmpeg"
+      "k6"
       "hunk"
       # omp (oh-my-pi): pi fork のコーディングエージェント。tap の formula は
       # release バイナリを置くだけ。skills/CLAUDE.md/plugin は ~/.claude を
       # そのまま読むので nix 側の設定は不要。
       "omp"
+      "anomalyco/tap/opencode"
+      "jianshuo/tap/ccglass"
+      "rjyo/moshi/moshi-hook"
     ];
   };
 }
