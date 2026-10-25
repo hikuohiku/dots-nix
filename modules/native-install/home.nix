@@ -52,6 +52,7 @@ in
               pkgs.gzip
               pkgs.findutils
               pkgs.gawk
+              pkgs.perl # shasum (claude の install.sh が macOS で使う)
             ]
           }:$PATH
           ${app.install}
