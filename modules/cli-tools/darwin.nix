@@ -38,7 +38,6 @@ in
       homebrew.brews = [
         "hashicorp/tap/terraform"
         "helm"
-        "doppler"
       ];
     })
 

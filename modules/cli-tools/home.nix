@@ -74,7 +74,6 @@ in
         ++ linuxOnly [
           terraform
           kubernetes-helm
-          doppler
         ];
     })
 
