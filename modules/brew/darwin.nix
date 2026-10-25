@@ -16,7 +16,7 @@
       "cloudflare-warp"
       "notchnook"
       "openusage"
-      "tinycast"
+      "abue-ammar/tinycast/tinycast"
       "moonlight"
       "xcodes-app"
       "opencode-desktop"
@@ -48,11 +48,11 @@
       "buf"
       "ffmpeg"
       "k6"
-      "hunk"
+      "modem-dev/tap/hunk"
       # omp (oh-my-pi): pi fork のコーディングエージェント。tap の formula は
       # release バイナリを置くだけ。skills/CLAUDE.md/plugin は ~/.claude を
       # そのまま読むので nix 側の設定は不要。
-      "omp"
+      "can1357/tap/omp"
       "anomalyco/tap/opencode"
       "jianshuo/tap/ccglass"
       "rjyo/moshi/moshi-hook"
