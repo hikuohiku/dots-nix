@@ -4,9 +4,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      neovim
-    ];
+    home.packages = lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.neovim;
 
     home.file.".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink

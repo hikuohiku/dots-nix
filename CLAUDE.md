@@ -66,6 +66,10 @@ dots-nix では不向き。将来的にフォーマッターを直接実行す�
     で取得する。版は `modules/upstream/update.sh`（週次 CI でも実行）で最新に追従する
 - 上流バイナリを使うときは必ず更新に追従できる状態を保つ（アプリ自身の自動更新、
   または上記の更新スクリプト）。ハッシュを手書きで固定したままにしない
+- macOS では PATH に入る CLI・アプリを brew で導入する（`modules/<app>/darwin.nix` の
+  `homebrew.brews` / `casks`）。home.nix 側の nixpkgs は Linux 限定にする（例: `modules/git/`）。
+  更新は `brew autoupdate` が毎日行う。ただし nix 固有のツール（nh, nil, nixd 等）、
+  ログインシェルの fish、nix-darwin / home-manager のサービス（syncthing 等）は nix のままにする
 
 ## Plan 資料
 

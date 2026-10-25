@@ -8,6 +8,5 @@
     automation.enable = lib.mkEnableOption "automation CLI tools";
     documents.enable = lib.mkEnableOption "document authoring CLI tools";
     secrets.enable = lib.mkEnableOption "secrets CLI tools";
-    recording.enable = lib.mkEnableOption "terminal recording CLI tools";
   };
 }

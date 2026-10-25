@@ -9,9 +9,7 @@ let
 in
 {
   config = lib.mkIf config.mymodule.apps.pnpm.enable {
-    home.packages = with pkgs; [
-      pnpm
-    ];
+    home.packages = lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.pnpm;
 
     home.sessionVariables.PNPM_HOME = pnpmHome;
     home.sessionPath = [

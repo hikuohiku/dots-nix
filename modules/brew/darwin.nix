@@ -1,6 +1,17 @@
 { config, lib, ... }:
+let
+  user = config.system.primaryUser;
+in
 {
   config = lib.mkIf config.mymodule.apps.brew.enable {
+    # 未設定時のみ brew autoupdate を開始し、launchd による毎日の自動更新を有効化する。
+    # 既存設定があるとオプション変更が反映されないため、変更時は `brew autoupdate delete` 後に switch し直す。
+    system.activationScripts.postActivation.text = lib.mkAfter ''
+      if sudo --user=${user} --set-home /opt/homebrew/bin/brew autoupdate status | grep -q "not configured"; then
+        sudo --user=${user} --set-home /opt/homebrew/bin/brew autoupdate start 1d --upgrade --cleanup --notify-on-error
+      fi
+    '';
+
     homebrew.casks = [
       "google-chrome"
       "google-gemini"
@@ -28,6 +39,7 @@
     };
 
     homebrew.taps = [
+      "homebrew/autoupdate"
       "modem-dev/tap"
       "can1357/tap"
       "anomalyco/tap"

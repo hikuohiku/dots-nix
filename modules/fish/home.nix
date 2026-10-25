@@ -18,10 +18,6 @@ in
       home.sessionVariables = {
         LS_COLORS = "$(vivid generate tokyonight-moon)";
       };
-      home.packages = with pkgs; [
-        grc
-        vivid
-      ];
 
       programs.fish = {
         enable = true;
@@ -101,29 +97,36 @@ in
           complete -c ghq -n '__fish_seen_subcommand_from get' -xa "(gh repo list --json name,owner --jq '.[] | select(.owner.login==\"hikuohiku\") | .owner.login + \"/\" + .name' 2>/dev/null)"
           set -g fzf_fd_opts --no-ignore
           set PATH $HOME/.ghcup/bin $PATH
-          set PATH /Library/TeX/texbin $PATH
           fish_add_path /Users/hikuo/.antigravity/antigravity/bin
         '';
       };
-
-      programs.starship.enable = true;
     }
 
     # ── Darwin ────────────────────────────────────────────────────────
+    # grc/vivid/starship は ./darwin.nix の brew で導入する。
     (lib.mkIf isDarwin {
       programs.fish = {
         shellAbbrs = {
           copy = "pbcopy";
           paste = "pbpaste";
         };
-        interactiveShellInit = ''
+        # 非対話シェル（エージェントのコマンド実行など）でも brew の CLI を使えるよう、interactiveShellInit ではなく shellInit で PATH に追加する。
+        shellInit = ''
           fish_add_path /opt/homebrew/bin
+        '';
+        interactiveShellInit = ''
+          starship init fish | source
         '';
       };
     })
 
     # ── Linux ─────────────────────────────────────────────────────────
     (lib.mkIf isLinux {
+      home.packages = with pkgs; [
+        grc
+        vivid
+      ];
+      programs.starship.enable = true;
       programs.fish = {
         shellAbbrs = {
           copy = "wlcopy";

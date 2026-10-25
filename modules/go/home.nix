@@ -9,10 +9,10 @@ let
 in
 {
   config = lib.mkIf config.mymodule.apps.go.enable {
-    home.packages = with pkgs; [
+    home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux (with pkgs; [
       go
       gopls
-    ];
+    ]);
 
     # go install の配置先
     home.sessionPath = [ "${goPath}/bin" ];

@@ -2,5 +2,10 @@
 {
   config = lib.mkIf config.mymodule.apps.fish.enable {
     programs.fish.enable = true;
+    homebrew.brews = [
+      "grc"
+      "vivid"
+      "starship"
+    ];
   };
 }

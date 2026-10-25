@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = [ pkgs.lazygit ];
+      home.packages = lib.optional (!isDarwin) pkgs.lazygit;
     }
     (lib.mkIf isDarwin {
       home.file."Library/Application Support/lazygit/config.yml".source = ./config.yml;

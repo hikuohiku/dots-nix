@@ -8,77 +8,88 @@
 let
   cfg = config.mymodule.apps.cli-tools;
   enabled = category: cfg.enable || category.enable;
+  # Linux のみパッケージを含めるヘルパー。macOS では nix 固有でないツールを brew(./darwin.nix) で導入する。
+  linuxOnly = lib.optionals pkgs.stdenv.hostPlatform.isLinux;
 in
 {
   config = lib.mkMerge [
     (lib.mkIf (enabled cfg.base) {
-      home.packages = with pkgs; [
-        nix-output-monitor
-        tree
-        fastfetch
-        gomi
-        rlwrap
-        gh
-        ripgrep
-        fd
-        sd
-        unar
-        unzip
-        p7zip
-        wget
-        httpie
-        yq-go
-        jwt-cli
-        jq
-        jnv
-        btop
-        ranger
-        lazydocker
-        dive
-        just
-      ];
+      home.packages =
+        with pkgs;
+        [
+          nix-output-monitor
+        ]
+        ++ linuxOnly [
+          tree
+          gomi
+          gh
+          ripgrep
+          fd
+          sd
+          unzip
+          wget
+          httpie
+          yq-go
+          jq
+          btop
+          dive
+          just
+        ];
 
       home.sessionVariables.PAGER = "bat";
     })
 
     (lib.mkIf (enabled cfg.development) {
-      home.packages = with pkgs; [
-        devenv
-        tree-sitter
-        treefmt
-        nixfmt
-        yamlfmt
-        # omp (oh-my-pi) の plugin install は bun 依存
-        bun
-      ];
+      home.packages =
+        with pkgs;
+        [
+          devenv
+          nixfmt
+        ]
+        ++ linuxOnly [
+          tree-sitter
+          treefmt
+          # omp (oh-my-pi) の plugin install は bun 依存
+          bun
+        ];
 
       programs = {
         direnv = {
           enable = true;
           nix-direnv.enable = true;
         };
-        rbenv.enable = true;
+        rbenv.enable = pkgs.stdenv.hostPlatform.isLinux;
+        fish.interactiveShellInit = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+          rbenv init - fish | source
+        '';
       };
     })
 
     (lib.mkIf (enabled cfg.infrastructure) {
-      home.packages = with pkgs; [
-        terraform
-        kubernetes-helm
-        cachix
-        doppler
-      ];
+      home.packages =
+        with pkgs;
+        [
+          cachix
+        ]
+        ++ linuxOnly [
+          terraform
+          kubernetes-helm
+          doppler
+        ];
     })
 
     (lib.mkIf (enabled cfg.automation) {
-      home.packages = with pkgs; [
-        ansible
-        ansible-lint
-      ];
+      home.packages = linuxOnly (
+        with pkgs;
+        [
+          ansible
+          ansible-lint
+        ]
+      );
     })
 
     (lib.mkIf (enabled cfg.documents) {
-      home.packages = [
+      home.packages = linuxOnly [
         (pkgs.texlive.withPackages (
           ps: with ps; [
             latexindent
@@ -89,19 +100,16 @@ in
     })
 
     (lib.mkIf (enabled cfg.secrets) {
-      # bws は Secrets Manager 用 (unfree)。bitwarden-cli とは別物。
-      # unfree で cache に無くソースビルドになるため、上流の静的バイナリを取得する。
+      # bws は Bitwarden Secrets Manager 用 CLI（bitwarden-cli とは別物）。
+      # macOS でも Homebrew に formula がなく、nixpkgs 版もキャッシュがなくソースビルドになるため、
+      # 例外的に nix 側で上流の静的バイナリ（upstream.bws）を取得して導入する。
       home.packages = [
-        pkgs.bitwarden-cli
         (pkgs.runCommand "bws-${upstream.bws.version}" { nativeBuildInputs = [ pkgs.unzip ]; } ''
           unzip ${upstream.bws.src} bws
           install -Dm755 bws $out/bin/bws
         '')
-      ];
-    })
-
-    (lib.mkIf (enabled cfg.recording) {
-      home.packages = [ pkgs.vhs ];
+      ]
+      ++ linuxOnly [ pkgs.bitwarden-cli ];
     })
   ];
 }

@@ -6,7 +6,6 @@
   mymodule.apps.codex-desktop.enable = true;
   mymodule.apps.cli-tools.enable = true;
   mymodule.apps.core.enable = true;
-  mymodule.apps.dotnet.enable = true;
   mymodule.apps.eza.enable = true;
   mymodule.apps.firefox.enable = true;
   mymodule.apps.fish.enable = true;
@@ -18,7 +17,6 @@
   mymodule.apps.herdr.enable = true;
   mymodule.apps.lazygit.enable = true;
   mymodule.apps.gui-tools.enable = true;
-  mymodule.apps.kitty.enable = true;
   mymodule.apps.neovim.enable = true;
   mymodule.apps.obsidian.enable = true;
   mymodule.apps.omp.enable = true;

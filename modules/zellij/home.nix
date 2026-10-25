@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   config = lib.mkIf config.mymodule.apps.zellij.enable {
-    home.packages = [ pkgs.zellij ];
+    home.packages = lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.zellij;
 
     home.sessionVariables = {
       ZELLIJ_AUTO_ATTACH = "true";
