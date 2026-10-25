@@ -109,7 +109,15 @@ in
           install -Dm755 bws $out/bin/bws
         '')
       ]
-      ++ linuxOnly [ pkgs.bitwarden-cli ];
+      ++ linuxOnly [
+        pkgs.bitwarden-cli
+        pkgs.fnox
+      ];
+
+      # fnox.toml のあるディレクトリに入ると secret を読み込み、出ると外す
+      programs.fish.interactiveShellInit = ''
+        fnox activate fish | source
+      '';
     })
   ];
 }

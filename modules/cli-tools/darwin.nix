@@ -54,7 +54,10 @@ in
     })
 
     (lib.mkIf (enabled cfg.secrets) {
-      homebrew.brews = [ "bitwarden-cli" ];
+      homebrew.brews = [
+        "bitwarden-cli"
+        "fnox"
+      ];
     })
   ];
 }
