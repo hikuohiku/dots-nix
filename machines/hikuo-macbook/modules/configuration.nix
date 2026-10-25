@@ -7,6 +7,7 @@
   imports = [
     ./host.nix
     ./apps.nix
+    ./cacert.nix
   ];
 
   home-manager.useGlobalPkgs = true;
