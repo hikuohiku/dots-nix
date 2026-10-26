@@ -30,6 +30,7 @@
   mymodule.apps.zellij.enable = true;
   mymodule.apps.zen.enable = true;
   mymodule.apps.skhd.enable = true;
+  mymodule.apps.sunshine.enable = true;
   mymodule.apps.yabai.enable = true;
   mymodule.apps.yabai.enableService = false;
 }
