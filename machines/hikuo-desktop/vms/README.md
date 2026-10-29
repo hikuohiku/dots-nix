@@ -10,7 +10,7 @@ KVM/QEMU + libvirt + VFIO + Looking Glass で動かす。
 | ホスト (VFIO, kvmfr, libvirtd, ISO 配置, virsh define) | `modules/vm/nixos.nix`, `machines/hikuo-desktop/modules/vm.nix` | NixOS |
 | VM ハードウェア構成 | `hikuo-vwin.xml` | git（libvirt XML そのまま） |
 | Windows 無人インストール | `hikuo-vwin/autounattend.xml` | git（公式形式そのまま） |
-| Windows のディスク中身 | `/var/lib/libvirt/images/hikuo-vwin.qcow2` | 管理しない（再インストール可能） |
+| Windows のディスク中身 | `nvme1n1`（PCI `04:00.0` をパススルー） | 管理しない（再インストール可能） |
 | ゲームデータ | `/var/lib/libvirt/images/hikuo-vwin-games.qcow2` | 管理しない（OS を作り直しても残す） |
 | NVRAM | `/var/lib/libvirt/qemu/nvram/hikuo-vwin_VARS.fd` | 管理しない（実行時状態） |
 
@@ -34,7 +34,7 @@ sudo install -m 0644 ~/Downloads/virtio-win-0.1.285.iso        /var/lib/libvirt/
 sudo nixos-rebuild switch --flake ./machines/hikuo-desktop
 ```
 
-`hikuo-vwin-define.service` が qcow2 を 128GiB で作ってドメインを定義する。
+`hikuo-vwin-define.service` がゲーム用 qcow2 を作ってドメインを定義する。
 autounattend ISO は derivation で作られ、`/var/lib/libvirt/iso/` へリンクされる。
 
 ## インストール
@@ -70,7 +70,7 @@ RunOnce は昇格されないので、マシン全体へインストールする
 
 ## ゲーム用ディスク
 
-OS ディスク（`vda` / 128GiB）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
+OS ディスク（パススルーした `nvme1n1`）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
 OS が壊れて作り直しても、こちらは残して再接続する。
 
 初回だけ Windows 側での初期化が要る。ディスクの管理 (`diskmgmt.msc`) から GPT で初期化して
@@ -92,11 +92,13 @@ sudo qemu-img resize /var/lib/libvirt/images/hikuo-vwin-games.qcow2 +128G
 
 そのあとゲスト側でパーティションを拡張する（ディスクの管理 → ボリュームの拡張）。
 
-最終形はベアメタル Windows が載っている `nvme1n1` のパススルーだが、移行が終わるまでは
-qcow2 で運用する。差し替えるときは、このディスクを `<disk type='block'>` へ書き換える。
-**`vfio-pci.ids` は使えない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
+OS ディスクの `nvme1n1` は **`vfio-pci.ids` で束縛できない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
 ID で束縛すると NixOS の root ディスクまで vfio に持っていかれる。PCI アドレス指定の
 `managed='yes'` で libvirt に着脱させること。
+
+virtio ディスクで入れた Windows を NVMe へ移すと、自動修復に落ちて起動しない。Windows は
+使っていないストレージドライバを `stornvme\StartOverride`（`0=3`）で無効化しているため。
+virtio のまま起動してこのキーを消してから切り替える。
 
 ## 共有フォルダ
 
@@ -167,7 +169,7 @@ vCPU は pinning のみで、ホストから隔離はしていない。**VM を�
 
 ## 作り直す
 
-qcow2 だけ消すと NVRAM に前回の Windows Boot Manager エントリが残り、起動の挙動が
+OS ディスクだけ消すと NVRAM に前回の Windows Boot Manager エントリが残り、起動の挙動が
 読めなくなる。NVRAM ごと消すこと。
 
 またゲーム用ディスクは **detach してから再インストールする**。answer file は `DiskID 0` を
@@ -175,7 +177,7 @@ qcow2 だけ消すと NVRAM に前回の Windows Boot Manager エントリが残
 
 ```bash
 virsh -c qemu:///system undefine hikuo-vwin --nvram
-sudo rm /var/lib/libvirt/images/hikuo-vwin.qcow2   # ゲーム用は消さない
+sudo blkdiscard /dev/nvme1n1   # VM 停止中はホストに戻っている。ゲーム用は消さない
 sudo systemctl restart hikuo-vwin-define
 virsh -c qemu:///system detach-disk hikuo-vwin vdb --persistent
 ```

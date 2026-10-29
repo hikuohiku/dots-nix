@@ -2,9 +2,6 @@
 let
   # ドメイン XML が参照する ISO の固定パス。ISO 自体は git 管理しない。
   isoDir = "/var/lib/libvirt/iso";
-  diskImage = "/var/lib/libvirt/images/hikuo-vwin.qcow2";
-  diskSize = "128G";
-
   # ゲーム用。OS ディスクとは独立に永続化し、OS を作り直しても再接続する。
   # ホストの / に 408GB しか空きが無いので thin provision でも控えめに取る。
   # 足りなくなったら qemu-img resize で広げる。
@@ -52,10 +49,6 @@ in
       };
       script = ''
         set -euo pipefail
-
-        if [ ! -f ${diskImage} ]; then
-          qemu-img create -f qcow2 ${diskImage} ${diskSize}
-        fi
 
         if [ ! -f ${gameImage} ]; then
           qemu-img create -f qcow2 ${gameImage} ${gameSize}

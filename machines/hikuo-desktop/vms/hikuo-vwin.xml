@@ -73,15 +73,6 @@
   <devices>
     <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
 
-    <!-- ディスクを boot order 1 にしておく。未インストールのうちは空で起動できず
-         CD へ落ちるので初回はインストーラが立ち上がり、インストール後は
-         CD の "Press any key" を経由せず直接 Windows が起動する。 -->
-    <disk type='file' device='disk'>
-      <driver name='qemu' type='qcow2' discard='unmap'/>
-      <source file='/var/lib/libvirt/images/hikuo-vwin.qcow2'/>
-      <target dev='vda' bus='virtio'/>
-      <boot order='1'/>
-    </disk>
     <!-- ゲーム用。OS を作り直しても残す。answer file は DiskID 0 を
          WillWipeDisk するので、再インストールの前に detach すること
          （README のリセット手順）。 -->
@@ -173,6 +164,18 @@
       <source>
         <address domain='0x0000' bus='0x05' slot='0x00' function='0x1'/>
       </source>
+    </hostdev>
+
+    <!-- OS ディスク。nvme1n1 のコントローラごと渡す。root の nvme0n1 と PCI ID が
+         同じなので vfio-pci.ids は使えず、アドレス指定で libvirt に着脱させる。
+         boot order 1 なので、未インストールのうちは空で起動できず CD へ落ち、
+         インストール後は CD の "Press any key" を経由せず直接 Windows が起動する。 -->
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+      </source>
+      <boot order='1'/>
     </hostdev>
 
     <memballoon model='none'/>
