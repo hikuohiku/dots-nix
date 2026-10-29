@@ -19,8 +19,7 @@ in
     xdg.configFile."skhd/skhdrc" = {
       source = pkgs.replaceVars ./skhdrc {
         yabaiMoveToEmpty = "${yabaiMoveToEmpty}/bin/yabai-move-to-empty";
-        yabaiBringApp = "${yabaiBringApp}/bin/yabai-bring-app";
-      };
+        yabaiBringApp = "${yabaiBringApp}/bin/yabai-bring-app";      };
     };
   };
 }

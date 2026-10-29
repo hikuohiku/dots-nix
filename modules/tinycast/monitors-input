@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# monitors-input <VCP 0x60 の値>
+# 共有モニタ 2 台の入力を DDC で切り替える。
+# 値は 17 (0x11) = HDMI1 (hikuo-desktop)、27 (0x1b) = USB-C (hikuo-macbook)。
+# S2722QC は現在値の読み取りが不安定なので、読まずに書き込む。
+set -euo pipefail
+
+want=$1
+
+# m1ddc の seid 指定 (<AN Serial>:<EDID UUID>)。`m1ddc display list detailed` で確認できる。
+monitors=(
+  "seid=FSHR464:10AC72A2-0000-0000-0A24-0104B53C2278"
+  "seid=7VK4MD3:10ACE0A1-0000-0000-0F21-0104B53C2278"
+)
+
+# モニタごとに並列実行し、1 台でも失敗したら 1 を返す。
+pids=()
+for m in "${monitors[@]}"; do
+  m1ddc display "$m" set input "$want" >/dev/null &
+  pids+=("$!")
+done
+
+rc=0
+for pid in "${pids[@]}"; do
+  wait "$pid" || rc=1
+done
+exit "$rc"

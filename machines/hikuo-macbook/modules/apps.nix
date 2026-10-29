@@ -24,6 +24,7 @@
   mymodule.apps.pnpm.enable = true;
   mymodule.apps.syncthing.enable = true;
   mymodule.apps.system.enable = true;
+  mymodule.apps.tinycast.enable = true;
   mymodule.apps.touchid.enable = true;
   mymodule.apps.tmux.enable = true;
   mymodule.apps.vscode.enable = true;
