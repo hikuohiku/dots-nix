@@ -10,6 +10,7 @@
     ./nvidia.nix # NVIDIA固有の設定
     ./remotebuild.nix
     ./claude-rebuild.nix # Claude Code 用 nixos-rebuild NOPASSWD
+    ./auto-update.nix # flake 入力の日次自動更新
   ];
 
   nix = {
