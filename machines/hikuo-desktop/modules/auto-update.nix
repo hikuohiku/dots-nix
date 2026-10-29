@@ -17,6 +17,7 @@ let
       pkgs.git
       pkgs.coreutils
       pkgs.libnotify
+      pkgs.openssh # コミットの SSH 署名に ssh-keygen を使う
     ];
     text = ''
       trap 'notify-send -u critical "dots-nix auto-update" "失敗しました: journalctl --user -u dots-nix-auto-update"' ERR
