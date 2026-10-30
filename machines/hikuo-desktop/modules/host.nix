@@ -65,8 +65,8 @@
   boot.loader = {
     grub = {
       enable = true;
-      # os-prober は VM 起動中に rebuild すると nvme1 が vfio 側にあって見えず、
-      # 項目が消える。VM と共用の Windows（nvme1 の ESP）は固定で載せる。
+      # os-prober は VM 起動中に rebuild すると VM 用 NVMe が vfio 側にあって見えず、
+      # 項目が消える。VM と共用の Windows（VM 用 NVMe の ESP）は固定で載せる。
       useOSProber = false;
       extraEntries = ''
         menuentry "Windows (hikuo-vwin)" {

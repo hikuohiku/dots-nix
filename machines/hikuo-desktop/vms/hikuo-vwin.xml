@@ -166,7 +166,7 @@
       </source>
     </hostdev>
 
-    <!-- OS ディスク。nvme1n1 のコントローラごと渡す。root の nvme0n1 と PCI ID が
+    <!-- OS ディスク。NVMe コントローラごと渡す。root の NVMe (06:00.0) と PCI ID が
          同じなので vfio-pci.ids は使えず、アドレス指定で libvirt に着脱させる。
          boot order 1 なので、未インストールのうちは空で起動できず CD へ落ち、
          インストール後は CD の "Press any key" を経由せず直接 Windows が起動する。 -->

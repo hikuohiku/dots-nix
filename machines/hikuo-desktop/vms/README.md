@@ -10,7 +10,7 @@ KVM/QEMU + libvirt + VFIO + Looking Glass で動かす。
 | ホスト (VFIO, kvmfr, libvirtd, ISO 配置, virsh define) | `modules/vm/nixos.nix`, `machines/hikuo-desktop/modules/vm.nix` | NixOS |
 | VM ハードウェア構成 | `hikuo-vwin.xml` | git（libvirt XML そのまま） |
 | Windows 無人インストール | `hikuo-vwin/autounattend.xml` | git（公式形式そのまま） |
-| Windows のディスク中身 | `nvme1n1`（PCI `04:00.0` をパススルー） | 管理しない（再インストール可能） |
+| Windows のディスク中身 | VM 用 NVMe（PCI `04:00.0` をパススルー） | 管理しない（再インストール可能） |
 | ゲームデータ | `/var/lib/libvirt/images/hikuo-vwin-games.qcow2` | 管理しない（OS を作り直しても残す） |
 | NVRAM | `/var/lib/libvirt/qemu/nvram/hikuo-vwin_VARS.fd` | 管理しない（実行時状態） |
 
@@ -70,7 +70,7 @@ RunOnce は昇格されないので、マシン全体へインストールする
 
 ## ゲーム用ディスク
 
-OS ディスク（パススルーした `nvme1n1`）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
+OS ディスク（パススルーした NVMe `04:00.0`）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
 OS が壊れて作り直しても、こちらは残して再接続する。
 
 初回だけ Windows 側での初期化が要る。ディスクの管理 (`diskmgmt.msc`) から GPT で初期化して
@@ -92,7 +92,7 @@ sudo qemu-img resize /var/lib/libvirt/images/hikuo-vwin-games.qcow2 +128G
 
 そのあとゲスト側でパーティションを拡張する（ディスクの管理 → ボリュームの拡張）。
 
-OS ディスクの `nvme1n1` は **`vfio-pci.ids` で束縛できない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
+OS ディスクの NVMe は **`vfio-pci.ids` で束縛できない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
 ID で束縛すると NixOS の root ディスクまで vfio に持っていかれる。PCI アドレス指定の
 `managed='yes'` で libvirt に着脱させること。
 
@@ -173,7 +173,7 @@ vCPU は pinning のみで、ホストから隔離はしていない。**VM を�
 （`modules/host.nix` の `extraEntries`。ESP の FAT UUID を固定で書いている）。
 
 - 高速スタートアップは無効のままにする。休止状態を別ハードで再開すると壊れる
-- ファームウェアが nvme1 の *Windows Boot Manager* を自動登録して BootOrder の先頭に
+- ファームウェアが VM 用 NVMe の *Windows Boot Manager* を自動登録して BootOrder の先頭に
   入れることがある。BIOS で無効にするか順序を戻す。エントリを消すと再登録で先頭に来る
 - G: は qcow2 なので実機からは見えない
 - 再インストールで ESP を作り直したら `extraEntries` の UUID を更新する
@@ -188,7 +188,7 @@ OS ディスクだけ消すと NVRAM に前回の Windows Boot Manager エント
 
 ```bash
 virsh -c qemu:///system undefine hikuo-vwin --nvram
-sudo blkdiscard /dev/nvme1n1   # VM 停止中はホストに戻っている。ゲーム用は消さない
+sudo blkdiscard /dev/disk/by-path/pci-0000:04:00.0-nvme-1   # VM 停止中のみ。ゲーム用は消さない
 sudo systemctl restart hikuo-vwin-define
 virsh -c qemu:///system detach-disk hikuo-vwin vdb --persistent
 ```
