@@ -20,8 +20,6 @@ let
       pkgs.openssh # コミットの SSH 署名に ssh-keygen を使う
     ];
     text = ''
-      trap 'notify-send -u critical "dots-nix auto-update" "失敗しました: journalctl --user -u dots-nix-auto-update"' ERR
-
       wt="''${XDG_CACHE_HOME:-$HOME/.cache}/dots-nix-auto-update"
       git -C ${repo} fetch origin main
       if [ ! -e "$wt" ]; then
@@ -48,14 +46,41 @@ let
       notify-send "dots-nix auto-update" "flake 入力を更新しました。次回起動で反映されます"
     '';
   };
+
+  # 失敗した本体は実行中のため自分を再起動できない。OnFailure から別ユニットで通知し、
+  # 本体が failed になった後にボタンから起動し直す。
+  notifyFailure = pkgs.writeShellApplication {
+    name = "dots-nix-auto-update-failed";
+    runtimeInputs = [
+      pkgs.libnotify
+      config.systemd.package
+    ];
+    text = ''
+      action=$(notify-send -u critical -A rerun=再実行 "dots-nix auto-update" "失敗しました: journalctl --user -u dots-nix-auto-update")
+      if [ "$action" = rerun ]; then
+        systemctl --user start --no-block dots-nix-auto-update.service
+      fi
+    '';
+  };
 in
 {
   systemd.user.services.dots-nix-auto-update = {
     description = "Update flake inputs and stage the next boot generation";
-    unitConfig.ConditionUser = "hikuo";
+    unitConfig = {
+      ConditionUser = "hikuo";
+      OnFailure = "dots-nix-auto-update-failed.service";
+    };
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${autoUpdate}/bin/dots-nix-auto-update";
+    };
+  };
+
+  systemd.user.services.dots-nix-auto-update-failed = {
+    description = "Notify dots-nix auto-update failure with a rerun action";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${notifyFailure}/bin/dots-nix-auto-update-failed";
     };
   };
 
