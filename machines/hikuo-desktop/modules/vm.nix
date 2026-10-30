@@ -41,5 +41,20 @@ in
         virsh -c qemu:///system define ${domainXml}
       '';
     };
+
+    # VM が動いている間だけホストのプロセスを vCPU と重ならない CPU に寄せる。
+    # XML の emulatorpin と同じ 0,1,6,7（コア 0,1 の両スレッド）。machine.slice は
+    # 触らないので vCPU スレッドは pinning どおり動く。--runtime なので再起動で戻る。
+    virtualisation.libvirtd.hooks.qemu.cpu-isolate = pkgs.writeShellScript "cpu-isolate" ''
+      [ "$1" = hikuo-vwin ] || exit 0
+      case "$2" in
+        prepare) cpus=0,1,6,7 ;;
+        release) cpus=0-11 ;;
+        *) exit 0 ;;
+      esac
+      for unit in system.slice user.slice init.scope; do
+        ${pkgs.systemd}/bin/systemctl set-property --runtime "$unit" AllowedCPUs="$cpus"
+      done
+    '';
   };
 }
