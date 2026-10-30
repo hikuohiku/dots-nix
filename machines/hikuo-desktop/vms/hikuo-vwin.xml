@@ -139,6 +139,13 @@
     <input type='evdev'>
       <source dev='/dev/input/by-id/usb-Keychron_Keychron_Link-KM-event-mouse'/>
     </input>
+    <!-- 普段使いのマウスは Logitech のレシーバー側。 -->
+    <input type='evdev'>
+      <source dev='/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-mouse'/>
+    </input>
+    <input type='evdev'>
+      <source dev='/dev/input/by-id/usb-Logitech_USB_Receiver-if03-event-mouse'/>
+    </input>
 
     <!-- USB コントローラは 00:14.0 の 1 つだけで、丸ごとのパススルーはホストの
          USB を全部持っていくため不可。コントローラやヘッドセットは SPICE の
