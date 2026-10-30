@@ -21,6 +21,9 @@
 
     virtualisation.libvirtd = {
       enable = true;
+      # 既定の suspend は VFIO の VM を保存できず失敗する。ホスト停止時はゲストを
+      # 正規にシャットダウンさせる。
+      onShutdown = "shutdown";
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
