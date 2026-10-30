@@ -126,12 +126,12 @@
 
     <!-- Keychron（キーボード・マウス）を evdev で直接渡す。SPICE 経由の USB
          タブレットは約 100Hz で、120Hz の画面ではドラッグが遅れる。VM 起動時は
-         ゲスト側に掴まれ、左右の Ctrl 同時押しでホストと行き来する。届け先は
+         ゲスト側に掴まれ、左右の Shift 同時押しでホストと行き来する。届け先は
          virtio の入力デバイス（ゲストの vioinput）。 -->
     <input type='keyboard' bus='virtio'/>
     <input type='mouse' bus='virtio'/>
     <input type='evdev'>
-      <source dev='/dev/input/by-id/usb-Keychron_Keychron_Link-KM-if02-event-kbd' grab='all' grabToggle='ctrl-ctrl' repeat='on'/>
+      <source dev='/dev/input/by-id/usb-Keychron_Keychron_Link-KM-if02-event-kbd' grab='all' grabToggle='shift-shift' repeat='on'/>
     </input>
     <input type='evdev'>
       <source dev='/dev/input/by-id/usb-Keychron_Keychron_Link-KM-if04-event-kbd'/>
