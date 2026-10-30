@@ -65,8 +65,18 @@
   boot.loader = {
     grub = {
       enable = true;
-      # nvme1 の Windows は VM 専用。実機で起動させないよう GRUB に載せない。
+      # os-prober は VM 起動中に rebuild すると nvme1 が vfio 側にあって見えず、
+      # 項目が消える。VM と共用の Windows（nvme1 の ESP）は固定で載せる。
       useOSProber = false;
+      extraEntries = ''
+        menuentry "Windows (hikuo-vwin)" {
+          insmod part_gpt
+          insmod fat
+          insmod chain
+          search --no-floppy --fs-uuid --set=root 4C98-B50E
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
       efiSupport = true;
       device = "nodev";
     };

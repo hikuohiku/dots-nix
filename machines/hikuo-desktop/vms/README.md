@@ -167,6 +167,17 @@ looking-glass-client -f /dev/kvmfr0
 vCPU は pinning のみで、ホストから隔離はしていない。**VM を動かしている間は
 `nixos-rebuild` のような重いビルドを走らせない。**
 
+## 実機で起動する
+
+同じ Windows を GRUB の *Windows (hikuo-vwin)* から実機でも起動できる
+（`modules/host.nix` の `extraEntries`。ESP の FAT UUID を固定で書いている）。
+
+- 高速スタートアップは無効のままにする。休止状態を別ハードで再開すると壊れる
+- ファームウェアが nvme1 の *Windows Boot Manager* を自動登録して BootOrder の先頭に
+  入れることがある。BIOS で無効にするか順序を戻す。エントリを消すと再登録で先頭に来る
+- G: は qcow2 なので実機からは見えない
+- 再インストールで ESP を作り直したら `extraEntries` の UUID を更新する
+
 ## 作り直す
 
 OS ディスクだけ消すと NVRAM に前回の Windows Boot Manager エントリが残り、起動の挙動が
