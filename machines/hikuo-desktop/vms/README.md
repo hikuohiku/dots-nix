@@ -122,6 +122,30 @@ VGA はドライバが壊れたときの保守用コンソールとして残し�
 
 1. ゲストの Chrome で <https://looking-glass.io/artifact/B7/host> を開いて zip を取得
 2. `looking-glass-host-setup.exe` を実行。IVSHMEM ドライバごと入り、サービスとして常駐する
+3. `C:\Program Files\Looking Glass (host)\looking-glass-host.ini` を置く。1050 Ti は
+   チップセット経由の PCIe x4 で、4K@120 の取り込みは帯域に収まらないため縮小して送る
+
+   ```ini
+   [d12]
+   downsample=3840x2160:2560x1440
+   allowRGB24=yes
+   ```
+
+4. サービスは NVIDIA ドライバより先に起動すると GPU を見つけられず終了する。
+   失敗時に再起動させる: `sc.exe failure "Looking Glass (host)" reset= 86400 actions= restart/10000/restart/10000/restart/30000`
+   と `sc.exe failureflag "Looking Glass (host)" 1`
+
+### 性能まわり
+
+- **Hyper-V を止める。** WSL2 用の「仮想マシン プラットフォーム」があると Windows が
+  Hyper-V 上で動き、KVM の上で入れ子になって UI が目に見えて重くなる。
+  `Disable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform`、
+  `bcdedit /set {current} hypervisorlaunchtype off`、DeviceGuard の
+  `EnableVirtualizationBasedSecurity=0`。WSL2 は使えなくなる
+- NVIDIA コントロールパネルの電源管理モードを「パフォーマンス最大化を優先」。省電力だと
+  PCIe も Gen1 まで落ち、取り込みが追いつかない
+- 1050 Ti の HDMI オーディオを MSI にする（`Device Parameters\Interrupt Management\MessageSignaledInterruptProperties` の `MSISupported=1`）
+- 電源プランは高パフォーマンス、高速スタートアップは無効（実機起動と共用するため）
 
 ### Tailscale へのログイン
 
