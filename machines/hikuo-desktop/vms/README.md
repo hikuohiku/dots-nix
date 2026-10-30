@@ -10,8 +10,7 @@ KVM/QEMU + libvirt + VFIO + Looking Glass で動かす。
 | ホスト (VFIO, kvmfr, libvirtd, ISO 配置, virsh define) | `modules/vm/nixos.nix`, `machines/hikuo-desktop/modules/vm.nix` | NixOS |
 | VM ハードウェア構成 | `hikuo-vwin.xml` | git（libvirt XML そのまま） |
 | Windows 無人インストール | `hikuo-vwin/autounattend.xml` | git（公式形式そのまま） |
-| Windows のディスク中身 | VM 用 NVMe（PCI `04:00.0` をパススルー） | 管理しない（再インストール可能） |
-| ゲームデータ | `/var/lib/libvirt/images/hikuo-vwin-games.qcow2` | 管理しない（OS を作り直しても残す） |
+| Windows のディスク中身（C: と G:） | VM 用 NVMe（PCI `04:00.0` をパススルー） | 管理しない（再インストール可能） |
 | NVRAM | `/var/lib/libvirt/qemu/nvram/hikuo-vwin_VARS.fd` | 管理しない（実行時状態） |
 
 virt-manager は確認・操作用であって source of truth ではない。XML を変えたら
@@ -34,7 +33,7 @@ sudo install -m 0644 ~/Downloads/virtio-win-0.1.285.iso        /var/lib/libvirt/
 sudo nixos-rebuild switch --flake ./machines/hikuo-desktop
 ```
 
-`hikuo-vwin-define.service` がゲーム用 qcow2 を作ってドメインを定義する。
+`hikuo-vwin-define.service` がドメインを定義する。
 autounattend ISO は derivation で作られ、`/var/lib/libvirt/iso/` へリンクされる。
 
 ## インストール
@@ -68,29 +67,10 @@ RunOnce は昇格されないので、マシン全体へインストールする
 - 2 回目のログオン: `%LOCALAPPDATA%\Temp\unattend-chrome.log`, `unattend-tailscale.log`,
   `unattend-winfsp.log`
 
-## ゲーム用ディスク
+## ディスク
 
-OS ディスク（パススルーした NVMe `04:00.0`）とは別に、ゲームデータ用の `vdb` を 256GiB で持つ。
-OS が壊れて作り直しても、こちらは残して再接続する。
-
-初回だけ Windows 側での初期化が要る。ディスクの管理 (`diskmgmt.msc`) から GPT で初期化して
-NTFS でフォーマットしてもよいし、PowerShell を管理者で開いて次でもよい。`G:` の `Games` に
-する運用にしている。
-
-```powershell
-$d = Get-Disk | ? PartitionStyle -eq RAW
-Initialize-Disk -Number $d.Number -PartitionStyle GPT
-New-Partition -DiskNumber $d.Number -UseMaximumSize -DriveLetter G
-Format-Volume -DriveLetter G -FileSystem NTFS -NewFileSystemLabel Games
-```
-
-容量が足りなくなったら、VM を落としてからホストで広げる。ホストの `/` の空きが上限。
-
-```bash
-sudo qemu-img resize /var/lib/libvirt/images/hikuo-vwin-games.qcow2 +128G
-```
-
-そのあとゲスト側でパーティションを拡張する（ディスクの管理 → ボリュームの拡張）。
+VM 用 NVMe（931GB）を丸ごと渡し、C:（400GB）とゲーム用の G:（`Games`、残り）に分けている。
+回復環境は C: の中（`reagentc` で移動済み）で、回復パーティションは無い。
 
 OS ディスクの NVMe は **`vfio-pci.ids` で束縛できない。** 2 枚の SSD は同一モデルで PCI ID も同じ `c0a9:540a` のため、
 ID で束縛すると NixOS の root ディスクまで vfio に持っていかれる。PCI アドレス指定の
@@ -175,7 +155,6 @@ vCPU は pinning のみで、ホストから隔離はしていない。**VM を�
 - 高速スタートアップは無効のままにする。休止状態を別ハードで再開すると壊れる
 - ファームウェアが VM 用 NVMe の *Windows Boot Manager* を自動登録して BootOrder の先頭に
   入れることがある。BIOS で無効にするか順序を戻す。エントリを消すと再登録で先頭に来る
-- G: は qcow2 なので実機からは見えない
 - 再インストールで ESP を作り直したら `extraEntries` の UUID を更新する
 
 ## 作り直す
@@ -183,19 +162,13 @@ vCPU は pinning のみで、ホストから隔離はしていない。**VM を�
 OS ディスクだけ消すと NVRAM に前回の Windows Boot Manager エントリが残り、起動の挙動が
 読めなくなる。NVRAM ごと消すこと。
 
-またゲーム用ディスクは **detach してから再インストールする**。answer file は `DiskID 0` を
-`WillWipeDisk` するので、繋いだままだとディスクの列挙順しだいでゲームデータを消しかねない。
+answer file は `DiskID 0` を `WillWipeDisk` して C: だけを作るので、**G: も消える**。
+ゲームは入れ直す前提。インストール後に G: を作り直し、ESP の UUID が変わるので
+`extraEntries` も更新する。
 
 ```bash
 virsh -c qemu:///system undefine hikuo-vwin --nvram
-sudo blkdiscard /dev/disk/by-path/pci-0000:04:00.0-nvme-1   # VM 停止中のみ。ゲーム用は消さない
-sudo systemctl restart hikuo-vwin-define
-virsh -c qemu:///system detach-disk hikuo-vwin vdb --persistent
-```
-
-インストールが終わったらゲーム用ディスクを戻す。
-
-```bash
+sudo blkdiscard /dev/disk/by-path/pci-0000:04:00.0-nvme-1   # VM 停止中のみ
 sudo systemctl restart hikuo-vwin-define
 ```
 

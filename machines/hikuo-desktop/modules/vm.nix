@@ -2,12 +2,6 @@
 let
   # ドメイン XML が参照する ISO の固定パス。ISO 自体は git 管理しない。
   isoDir = "/var/lib/libvirt/iso";
-  # ゲーム用。OS ディスクとは独立に永続化し、OS を作り直しても再接続する。
-  # ホストの / に 408GB しか空きが無いので thin provision でも控えめに取る。
-  # 足りなくなったら qemu-img resize で広げる。
-  gameImage = "/var/lib/libvirt/images/hikuo-vwin-games.qcow2";
-  gameSize = "256G";
-
   domainXml = ../vms/hikuo-vwin.xml;
 
   # answer file に秘密の値が無いので、ISO は純粋な derivation で作れる。
@@ -31,29 +25,19 @@ in
       "L+ ${isoDir}/hikuo-vwin-autounattend.iso - - - - ${autounattendIso}"
     ];
 
-    # qcow2 の中身は成果物として管理しないが、空のディスクが無いとドメインを
-    # 起動できないので、存在しないときだけ作る。
     systemd.services.hikuo-vwin-define = {
       description = "Define the hikuo-vwin libvirt domain";
       wantedBy = [ "multi-user.target" ];
       wants = [ "libvirtd.service" ];
       after = [ "libvirtd.service" ];
       restartTriggers = [ domainXml ];
-      path = [
-        pkgs.libvirt
-        pkgs.qemu-utils
-      ];
+      path = [ pkgs.libvirt ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
       };
       script = ''
         set -euo pipefail
-
-        if [ ! -f ${gameImage} ]; then
-          qemu-img create -f qcow2 ${gameImage} ${gameSize}
-        fi
-
         virsh -c qemu:///system define ${domainXml}
       '';
     };
