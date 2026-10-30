@@ -65,7 +65,8 @@
   boot.loader = {
     grub = {
       enable = true;
-      useOSProber = true;
+      # nvme1 の Windows は VM 専用。実機で起動させないよう GRUB に載せない。
+      useOSProber = false;
       efiSupport = true;
       device = "nodev";
     };
