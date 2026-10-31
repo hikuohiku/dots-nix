@@ -163,12 +163,16 @@ VGA はドライバが壊れたときの保守用コンソールとして残し�
 
 ### Tailscale へのログイン
 
-`tailscale up` はブラウザ認証が要るので手動。
+`tailscale up --unattended` はブラウザ認証が要るので手動。`--unattended` が無いと
+hikuo がサインインしている間しか繋がらない（後からなら `tailscale set --unattended`）。
 
 ### 自動ログインの確認
 
 `LogonCount` の恒久化はレジストリ側で行っている。一度再起動して、ログイン画面が
 出ずにデスクトップまで来ることを確認する。
+
+パスワードを設定・変更すると Windows が自動ログインを外す。その場合は Sysinternals の
+Autologon で入れ直す（パスワードは LSA に暗号化して保存される）。
 
 ## 日常の起動
 
