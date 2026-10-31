@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# 共有モニタ 2 台へ ddcutil で VCP を引数の順に書き込む。
+# 使用法: monitors-ddc <VCP コード> <値> [<VCP コード> <値> ...]
+#
+# VCP 値の対応:
+# - 60 (入力): 17 (0x11) = HDMI1 (hikuo-desktop)、27 (0x1b) = USB-C (hikuo-macbook)
+# - D6 (電源): 1 = ON、4 = DPM Off（DDC で復帰可能。5 は復帰に物理操作が必要）
+#
+# S2722QC は現在値の読み取りが不安定なため、読まずに書き込む。
+set -euo pipefail
+
+# 操作対象モニタのシリアル番号一覧。ddcutil の --sn に指定する値で、`ddcutil detect` で確認できる。
+monitors=(
+  "FSHR464"
+  "7VK4MD3"
+)
+
+# モニタ 1 台に対し、指定された VCP コードと値の組を ddcutil で順に書き込む。
+# 引数: $1 = シリアル番号、以後は <VCP コード> と <値> のペア。
+# S2722QC は現在値の読み取りが不安定なため、--noverify で読み戻しを省く。
+apply() {
+  local sn=$1
+  shift
+  while (($#)); do
+    ddcutil --sn="$sn" --noverify setvcp "$1" "$2"
+    shift 2
+  done
+}
+
+# 各モニタへの適用をバックグラウンドで並列実行する。
+# 並列実行した子プロセスの PID 一覧を保持する配列。
+pids=()
+for m in "${monitors[@]}"; do
+  apply "$m" "$@" &
+  pids+=("$!")
+done
+
+# 全子プロセスの終了を待機し、1 台でも失敗した場合は終了ステータス 1 を返す。
+rc=0
+for pid in "${pids[@]}"; do
+  wait "$pid" || rc=1
+done
+exit "$rc"
