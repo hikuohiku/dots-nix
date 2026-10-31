@@ -18,9 +18,8 @@ virt-manager は確認・操作用であって source of truth ではない。XM
 逆に virt-manager で加えた変更は次の rebuild か再起動で消える。
 
 秘密の値は一切扱わない。プロダクトキーはインストール中に手入力し、ローカルアカウントの
-パスワードは空にしてある。空パスワードは既定ポリシー *Accounts: Limit local account use
-of blank passwords to console logon only* によりネットワークログオン（RDP・SMB）では
-使えないので、効くのはこの VM のコンソールだけ。
+パスワードはインストール時点では空にしてある（後から設定済み。自動ログインは
+「自動ログインの確認」を参照）。ホストからの操作は SSH の鍵認証で、パスワードは使わない。
 
 ## 初回の準備（一度だけ）
 
@@ -186,8 +185,8 @@ looking-glass-client -f /dev/kvmfr0
 コントローラやヘッドセットは virt-manager の *USB デバイスをリダイレクト* から渡す
 （USB コントローラが `00:14.0` の 1 つだけで、丸ごとのパススルーはできないため）。
 
-vCPU は pinning のみで、ホストから隔離はしていない。**VM を動かしている間は
-`nixos-rebuild` のような重いビルドを走らせない。**
+VM が動いている間、ホストのプロセスは CPU 0,1,6,7 に寄せられる（libvirt hook の
+`cpu-isolate`）。ホストは 4 スレッドしか使えないので、`nixos-rebuild` のような重いビルドは遅い。
 
 ## ホストから操作する
 
