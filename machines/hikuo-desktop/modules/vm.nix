@@ -42,6 +42,33 @@ in
       '';
     };
 
+    # ゲストの OpenSSH Server へ virbr0 で入る（名前は libvirt NSS が引く）。tailnet は
+    # ゲストの Tailscale がログイン前に繋がらないので使わない。Windows の OpenSSH は
+    # ML-KEM 未対応で毎回警告が出るので黙らせる。
+    programs.ssh.extraConfig = ''
+      Host hikuo-vwin
+        User hikuo
+        WarnWeakCrypto no-pq-kex
+        ControlMaster auto
+        ControlPath ~/.ssh/cm-%C
+        ControlPersist 10m
+    '';
+
+    environment.systemPackages = [
+      (pkgs.writeShellApplication {
+        name = "vwin";
+        runtimeInputs = [
+          pkgs.libvirt
+          pkgs.openssh
+          pkgs.mutagen
+          pkgs.git
+        ];
+        # リモートのコマンド文字列は意図的にホスト側で展開して組み立てる。
+        excludeShellChecks = [ "SC2029" ];
+        text = builtins.readFile ../vms/vwin.sh;
+      })
+    ];
+
     # VM が動いている間だけホストのプロセスを vCPU と重ならない CPU に寄せる。
     # XML の emulatorpin と同じ 0,1,6,7（コア 0,1 の両スレッド）。machine.slice は
     # 触らないので vCPU スレッドは pinning どおり動く。--runtime なので再起動で戻る。

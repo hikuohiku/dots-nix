@@ -24,6 +24,8 @@
       # 既定の suspend は VFIO の VM を保存できず失敗する。ホスト停止時はゲストを
       # 正規にシャットダウンさせる。
       onShutdown = "shutdown";
+      # ドメイン名でゲストの virbr0 側 IP を引けるようにする（DNS より先に引く）。
+      nss.enableGuest = true;
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;

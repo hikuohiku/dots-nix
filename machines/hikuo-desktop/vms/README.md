@@ -147,6 +147,20 @@ VGA はドライバが壊れたときの保守用コンソールとして残し�
 - 1050 Ti の HDMI オーディオを MSI にする（`Device Parameters\Interrupt Management\MessageSignaledInterruptProperties` の `MSISupported=1`）
 - 電源プランは高パフォーマンス、高速スタートアップは無効（実機起動と共用するため）
 
+### SSH（ホストからの操作用）
+
+ホストの `vwin` が使う。ゲストで管理者として:
+
+1. `Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0`、PowerShell 7 の MSI を導入
+2. ホストの `~/.ssh/id_ed25519.pub` を `C:\ProgramData\ssh\administrators_authorized_keys` に置き、
+   `icacls <file> /inheritance:r /grant Administrators:F /grant SYSTEM:F`
+3. `HKLM:\SOFTWARE\OpenSSH` の `DefaultShell` を `C:\Program Files\PowerShell\7\pwsh.exe` にし、
+   `sshd` を自動起動にする
+4. virbr0 側の NIC は Public 扱いで既定の許可ルール（Private のみ）に当たらない。
+   `New-NetFirewallRule -Name OpenSSH-Server-In-libvirt -Direction Inbound -Protocol TCP -LocalPort 22 -RemoteAddress 192.168.122.1 -Profile Any -Action Allow`
+5. `$PSHOME\profile.ps1` で `[Console]::InputEncoding`・`OutputEncoding`・`$OutputEncoding` を
+   BOM なし UTF-8 にする。システム全体の UTF-8 化（ベータ）は古いゲームを壊すので使わない
+
 ### Tailscale へのログイン
 
 `tailscale up` はブラウザ認証が要るので手動。
@@ -170,6 +184,14 @@ looking-glass-client -f /dev/kvmfr0
 
 vCPU は pinning のみで、ホストから隔離はしていない。**VM を動かしている間は
 `nixos-rebuild` のような重いビルドを走らせない。**
+
+## ホストから操作する
+
+`vwin` で SSH 越しに pwsh を叩く（使い方は `vwin --help`）。VM が止まっていれば起動して待つ。
+`vwin run <cmd>` はカレントの git リポジトリを mutagen で `C:\src\<名前>` へミラーしてから実行する。
+
+名前は libvirt NSS が virbr0 側の IP に引く。tailnet の名前（MagicDNS）は使わない。
+ゲストの Tailscale がログイン前やログアウト中は繋がらないため。
 
 ## 実機で起動する
 
