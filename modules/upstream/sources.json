@@ -28,11 +28,11 @@
   "yabai": {
     "repo": "Christian-SC26/yabai",
     "tagPrefix": "v",
-    "version": "7.1.31",
+    "version": "7.2.0",
     "assets": {
       "aarch64-darwin": {
         "name": "yabai",
-        "hash": "sha256-z6z19f7dqMXkzeCQb7/kOkHliCyOJFHzep7om8wswqw="
+        "hash": "sha256-Ae2dmu1jOH5DDE6udpQdPYQ6ROTXNpfMAnqQ2tOhpt4="
       }
     }
   }
