@@ -28,6 +28,7 @@ in
       homebrew.brews = [
         "tree-sitter-cli"
         "treefmt"
+        "node"
         "bun"
         "rbenv"
       ];
@@ -37,6 +38,7 @@ in
       homebrew.taps = [ "hashicorp/tap" ];
       homebrew.brews = [
         "hashicorp/tap/terraform"
+        "kubernetes-cli"
         "helm"
       ];
     })

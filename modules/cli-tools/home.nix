@@ -51,6 +51,8 @@ in
           treefmt
           # omp (oh-my-pi) の plugin install は bun 依存
           bun
+          # npx で起動する MCP サーバー用
+          nodejs
         ];
 
       programs = {
@@ -73,6 +75,7 @@ in
         ]
         ++ linuxOnly [
           terraform
+          kubectl
           kubernetes-helm
         ];
     })
