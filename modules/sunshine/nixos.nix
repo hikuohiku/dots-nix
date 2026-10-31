@@ -6,6 +6,11 @@ let
   sunshine = pkgs.appimageTools.wrapType2 {
     pname = "sunshine";
     inherit (upstream.sunshine) version src;
+    # AppImage に同梱されず、wrapType2 の既定の FHS にも無いもの。
+    extraPkgs = pkgs: [
+      pkgs.libgpg-error
+      pkgs.avahi # Moonlight からの自動検出
+    ];
   };
 in
 {
@@ -43,6 +48,12 @@ in
         ExecStart = lib.getExe sunshine;
         Restart = "on-failure";
         RestartSec = "5s";
+        # FHS の中の glvnd は NVIDIA の EGL を見つけられず Mesa に落ち、NVENC 用の EGL
+        # display を作れない。ホストのドライバの設定を直接指す。
+        Environment = [
+          "__EGL_VENDOR_LIBRARY_DIRS=/run/opengl-driver/share/glvnd/egl_vendor.d"
+          "__EGL_EXTERNAL_PLATFORM_CONFIG_DIRS=/run/opengl-driver/share/egl/egl_external_platform.d"
+        ];
       };
     };
   };
