@@ -45,7 +45,8 @@ let
     '';
   };
 
-  # HDMI-A-1 を「FHD 等倍 (1920x1080 @scale1)」と「通常 (4K @scale2)」でトグルする。
+  # 配信するメインモニタ (S2725QC) を「FHD 等倍 (1920x1080 @scale1)」と「通常 (4K @scale2)」でトグルする。
+  # コネクタ名は配線で変わるので、モデル名から引く。
   # Sunshine の software エンコードは 4K キャプチャが重いので、配信時だけ FHD 等倍に落とす。
   # niri msg output は一時変更 (niri 再起動でリセット) なので nix の恒久設定は変えない。
   niriToggleStreamDisplay = pkgs.writeShellApplication {
@@ -56,7 +57,8 @@ let
       pkgs.libnotify
     ];
     text = ''
-      out="HDMI-A-1"
+      out="$(niri msg --json outputs \
+        | jq -r 'to_entries[] | select(.value.model == "DELL S2725QC") | .key')"
       width="$(niri msg --json outputs \
         | jq -r --arg o "$out" '.[$o].modes[.[$o].current_mode].width')"
 
@@ -67,7 +69,7 @@ let
         notify-send -t 2000 "Display" "$out: 1920x1080 @1 (stream)" || true
       else
         # 復帰: 4K @2
-        niri msg output "$out" mode 3840x2160@60.000
+        niri msg output "$out" mode 3840x2160@120.000
         niri msg output "$out" scale 2
         notify-send -t 2000 "Display" "$out: 3840x2160 @2 (normal)" || true
       fi
