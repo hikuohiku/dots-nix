@@ -1,22 +1,30 @@
 #!/usr/bin/env bash
 # monitors-input <VCP 0x60 の値>
-# ddcutil で共有モニタ 2 台の入力 (VCP 0x60) を切り替える。
+# ddcutil で共有モニタ 2 台の入力 (VCP 0x60) を同時に切り替える。
 # 値は 17 (0x11) = HDMI1 (hikuo-desktop)、27 (0x1b) = USB-C (hikuo-macbook)。
 # S2722QC は現在値の読み取りが不安定なため、値を読まずに直接書き込む。
 set -euo pipefail
 
 want=$1
 
-# ddcutil の --sn に指定する対象モニタのシリアル番号。`ddcutil detect` で確認できる。
-monitors=(
-  "FSHR464"
-  "7VK4MD3"
+# 切り替え対象のモニタが接続された i2c アダプタ名の一覧。
+# 2 台を同時に切り替えるため、--sn ではなくアダプタ名からバス番号を引いて --bus で指定する。
+# --sn を指定すると ddcutil が全バス走査時にロックを取り合い、2 台が順次切り替えになってしまう。
+# なおバス番号は起動ごとに変わりうるため、固定値を持たずアダプタ名から動的に解決する。
+# GPU の差し込み口を変更した際はアダプタ名の更新が必要。
+# アダプタ名は `ddcutil detect` の I2C bus や /sys/bus/i2c/devices/i2c-N/name で確認できる。
+adapters=(
+  "NVIDIA i2c adapter 5 at 1:00.0" # S2725QC (HDMI-A-1)
+  "NVIDIA i2c adapter 6 at 1:00.0" # S2722QC (DP-3)
 )
 
 # モニタごとに ddcutil を並列実行し、1 台でも失敗した場合は 1 を返す。
 pids=()
-for m in "${monitors[@]}"; do
-  ddcutil --sn="$m" --noverify setvcp 60 "$want" &
+for a in "${adapters[@]}"; do
+  dev=$(grep -lxF "$a" /sys/bus/i2c/devices/i2c-*/name)
+  bus=${dev#/sys/bus/i2c/devices/i2c-}
+  bus=${bus%/name}
+  ddcutil --bus="$bus" --noverify setvcp 60 "$want" &
   pids+=("$!")
 done
 
