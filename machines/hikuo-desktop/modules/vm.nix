@@ -69,9 +69,6 @@ in
       })
     ];
 
-    # ゲストのアイドル時はホストに CPU を譲り、CPU 競合時は VM を優先する。
-    systemd.slices.machine.sliceConfig.CPUWeight = 1000;
-
     # vwin cpu isolate がホストのプロセスを vCPU と重複しない CPU に寄せる
     # （AllowedCPUs の変更）操作を、libvirtd グループに root 権限なしで許可する。
     security.polkit.extraConfig = ''

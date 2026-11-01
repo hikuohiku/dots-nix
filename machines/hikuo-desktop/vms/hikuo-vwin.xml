@@ -9,15 +9,21 @@
     <source type='memfd'/>
     <access mode='shared'/>
   </memoryBacking>
-  <vcpu placement='static'>4</vcpu>
-  <!-- コア 4, 5 の両スレッドに割り当ててホストと共有する。競合時は machine.slice の
-       重みで VM を優先する。vwin cpu isolate でホストをコア 0〜3 に寄せられる。 -->
+  <vcpu placement='static'>10</vcpu>
+  <!-- vCPU をコア 1〜5 の両スレッドに割り当ててホストと共有する。
+       `vwin cpu isolate` でホストをコア 0 に寄せられる。 -->
   <cputune>
-    <vcpupin vcpu='0' cpuset='4'/>
-    <vcpupin vcpu='1' cpuset='10'/>
-    <vcpupin vcpu='2' cpuset='5'/>
-    <vcpupin vcpu='3' cpuset='11'/>
-    <emulatorpin cpuset='0-3,6-9'/>
+    <vcpupin vcpu='0' cpuset='1'/>
+    <vcpupin vcpu='1' cpuset='7'/>
+    <vcpupin vcpu='2' cpuset='2'/>
+    <vcpupin vcpu='3' cpuset='8'/>
+    <vcpupin vcpu='4' cpuset='3'/>
+    <vcpupin vcpu='5' cpuset='9'/>
+    <vcpupin vcpu='6' cpuset='4'/>
+    <vcpupin vcpu='7' cpuset='10'/>
+    <vcpupin vcpu='8' cpuset='5'/>
+    <vcpupin vcpu='9' cpuset='11'/>
+    <emulatorpin cpuset='0,6'/>
   </cputune>
 
   <os firmware='efi'>
@@ -55,7 +61,7 @@
   </features>
 
   <cpu mode='host-passthrough' check='none' migratable='on'>
-    <topology sockets='1' dies='1' clusters='1' cores='2' threads='2'/>
+    <topology sockets='1' dies='1' clusters='1' cores='5' threads='2'/>
   </cpu>
   <clock offset='localtime'>
     <timer name='rtc' tickpolicy='catchup'/>

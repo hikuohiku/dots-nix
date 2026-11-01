@@ -70,10 +70,10 @@ case "${1-}" in
     ;;
   cpu)
     case "${2-}" in
-      isolate) cpus=0-3,6-9 ;;
+      isolate) cpus=0,6 ;;
       share) cpus=0-$(($(nproc --all) - 1)) ;;
       "")
-        if [ "$(systemctl show -P AllowedCPUs user.slice)" = 0-3,6-9 ]; then echo isolate; else echo share; fi
+        if [ "$(systemctl show -P AllowedCPUs user.slice)" = "0 6" ]; then echo isolate; else echo share; fi
         exit
         ;;
       *)
