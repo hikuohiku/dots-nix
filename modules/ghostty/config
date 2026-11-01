@@ -1,5 +1,5 @@
 # Alacritty (modules/alacritty/alacritty.toml) の設定を移行したもの。
-# 背景の透過 (Alacritty の opacity / blur) は使わないので設定しない。
+# 配色はテーマに任せる。背景の透過 (Alacritty の opacity / blur) は使わない。
 
 # フォント
 font-family = PlemolJP Console NF
@@ -11,8 +11,7 @@ font-size = 9
 # Alacritty の font.offset (x = -1) に相当する設定は Ghostty に無いため移行しない。
 
 # 配色
-background = #101010
-foreground = #f2f2f2
+theme = One Half Dark
 
 # カーソル (Alacritty の shape = Beam / blinking = On)
 cursor-style = bar
