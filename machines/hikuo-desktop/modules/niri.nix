@@ -49,6 +49,21 @@ let
   # コネクタ名は配線で変わるので、モデル名から引く。
   # Sunshine の software エンコードは 4K キャプチャが重いので、配信時だけ FHD 等倍に落とす。
   # niri msg output は一時変更 (niri 再起動でリセット) なので nix の恒久設定は変えない。
+  # DMS は UI 全体を読み込むまで壁紙を描かない。ログイン直後の空白を埋めるため、
+  # DMS と同じ画像を先に swaybg で描く（DMS の壁紙が上に重なる）。
+  niriEarlyWallpaper = pkgs.writeShellApplication {
+    name = "niri-early-wallpaper";
+    runtimeInputs = [
+      pkgs.swaybg
+      pkgs.jq
+    ];
+    text = ''
+      img=$(jq -r '.wallpaperPath // empty' "$HOME/.local/state/DankMaterialShell/session.json")
+      [ -f "$img" ] || exit 0
+      exec swaybg -m fill -i "$img"
+    '';
+  };
+
   niriToggleStreamDisplay = pkgs.writeShellApplication {
     name = "niri-toggle-stream-display";
     runtimeInputs = [
@@ -135,6 +150,7 @@ in
   };
 
   home.packages = [
+    niriEarlyWallpaper
     niriFocusOrSpawn
     niriSpawnFocusedApp
     niriToggleStreamDisplay

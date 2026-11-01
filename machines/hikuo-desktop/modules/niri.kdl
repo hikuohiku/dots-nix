@@ -179,6 +179,7 @@ binds {
     XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
 }
+spawn-at-startup "niri-early-wallpaper"
 spawn-at-startup "dms" "run"
 window-rule {
     match app-id="^org\\.wezfurlong\\.wezterm$"
