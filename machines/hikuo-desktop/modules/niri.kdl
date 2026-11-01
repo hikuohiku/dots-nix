@@ -169,14 +169,6 @@ binds {
 spawn-at-startup "niri-early-wallpaper"
 // Bitwarden 自身の自動起動は実行中の版のストアパスを書くため、古い版が消えると壊れる。PATH 経由で起動する。
 spawn-at-startup "bitwarden" "--autostart"
-// agent-desktop（入れ子の sway）は画面の大きさがウィンドウに追従する。タイル配置の半端な幅だと
-// grim が撮れないため、固定サイズのフローティングにする。
-window-rule {
-    match app-id="^wlroots$"
-    open-floating true
-    default-column-width { fixed 1280; }
-    default-window-height { fixed 800; }
-}
 window-rule {
     match app-id="^org\\.wezfurlong\\.wezterm$"
     default-column-width
