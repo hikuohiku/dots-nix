@@ -1,3 +1,30 @@
+# Alacritty (modules/alacritty/alacritty.toml) の設定を移行したもの。
+# 背景の透過 (Alacritty の opacity / blur) は使わないので設定しない。
+
+# フォント
+font-family = PlemolJP Console NF
+font-style = Medium
+font-style-bold = Bold
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
+font-size = 9
+# Alacritty の font.offset (x = -1) に相当する設定は Ghostty に無いため移行しない。
+
+# 配色
+background = #101010
+foreground = #f2f2f2
+
+# カーソル (Alacritty の shape = Beam / blinking = On)
+cursor-style = bar
+cursor-style-blink = true
+
+# 余白
+window-padding-x = 8
+window-padding-y = 8
+
+# macOS の Option キーを Alt として扱う (Alacritty の option_as_alt = "Both")
+macos-option-as-alt = true
+
 # 直接バイナリ起動(niri の spawn など)でも single-instance を有効化し、
 # 2回目以降のウィンドウ起動を高速化する。
 gtk-single-instance = true

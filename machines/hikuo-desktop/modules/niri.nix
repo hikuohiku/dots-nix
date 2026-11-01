@@ -102,8 +102,8 @@ let
       focused_app_id="$(printf '%s' "$focused_window" | jq -r '.app_id // empty')"
 
       case "$focused_app_id" in
-        Alacritty)
-          exec alacritty
+        com.mitchellh.ghostty)
+          exec ghostty
           ;;
         code)
           exec code --enable-wayland-ime --new-window
