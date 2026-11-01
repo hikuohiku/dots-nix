@@ -66,6 +66,8 @@ in
           "-o"
           "ExitOnForwardFailure=yes"
         ];
+        # 鍵は Bitwarden にあり、launchd には home-manager の SSH_AUTH_SOCK が届かない。
+        EnvironmentVariables.SSH_AUTH_SOCK = "/Users/${config.system.primaryUser}/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock";
         KeepAlive = false;
         RunAtLoad = false;
         StandardOutPath = "/tmp/ssh-socks.log";
