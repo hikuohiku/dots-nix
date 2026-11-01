@@ -119,6 +119,9 @@
     dive
     podman-tui
     docker-compose
+    # macOS のようにシステム既定の python3 を置く。前提にするスクリプトがある
+    # (herdr のエージェント連携フックは無いと黙って抜け、会話が復元されない)
+    python3
   ];
 
   users.users.hikuo = {
@@ -174,10 +177,11 @@
   };
 
   # Desktop environments
-  services.displayManager.sddm = {
+  # ログイン画面は DMS の greeter。テーマや壁紙はユーザーの DMS 設定から写す。
+  services.displayManager.dux-greeter = {
     enable = true;
-    wayland.enable = true;
-    enableHidpi = true;
+    compositor.name = "niri";
+    configHome = config.users.users.hikuo.home;
   };
 
   services.xserver = {
