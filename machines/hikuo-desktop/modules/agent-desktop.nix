@@ -31,6 +31,8 @@ let
       pkgs.systemd
     ];
     text = ''
+      # Codex などは MCP サーバーに渡す環境変数を絞るため、ユーザーセッションの場所を補う。
+      export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
       env_file="$XDG_RUNTIME_DIR/agent-desktop.env"
       systemctl --user start agent-desktop.service
       for _ in $(seq 50); do
