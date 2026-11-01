@@ -17,7 +17,6 @@ let
       pkgs.git
       pkgs.coreutils
       pkgs.libnotify
-      pkgs.openssh # コミットの SSH 署名に ssh-keygen を使う
     ];
     text = ''
       wt="''${XDG_CACHE_HOME:-$HOME/.cache}/dots-nix-auto-update"
@@ -37,7 +36,8 @@ let
       # nixos-rebuild build は cwd に result を作るので、worktree の外で実行する。
       (cd "$(mktemp -d)" && /run/current-system/sw/bin/nixos-rebuild build --flake "$wt/${machine}")
 
-      git commit -m "${systemInfo.hostname}: flake 入力を更新する" -- flake.lock
+      # 無人で動くため、保管庫のロック状態に左右される SSH 署名はしない。
+      git -c commit.gpgsign=false commit -m "${systemInfo.hostname}: flake 入力を更新する" -- flake.lock
       git push origin HEAD:main
 
       # 使用中のセッション（niri, NVIDIA）を差し替えないよう switch ではなく boot にする。
