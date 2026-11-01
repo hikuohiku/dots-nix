@@ -17,6 +17,8 @@
   programs.niri.package = pkgs.niri;
   # 既定は defaultFontPath を埋め込む override で cache に無くソースビルドになるため、素の版を使う。
   programs.xwayland.package = pkgs.xwayland;
+  # polkit の認証ダイアログは DMS が出す。niri-flake の KDE エージェントが先に登録すると DMS 側が使われない。
+  systemd.user.services.niri-flake-polkit.enable = false;
 
   catppuccin = {
     enable = true;
