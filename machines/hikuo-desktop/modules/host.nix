@@ -187,7 +187,9 @@
       variant = "";
     };
   };
-  services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "niri";
+  # 鍵の保管は gnome-keyring に一本化している。中身は Seahorse で見る。
+  programs.seahorse.enable = true;
 
   # Flatpak support
   services.flatpak.enable = true;
