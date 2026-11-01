@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # ELECOM 2MP Webcam の IR カメラで、polkit（Bitwarden のロック解除を含む）と sudo を顔認証にする。
   services.howdy = {
@@ -19,7 +19,4 @@
     PrivateDevices = false;
     DeviceAllow = [ "char-video4linux rw" ];
   };
-
-  # polkit の action 定義（com.bitwarden.Bitwarden.policy）をシステムに置くため、system 側に入れる。
-  environment.systemPackages = [ pkgs.bitwarden-desktop ];
 }

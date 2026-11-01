@@ -1,6 +1,7 @@
 {
   mymodule.apps.alacritty.enable = true;
   mymodule.apps.bat.enable = true;
+  mymodule.apps.bitwarden.enable = true;
   mymodule.apps.brew.enable = true;
   mymodule.apps.claude.enable = true;
   mymodule.apps.codex.enable = true;
