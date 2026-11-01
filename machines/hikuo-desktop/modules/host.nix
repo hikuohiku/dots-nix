@@ -52,7 +52,7 @@
   };
 
   programs.nix-ld.enable = true;
-  # 公式インストーラで入れる GUI アプリ（Herdr アプリなど GPUI 製）が使うライブラリ。
+  # 公式インストーラや上流のバイナリで入れる GUI アプリ（Herdr アプリ、herdr-gpui など GPUI 製）が使うライブラリ。
   programs.nix-ld.libraries = with pkgs; [
     libxcb
     libxkbcommon
@@ -61,6 +61,7 @@
     libGL
     fontconfig
     freetype
+    alsa-lib
   ];
 
   hardware.i2c.enable = true;

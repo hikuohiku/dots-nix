@@ -1,6 +1,15 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, upstream, ... }:
 let
   cfg = config.mymodule.apps.herdr;
+
+  # コミュニティ製の GUI クライアント（macOS は brew の cask）。上流の tarball をそのまま置き、
+  # NixOS では nix-ld で動かす。ランチャーで公式アプリ（Herdr）と区別できるよう名前を変える。
+  herdrGpui = pkgs.runCommand "herdr-gpui-${upstream.herdr-gpui.version}" { } ''
+    mkdir -p $out
+    tar -xzf ${upstream.herdr-gpui.src} -C $out --strip-components=1
+    substituteInPlace $out/share/applications/so.pen.herdr-gpui.desktop \
+      --replace-fail "Name=Herdr" "Name=Herdr UI"
+  '';
 in
 {
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -17,6 +26,8 @@ in
         binary = "herdr-app";
         install = "curl -fsSL https://releases.herdr.dev/app/install.sh | sh";
       };
+
+      home.packages = [ herdrGpui ];
     })
   ]);
 }

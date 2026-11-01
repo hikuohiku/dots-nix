@@ -35,5 +35,16 @@
         "hash": "sha256-Ae2dmu1jOH5DDE6udpQdPYQ6ROTXNpfMAnqQ2tOhpt4="
       }
     }
+  },
+  "herdr-gpui": {
+    "repo": "penso/herdr-gpui",
+    "tagPrefix": "v",
+    "version": "20261028.1",
+    "assets": {
+      "x86_64-linux": {
+        "name": "Herdr-{version}-x86_64-unknown-linux-gnu.tar.gz",
+        "hash": "sha256-KrUx+82TXAw4fJPxTWIMioip9TodDOzXI0qDd+5lCoU="
+      }
+    }
   }
 }
