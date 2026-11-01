@@ -9,6 +9,7 @@
     ./host.nix
     ./apps.nix
     ./vm.nix
+    ./face-auth.nix
   ];
 
   # niri-flake の niri-unstable は古い libglvnd にリンクされ、NVIDIA 595.104 で EGL_EXT_device_query が
