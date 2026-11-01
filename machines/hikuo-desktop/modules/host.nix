@@ -52,6 +52,16 @@
   };
 
   programs.nix-ld.enable = true;
+  # 公式インストーラで入れる GUI アプリ（Herdr アプリなど GPUI 製）が使うライブラリ。
+  programs.nix-ld.libraries = with pkgs; [
+    libxcb
+    libxkbcommon
+    wayland
+    vulkan-loader
+    libGL
+    fontconfig
+    freetype
+  ];
 
   hardware.i2c.enable = true;
 
