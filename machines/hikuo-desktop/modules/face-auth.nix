@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
-  # ELECOM 2MP Webcam の IR カメラで、Bitwarden のロック解除だけを顔認証にする。
-  # 解除は polkit 経由で行われる。PAM の単位では polkit-1 を指定するしかないため、
-  # 他の polkit ダイアログも顔で通る。
+  # ELECOM 2MP Webcam の IR カメラで、polkit（Bitwarden のロック解除を含む）と sudo を顔認証にする。
   services.howdy = {
     enable = true;
     control = "sufficient";
@@ -15,6 +13,7 @@
   '';
   security.pam.howdy.enable = false;
   security.pam.services.polkit-1.howdy.enable = true;
+  security.pam.services.sudo.howdy.enable = true;
   # polkit の PAM はサンドボックス化された agent helper で動き、既定ではカメラが見えない。
   systemd.services."polkit-agent-helper@".serviceConfig = {
     PrivateDevices = false;
