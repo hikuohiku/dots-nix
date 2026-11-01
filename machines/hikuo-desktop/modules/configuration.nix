@@ -38,6 +38,7 @@
       inputs.dms.homeModules.dank-material-shell
       inputs.dms.homeModules.niri
       ./niri.nix
+      ./agent-desktop.nix
     ];
   };
 
