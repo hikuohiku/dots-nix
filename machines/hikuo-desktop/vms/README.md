@@ -185,8 +185,9 @@ looking-glass-client -f /dev/kvmfr0
 コントローラやヘッドセットは virt-manager の *USB デバイスをリダイレクト* から渡す
 （USB コントローラが `00:14.0` の 1 つだけで、丸ごとのパススルーはできないため）。
 
-VM が動いている間、ホストのプロセスは CPU 0,1,6,7 に寄せられる（libvirt hook の
-`cpu-isolate`）。ホストは 4 スレッドしか使えないので、`nixos-rebuild` のような重いビルドは遅い。
+vCPU は 4（コア 4, 5 の両スレッド）でホストと共有する。ゲストのアイドル時は vCPU が休止して
+ホストが全コアを利用でき、CPU 競合時は `machine.slice` の `CPUWeight` により VM が優先される。
+ゲーム等でフレームレートが乱れるときは、`vwin cpu isolate` でホストをコア 0〜3 に寄せる。
 
 ## ホストから操作する
 

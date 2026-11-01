@@ -3,6 +3,8 @@
 #   vwin <cmd...>        pwsh でコマンドを実行する
 #   vwin run <cmd...>    カレントの git リポジトリを C:\src\<名前> へ同期し、そこで実行する
 #   vwin sync [stop]     同期だけする / 同期セッションを止める
+#   vwin cpu [isolate|share]  CPU 割り当てを表示 / ホストを vCPU と別コアに隔離 /
+#                        共有に戻す。通常は共有で、VM 停止時にも自動で共有に戻る
 # コマンドは 1 つの pwsh スクリプト文字列として渡る（管理者権限、UTF-8）。
 # 同期はホストを正とする片方向ミラーで、Windows 側の変更は次の同期で消える。
 # node_modules, target, obj, .venv, __pycache__ は同期せず Windows 側に残る。
@@ -65,6 +67,23 @@ case "${1-}" in
     up
     sync
     remote "Set-Location -ErrorAction Stop C:/src/$name; $*"
+    ;;
+  cpu)
+    case "${2-}" in
+      isolate) cpus=0-3,6-9 ;;
+      share) cpus=0-$(($(nproc --all) - 1)) ;;
+      "")
+        if [ "$(systemctl show -P AllowedCPUs user.slice)" = 0-3,6-9 ]; then echo isolate; else echo share; fi
+        exit
+        ;;
+      *)
+        echo "vwin: cpu には isolate か share を指定する" >&2
+        exit 2
+        ;;
+    esac
+    for unit in system.slice user.slice init.scope; do
+      systemctl set-property --runtime "$unit" AllowedCPUs="$cpus"
+    done
     ;;
   sync)
     if [ "${2-}" = stop ]; then

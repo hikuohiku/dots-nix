@@ -69,18 +69,28 @@ in
       })
     ];
 
-    # VM が動いている間だけホストのプロセスを vCPU と重ならない CPU に寄せる。
-    # XML の emulatorpin と同じ 0,1,6,7（コア 0,1 の両スレッド）。machine.slice は
-    # 触らないので vCPU スレッドは pinning どおり動く。--runtime なので再起動で戻る。
+    # ゲストのアイドル時はホストに CPU を譲り、CPU 競合時は VM を優先する。
+    systemd.slices.machine.sliceConfig.CPUWeight = 1000;
+
+    # vwin cpu isolate がホストのプロセスを vCPU と重複しない CPU に寄せる
+    # （AllowedCPUs の変更）操作を、libvirtd グループに root 権限なしで許可する。
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        var unit = action.lookup("unit");
+        if (action.id == "org.freedesktop.systemd1.manage-units" &&
+            action.lookup("verb") == "set-property" &&
+            (unit == "system.slice" || unit == "user.slice" || unit == "init.scope") &&
+            subject.isInGroup("libvirtd")) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+
+    # VM 停止時に vwin cpu isolate による CPU 隔離を解除する。
     virtualisation.libvirtd.hooks.qemu.cpu-isolate = pkgs.writeShellScript "cpu-isolate" ''
-      [ "$1" = hikuo-vwin ] || exit 0
-      case "$2" in
-        prepare) cpus=0,1,6,7 ;;
-        release) cpus=0-11 ;;
-        *) exit 0 ;;
-      esac
+      [ "$1" = hikuo-vwin ] && [ "$2" = release ] || exit 0
       for unit in system.slice user.slice init.scope; do
-        ${pkgs.systemd}/bin/systemctl set-property --runtime "$unit" AllowedCPUs="$cpus"
+        ${pkgs.systemd}/bin/systemctl set-property --runtime "$unit" AllowedCPUs=0-$(($(nproc --all) - 1))
       done
     '';
   };
