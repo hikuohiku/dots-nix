@@ -164,7 +164,6 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
 }
 spawn-at-startup "niri-early-wallpaper"
-spawn-at-startup "dms" "run"
 // Bitwarden 自身の自動起動は実行中の版のストアパスを書くため、古い版が消えると壊れる。PATH 経由で起動する。
 spawn-at-startup "bitwarden" "--autostart"
 window-rule {

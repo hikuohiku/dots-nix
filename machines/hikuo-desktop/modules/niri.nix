@@ -136,7 +136,7 @@ in
   programs.niri.settings.layout.border.enable = false;
 
   programs.dank-material-shell.niri = {
-    enableSpawn = false; # spawn-at-startup は niri.kdl に直書きしたため不要
+    enableSpawn = false; # DMS は systemd で起動する（home.nix）
     includes = {
       enable = true;
       filesToInclude = [
