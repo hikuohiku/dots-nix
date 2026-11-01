@@ -122,8 +122,9 @@
     # macOS のようにシステム既定の python3 を置く。前提にするスクリプトがある
     # (herdr のエージェント連携フックは無いと黙って抜け、会話が復元されない)
     python3
-    # アイコンテーマ。ライト/ダークの切り替えは DMS の設定で行う。
+    # アイコンとカーソルのテーマ。どれを使うかは DMS の設定で選ぶ。
     papirus-icon-theme
+    bibata-cursors
   ];
 
   users.users.hikuo = {
