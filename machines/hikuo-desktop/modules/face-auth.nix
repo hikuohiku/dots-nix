@@ -6,12 +6,20 @@
   services.howdy = {
     enable = true;
     control = "sufficient";
-    # /dev/videoN の番号は接続順で変わる。by-id は通常カメラと IR カメラで名前が重なるため、
-    # by-path を使う。差し込むポートを変えたらここも直す。
-    settings.video.device_path = "/dev/v4l/by-path/pci-0000:00:14.0-usb-0:6.1.1:1.2-video-index0";
+    settings.video.device_path = "/dev/ir-camera";
   };
+  # /dev/videoN の番号は接続順で変わり、by-id は通常カメラと IR カメラで名前が重なる。
+  # IR 側（名前に Face を含む）のキャプチャノードに固定名を付ける。
+  services.udev.extraRules = ''
+    SUBSYSTEM=="video4linux", ATTRS{idVendor}=="056e", ATTRS{idProduct}=="701e", ATTR{name}=="*Face*", ATTR{index}=="0", SYMLINK+="ir-camera"
+  '';
   security.pam.howdy.enable = false;
   security.pam.services.polkit-1.howdy.enable = true;
+  # polkit の PAM はサンドボックス化された agent helper で動き、既定ではカメラが見えない。
+  systemd.services."polkit-agent-helper@".serviceConfig = {
+    PrivateDevices = false;
+    DeviceAllow = [ "char-video4linux rw" ];
+  };
 
   # polkit の action 定義（com.bitwarden.Bitwarden.policy）をシステムに置くため、system 側に入れる。
   environment.systemPackages = [ pkgs.bitwarden-desktop ];
