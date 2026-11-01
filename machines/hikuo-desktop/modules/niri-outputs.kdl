@@ -1,0 +1,16 @@
+output "Dell Inc. DELL S2722QC 7VK4MD3" {
+    mode "3840x2160@60.000"
+    scale 2.000000
+    transform "270"
+    position x=1920 y=-420
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}
+output "Dell Inc. DELL S2725QC FSHR464" {
+    scale 2.000000
+    focus-at-startup
+    transform "normal"
+    position x=0 y=0
+    mode "3840x2160@120.000"
+}

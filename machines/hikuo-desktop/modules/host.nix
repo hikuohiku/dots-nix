@@ -184,25 +184,14 @@
     configHome = config.users.users.hikuo.home;
   };
   # greeter の niri 設定に重ねる。セッション一覧は名前順で Steam が先頭になるため、
-  # 前回のユーザーとセッションを記憶させる。出力は niri.kdl の output と揃える。
+  # 前回のユーザーとセッションを記憶させる。モニタ配置はセッションの niri と共有する。
   environment.etc."greetd/niri_overrides.kdl".text = ''
     environment {
         DMS_GREET_REMEMBER_LAST_SESSION "1"
         DMS_GREET_REMEMBER_LAST_USER "1"
     }
-    output "Dell Inc. DELL S2722QC 7VK4MD3" {
-        mode "3840x2160@60.000"
-        scale 2.0
-        transform "270"
-        position x=1920 y=-420
-    }
-    output "Dell Inc. DELL S2725QC FSHR464" {
-        mode "3840x2160@120.000"
-        scale 2.0
-        position x=0 y=0
-        focus-at-startup
-    }
-  '';
+  ''
+  + builtins.readFile ./niri-outputs.kdl;
 
   services.xserver = {
     enable = true;

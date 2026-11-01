@@ -127,7 +127,8 @@ in
   # (background-effect/blur 等) の対応が遅れるため。
   # programs.niri.config に文字列を渡すと settings 描画を完全にバイパスし、dms が hm.kdl へ
   # リネームするファイルの中身がこの KDL になる。niri-flake が niri validate で検証する。
-  programs.niri.config = builtins.readFile ./niri.kdl;
+  # モニタ配置はログイン画面（host.nix の greeter 設定）と共有する。
+  programs.niri.config = builtins.readFile ./niri-outputs.kdl + builtins.readFile ./niri.kdl;
 
   # config 文字列が settings 描画を上書きするのでレンダリングには使われないが、dms の
   # border-fix が config.programs.niri.settings.layout.border.enable を参照するため、
