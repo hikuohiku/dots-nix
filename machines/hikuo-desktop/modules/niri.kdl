@@ -44,6 +44,9 @@ layout {
     }
     center-focused-column "never"
 }
+hotkey-overlay {
+    skip-at-startup
+}
 cursor {
     xcursor-theme "default"
     xcursor-size 24
