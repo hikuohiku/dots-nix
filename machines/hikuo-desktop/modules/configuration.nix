@@ -12,6 +12,11 @@
     ./face-auth.nix
   ];
 
+  # niri の感度設定はデバイス種別単位のため、Nape Pro を trackball 扱いにして Logitech マウスと設定を分ける。
+  services.udev.extraRules = ''
+    SUBSYSTEM=="input", ATTRS{name}=="Keychron Nape Pro Mouse", ENV{ID_INPUT_TRACKBALL}="1"
+  '';
+
   # niri-flake の niri-unstable は古い libglvnd にリンクされ、NVIDIA 595.104 で EGL_EXT_device_query が
   # 見えず起動できない。キャッシュがありシステムと libglvnd が揃う nixpkgs 版を使う。
   programs.niri.package = pkgs.niri;

@@ -16,6 +16,11 @@ input {
         natural-scroll
     }
     mouse { natural-scroll; }
+    // Keychron Nape Pro は udev で trackball 扱いにしているため、このセクションで感度を設定する。
+    trackball {
+        natural-scroll
+        accel-speed -0.5
+    }
 }
 // 右の縦置きサブ。position の y は、メイン(論理 1920x1080)に対して
 // 論理 1080x1920 を上下中央へ合わせた値 (1080-1920)/2 = -420。
