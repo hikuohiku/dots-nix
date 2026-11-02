@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, upstream, ... }:
 let
   # Wayland で生じる黒い外枠を防ぐため、core.asar を書き換えて hasShadow:false を適用する。
   # Electron がフレームレスウィンドウに付与する影用の余白が Discord では黒枠になるが、設定が存在しないため直接置換する。
@@ -17,23 +17,22 @@ let
     });
   };
 
-  discordImeProxy = pkgs.rustPlatform.buildRustPackage {
-    pname = "discord-ime-proxy";
-    version = "0.1.0";
-    src = ./discord-ime-proxy;
-    cargoLock.lockFile = ./discord-ime-proxy/Cargo.lock;
-  };
+  wlImeShim = pkgs.runCommand "wl-ime-shim-${upstream.wl-ime-shim.version}" { } ''
+    tar xzf ${upstream.wl-ime-shim.src}
+    install -Dm755 wl-ime-shim $out/bin/wl-ime-shim
+  '';
 
-  # IME の候補位置のずれを防ぐため、Discord を discord-ime-proxy 経由で起動する。
-  # デスクトップエントリで Exec=Discord が指定されているため、実行ファイルの discord と Discord の両方を置き換える。
+  # IME の候補位置のずれを防ぐため、Discord を wl-ime-shim 経由で起動する。
+  # デスクトップエントリの Exec=Discord に対応するため、実行ファイルの discord と Discord の両方を置き換える。
+  # --scale の値は gtk-xft-dpi=196608 による 2 倍の UI 倍率に合わせる。なお、Discord が Chromium 158 以降に更新された場合は補正が二重になるため、--scale の解除ではなく wl-ime-shim 経由の起動自体を廃止する。
   discord = pkgs.symlinkJoin {
-    name = "discord-with-ime-proxy";
+    name = "discord-with-wl-ime-shim";
     paths = [ discordPatched ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       rm $out/bin/discord $out/bin/Discord
-      makeWrapper ${discordImeProxy}/bin/discord-ime-proxy $out/bin/discord \
-        --add-flags ${discordPatched}/bin/discord
+      makeWrapper ${wlImeShim}/bin/wl-ime-shim $out/bin/discord \
+        --add-flags "--scale 2 ${discordPatched}/bin/discord"
       ln -s discord $out/bin/Discord
     '';
   };
