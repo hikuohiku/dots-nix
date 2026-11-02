@@ -1,0 +1,7 @@
+[package]
+name = "discord-ime-proxy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wl-proxy = { version = "=0.1.5", features = ["all-protocols"] }
