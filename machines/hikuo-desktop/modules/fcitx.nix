@@ -14,24 +14,26 @@
     "0" = "Shift_L";
   };
   "Hotkey/ActivateKeys" = {
-    "0" = "Super+Super_R";
+    "0" = "Henkan";
   };
   "Hotkey/DeactivateKeys" = {
-    "0" = "Super+Super_L";
+    "0" = "Muhenkan";
   };
   "Hotkey/PrevPage" = {
-    "0" = "Up";
+    "0" = "Page_Up";
   };
   "Hotkey/NextPage" = {
-    "0" = "Down";
+    "0" = "Page_Down";
   };
   "Hotkey/PrevCandidate" = {
     "0" = "Control+P";
     "1" = "Shift+Tab";
+    "2" = "Up";
   };
   "Hotkey/NextCandidate" = {
     "0" = "Control+N";
     "1" = "Tab";
+    "2" = "Down";
   };
   "Hotkey/TogglePreedit" = {
     "0" = "Control+Alt+P";

@@ -126,6 +126,8 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Right { focus-column-right; }
     Mod+S hotkey-overlay-title="Open Slack" { spawn "niri-focus-or-spawn" "Slack" "slack"; }
+    Mod+Shift+3 { screenshot-screen; }
+    Mod+Shift+4 { screenshot; }
     Mod+Shift+5 { screenshot; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }

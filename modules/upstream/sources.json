@@ -46,5 +46,16 @@
         "hash": "sha256-KrUx+82TXAw4fJPxTWIMioip9TodDOzXI0qDd+5lCoU="
       }
     }
+  },
+  "xremap": {
+    "repo": "xremap/xremap",
+    "tagPrefix": "v",
+    "version": "0.15.16",
+    "assets": {
+      "x86_64-linux": {
+        "name": "xremap-linux-x86_64-niri.zip",
+        "hash": "sha256-Ifu3Hz4PI/Y3Lo2hC38QgED60syquP1MggV/hSrkc9M="
+      }
+    }
   }
 }

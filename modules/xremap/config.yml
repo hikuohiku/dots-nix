@@ -1,0 +1,117 @@
+# 左 Cmd はアプリ、右 Cmd は niri の Mod として使う。Super_L の組み合わせだけ変換する。
+# Q / H / M / Tab / ` / Space は変換せず、左 Cmd でも niri へ通す。
+modmap:
+  - remap:
+      Super_L: {held: Super_L, alone: Muhenkan, alone_timeout_millis: 200}
+      Super_R: {held: Super_R, alone: Henkan, alone_timeout_millis: 200}
+
+keymap:
+  - name: Terminals
+    application:
+      only: [ghostty, Alacritty]
+    remap:
+      Super_L-a: C-Shift-a
+      Super_L-c: C-Shift-c
+      Super_L-f: C-Shift-f
+      Super_L-n: C-Shift-n
+      Super_L-t: C-Shift-t
+      Super_L-v: C-Shift-v
+      Super_L-w: C-Shift-w
+
+  - name: Herdr
+    application:
+      only: [herdr-gpui]
+    remap:
+      Super_L-Shift-d: C-Alt-Shift-d
+      Super_L-Shift-n: C-Alt-Shift-n
+      Super_L-a: C-Shift-a
+      Super_L-c: C-Shift-c
+      Super_L-d: C-Shift-d
+      Super_L-f: C-Shift-f
+      Super_L-n: C-Alt-n
+      Super_L-p: C-Shift-p
+      Super_L-t: C-Shift-t
+      Super_L-v: C-Shift-v
+      Super_L-w: C-Alt-w
+      Super_L-0: C-Shift-0
+
+  # not にしておくと、フォーカス中のウィンドウが無いランチャーなどでも変換される。
+  - name: Cmd to Ctrl
+    application:
+      not: [ghostty, Alacritty, herdr-gpui]
+    remap:
+      # niri のスクリーンショットへ通す。
+      Super_L-Shift-3: Super_L-Shift-3
+      Super_L-Shift-4: Super_L-Shift-4
+      Super_L-Shift-5: Super_L-Shift-5
+
+      Super_L-a: C-a
+      Super_L-b: C-b
+      Super_L-c: C-c
+      Super_L-d: C-d
+      Super_L-e: C-e
+      Super_L-f: C-f
+      Super_L-g: C-g
+      Super_L-i: C-i
+      Super_L-j: C-j
+      Super_L-k: C-k
+      Super_L-l: C-l
+      Super_L-n: C-n
+      Super_L-o: C-o
+      Super_L-p: C-p
+      Super_L-r: C-r
+      Super_L-s: C-s
+      Super_L-t: C-t
+      Super_L-u: C-u
+      Super_L-v: C-v
+      Super_L-w: C-w
+      Super_L-x: C-x
+      Super_L-y: C-y
+      Super_L-z: C-z
+      Super_L-1: C-1
+      Super_L-2: C-2
+      Super_L-3: C-3
+      Super_L-4: C-4
+      Super_L-5: C-5
+      Super_L-6: C-6
+      Super_L-7: C-7
+      Super_L-8: C-8
+      Super_L-9: C-9
+      Super_L-0: C-0
+      Super_L-minus: C-minus
+      Super_L-equal: C-equal
+      Super_L-leftbrace: C-leftbrace
+      Super_L-rightbrace: C-rightbrace
+      Super_L-backslash: C-backslash
+      Super_L-semicolon: C-semicolon
+      Super_L-apostrophe: C-apostrophe
+      Super_L-comma: C-comma
+      Super_L-dot: C-dot
+      Super_L-slash: C-slash
+      Super_L-enter: C-enter
+
+      Super_L-left: home
+      Super_L-right: end
+      Super_L-up: C-home
+      Super_L-down: C-end
+      Super_L-backspace: [Shift-home, delete]
+
+      Alt-left: C-left
+      Alt-right: C-right
+      Alt-backspace: C-backspace
+
+  # exact_match が無いと、niri の Mod+Ctrl+H なども C-h として変換されてしまう。
+  - name: Ctrl text editing
+    exact_match: true
+    application:
+      not: [ghostty, Alacritty, herdr-gpui]
+    remap:
+      C-a: home
+      C-e: end
+      C-b: left
+      C-f: right
+      C-n: down
+      C-p: up
+      C-d: delete
+      C-h: backspace
+      C-k: [Shift-end, delete]
