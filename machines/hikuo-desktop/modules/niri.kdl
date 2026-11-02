@@ -187,6 +187,10 @@ window-rule {
     }
 }
 window-rule {
+    match app-id="^bitwarden$"
+    open-floating true
+}
+window-rule {
     match app-id="^zen-beta$"
     open-floating true
 }
