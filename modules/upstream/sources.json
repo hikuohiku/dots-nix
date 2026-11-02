@@ -57,5 +57,16 @@
         "hash": "sha256-Ifu3Hz4PI/Y3Lo2hC38QgED60syquP1MggV/hSrkc9M="
       }
     }
+  },
+  "karukan-dict": {
+    "repo": "togatoga/karukan",
+    "tagPrefix": "v",
+    "version": "0.1.0",
+    "assets": {
+      "x86_64-linux": {
+        "name": "dict.tgz",
+        "hash": "sha256-8ZTSUmv4JmIrxbr3wH51Ja2b3i3GOJbNkpBFKDpK7M0="
+      }
+    }
   }
 }

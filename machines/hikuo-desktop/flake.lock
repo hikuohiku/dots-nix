@@ -412,6 +412,22 @@
         "type": "github"
       }
     },
+    "karukan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793643277,
+        "narHash": "sha256-mqMY4zigXow7d5nEsIFqqw4ZcO8Wg/AqJxlxN6geeiA=",
+        "owner": "togatoga",
+        "repo": "karukan",
+        "rev": "63b323f0bc4b7f4df70cde6c068c23d3ba5435dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "togatoga",
+        "repo": "karukan",
+        "type": "github"
+      }
+    },
     "my": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -728,6 +744,7 @@
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
+        "karukan": "karukan",
         "my": "my",
         "niri-flake": "niri-flake",
         "nixpkgs": "nixpkgs_3",
