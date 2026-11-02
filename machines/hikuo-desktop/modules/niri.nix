@@ -64,6 +64,51 @@ let
     '';
   };
 
+  # Zen Browser の拡張機能ウィンドウのみを floating に維持し、それ以外をタイルへ戻す。
+  # 起動直後は全ウィンドウのタイトルが "Zen Browser" で区別できないため、niri.kdl でいったん全ウィンドウを floating で開く。
+  # 判定は "Zen Browser" を除いた最初のタイトルで行い、通常ウィンドウのタブで拡張機能ページを開いた場合の誤判定を防ぐ。
+  # 通常ウィンドウはタイトルが "Zen Browser" のまま変わらないことがあるため、1 秒経過しても同じタイトルの場合はタイルへ戻す。
+  niriFloatExtensionWindows = pkgs.writeShellApplication {
+    name = "niri-float-extension-windows";
+    runtimeInputs = [
+      niriPackage
+      pkgs.jq
+    ];
+    text = ''
+      declare -A seen timer
+      niri msg --json event-stream \
+        | jq --unbuffered -r '
+            .WindowOpenedOrChanged.window // empty
+            | select(.app_id == "zen-beta")
+            | "\(.id)\t\(.title)"
+          ' \
+        | while IFS=$'\t' read -r id title; do
+            [ -z "''${seen[$id]:-}" ] || continue
+            case "$title" in
+              "Zen Browser")
+                [ -z "''${timer[$id]:-}" ] || continue
+                timer[$id]=1
+                (
+                  sleep 1
+                  now="$(niri msg --json windows | jq -r --argjson id "$id" '.[] | select(.id == $id) | .title')"
+                  if [ "$now" = "Zen Browser" ]; then
+                    niri msg action move-window-to-tiling --id "$id"
+                  fi
+                ) &
+                ;;
+              "拡張機能: "*)
+                seen[$id]=1
+                niri msg action move-window-to-floating --id "$id" || true
+                ;;
+              *)
+                seen[$id]=1
+                niri msg action move-window-to-tiling --id "$id" || true
+                ;;
+            esac
+          done
+    '';
+  };
+
   niriToggleStreamDisplay = pkgs.writeShellApplication {
     name = "niri-toggle-stream-display";
     runtimeInputs = [
@@ -152,6 +197,7 @@ in
 
   home.packages = [
     niriEarlyWallpaper
+    niriFloatExtensionWindows
     niriFocusOrSpawn
     niriSpawnFocusedApp
     niriToggleStreamDisplay
