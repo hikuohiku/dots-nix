@@ -45,7 +45,6 @@
     "zenzaiContextualMode": true,
     "zenzaiEnable": true,
     "zenzaiInferLimit": 10,
-    "zenzaiProfile": "",
-    "zenzaiTopic": "エンジニアリング"
+    "zenzaiProfile": "ソフトウェアエンジニア"
   }
 ]
