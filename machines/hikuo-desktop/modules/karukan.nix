@@ -52,4 +52,5 @@ in
   i18n.inputMethod.fcitx5.addons = [ karukan ];
 
   home-manager.users.hikuo.xdg.dataFile."karukan-im/dict.bin".source = dict;
+  home-manager.users.hikuo.xdg.configFile."karukan-im/config.toml".source = ./karukan-config.toml;
 }
