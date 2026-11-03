@@ -11,6 +11,7 @@
     ./vm.nix
     ./face-auth.nix
     ./karukan.nix
+    ./hazkey.nix
   ];
 
   # niri の感度設定はデバイス種別単位のため、Nape Pro を trackball 扱いにして Logitech マウスと設定を分ける。

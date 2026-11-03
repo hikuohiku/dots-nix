@@ -68,5 +68,16 @@
         "hash": "sha256-8ZTSUmv4JmIrxbr3wH51Ja2b3i3GOJbNkpBFKDpK7M0="
       }
     }
+  },
+  "hazkey": {
+    "repo": "7ka-Hiira/hazkey",
+    "tagPrefix": "",
+    "version": "0.2.1",
+    "assets": {
+      "x86_64-linux": {
+        "name": "fcitx5-hazkey-{version}-x86_64.tar.gz",
+        "hash": "sha256-/u2f0L0p8h/eK347VVRGkjWZN9dD9MMB3Fxuv6d39Vs="
+      }
+    }
   }
 }

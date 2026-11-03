@@ -1,0 +1,50 @@
+{ pkgs, upstream, ... }:
+let
+  # 上流のビルド済みバイナリを NixOS 向けにパッチして使う。ソースビルドには Swift が必要なため。
+  hazkey = pkgs.stdenv.mkDerivation {
+    pname = "fcitx5-hazkey";
+    inherit (upstream.hazkey) version src;
+
+    nativeBuildInputs = with pkgs; [
+      autoPatchelfHook
+      makeWrapper
+      qt6.wrapQtAppsHook
+    ];
+    buildInputs = with pkgs; [
+      fcitx5
+      qt6.qtbase
+      qt6.qtwayland
+      stdenv.cc.cc.lib
+      vulkan-loader
+    ];
+
+    dontStrip = true;
+    dontWrapQtApps = true;
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin $out/lib
+      cp -r share $out/share
+      cp -r lib/x86_64-linux-gnu/fcitx5 $out/lib/fcitx5
+      cp -r lib/x86_64-linux-gnu/hazkey $out/lib/hazkey
+
+      # 辞書とバックエンドの既定パスは /usr に固定されているので環境変数で渡す。
+      # サーバーは二重起動の判定に `pgrep -x hazkey-server` を使うため、プロセス名が
+      # 変わる wrapProgram ではなく makeWrapper で包む。
+      makeWrapper $out/lib/hazkey/hazkey-server $out/bin/hazkey-server \
+        --set-default HAZKEY_DICTIONARY $out/share/hazkey/Dictionary \
+        --set-default GGML_BACKEND_DIR $out/lib/hazkey/libllama/backends/ \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.procps ]}
+
+      mv $out/lib/hazkey/hazkey-settings $out/bin/hazkey-settings
+      wrapQtApp $out/bin/hazkey-settings
+      runHook postInstall
+    '';
+  };
+in
+{
+  i18n.inputMethod.fcitx5.addons = [ hazkey ];
+
+  # アドオンと設定画面は hazkey-server を PATH から起動する。
+  environment.systemPackages = [ hazkey ];
+}
