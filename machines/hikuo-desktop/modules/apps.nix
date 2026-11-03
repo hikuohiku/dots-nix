@@ -38,4 +38,5 @@
   mymodule.apps.zed.enable = true;
   mymodule.apps.sunshine.enable = true;
   mymodule.apps.xremap.enable = true;
+  mymodule.apps.typeless.enable = true;
 }
