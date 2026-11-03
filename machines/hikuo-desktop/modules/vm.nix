@@ -42,6 +42,41 @@ in
       '';
     };
 
+    # ホストのスリープをまたいで hikuo-vwin を安全に停止・再開する。
+    # NVMe をパススルーしたゲストの稼働中にホストがスリープすると復帰後にフリーズすることがあるため、
+    # スリープ前に停止し、復帰後に再起動する。実機起動とディスクを共用しており休止状態は使えない。
+    systemd.services.hikuo-vwin-sleep = {
+      description = "Shut down hikuo-vwin across host sleep";
+      wantedBy = [ "sleep.target" ];
+      before = [ "sleep.target" ];
+      wants = [ "libvirtd.service" ];
+      after = [ "libvirtd.service" ];
+      unitConfig.StopWhenUnneeded = true;
+      path = [ pkgs.libvirt ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        RuntimeDirectory = "hikuo-vwin-sleep";
+        TimeoutStartSec = 180;
+      };
+      script = ''
+        state() { virsh -c qemu:///system domstate hikuo-vwin; }
+        [ "$(state)" != "shut off" ] || exit 0
+        touch "$RUNTIME_DIRECTORY/restart"
+        virsh -c qemu:///system shutdown hikuo-vwin || true
+        for _ in $(seq 120); do
+          [ "$(state)" != "shut off" ] || exit 0
+          sleep 1
+        done
+        # ゲストを稼働させたままスリープさせないため、正常終了しなければ強制停止する。
+        echo "hikuo-vwin did not shut down in time, forcing it off"
+        virsh -c qemu:///system destroy hikuo-vwin
+      '';
+      preStop = ''
+        [ ! -e "$RUNTIME_DIRECTORY/restart" ] || virsh -c qemu:///system start hikuo-vwin
+      '';
+    };
+
     # ゲストの OpenSSH Server へ virbr0 で入る（名前は libvirt NSS が引く）。tailnet は
     # ゲストの Tailscale がログイン前に繋がらないので使わない。Windows の OpenSSH は
     # ML-KEM 未対応で毎回警告が出るので黙らせる。
