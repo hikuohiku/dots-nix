@@ -19,9 +19,7 @@ let
       libxscrnsaver libxtst
       acl procps util-linux wl-clipboard xdg-utils
     ];
-    # 上流のパッケージが /opt/Typeless への配置を前提としているため。
-    extraBwrapArgs = [ "--ro-bind ${unpacked}/opt/Typeless /opt/Typeless" ];
-    runScript = "/opt/Typeless/typeless";
+    runScript = "${unpacked}/opt/Typeless/typeless";
     extraInstallCommands = ''
       mkdir -p $out/share
       cp -r ${unpacked}/usr/share/icons $out/share/
