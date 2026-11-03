@@ -24,6 +24,15 @@ let
       openssl
     ];
 
+    # Ctrl+Shift+V の詳細表示切り替えが貼り付けと衝突し、設定でも変更できないため無効化する
+    # (togatoga/karukan#113)。詳細表示は config.toml の `[display] verbose = true` で使える。
+    # 上流のコードが変わっても自動更新を止めないよう、--replace-warn を使う。
+    postPatch = ''
+      substituteInPlace karukan-im/core/src/core/engine/mod.rs --replace-warn \
+        '&& (key.keysym == Keysym::KEY_V || key.keysym == Keysym::KEY_V_UPPER)' \
+        '&& false'
+    '';
+
     # Rust ライブラリは CMake が cargo を呼んでビルドする。
     dontUseCmakeConfigure = true;
     buildPhase = ''
