@@ -47,4 +47,11 @@ in
 
   # アドオンと設定画面は hazkey-server を PATH から起動する。
   environment.systemPackages = [ hazkey ];
+
+  # hazkey-settings がこのファイルへ保存するので、書き込める out-of-store symlink にする。
+  home-manager.users.hikuo =
+    { config, ... }:
+    {
+      xdg.configFile."hazkey/config.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-nix/machines/hikuo-desktop/modules/hazkey-config.json";
+    };
 }
