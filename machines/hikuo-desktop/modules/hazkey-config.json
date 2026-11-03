@@ -41,7 +41,7 @@
     "useInputHistory": true,
     "useRichCandidates": false,
     "useRichSuggestion": false,
-    "zenzaiBackendDeviceName": "CPU",
+    "zenzaiBackendDeviceName": "Vulkan0",
     "zenzaiContextualMode": true,
     "zenzaiEnable": true,
     "zenzaiInferLimit": 10,
