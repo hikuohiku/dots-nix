@@ -9,13 +9,14 @@ in
     _: s:
     let
       asset = s.assets.${pkgs.stdenv.hostPlatform.system};
-      # GitHub 以外の配布元を指定する。
-      baseUrl = s.baseUrl or "https://github.com/${s.repo}/releases/download/${s.tagPrefix + s.version}";
+      tag = s.tagPrefix + s.version;
     in
     {
       inherit (s) version;
       src = pkgs.fetchurl {
-        url = "${baseUrl}/${builtins.replaceStrings [ "{version}" ] [ s.version ] asset.name}";
+        url = "https://github.com/${s.repo}/releases/download/${tag}/${
+          builtins.replaceStrings [ "{version}" ] [ s.version ] asset.name
+        }";
         inherit (asset) hash;
       };
     }

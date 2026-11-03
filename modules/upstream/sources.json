@@ -68,16 +68,5 @@
         "hash": "sha256-8ZTSUmv4JmIrxbr3wH51Ja2b3i3GOJbNkpBFKDpK7M0="
       }
     }
-  },
-  "typeless": {
-    "baseUrl": "https://typeless-static.com/desktop-release",
-    "latestUrl": "https://www.typeless.com/desktop/linux-deb-x64/download",
-    "version": "2.2.1",
-    "assets": {
-      "x86_64-linux": {
-        "name": "Typeless-{version}-x64.deb",
-        "hash": "sha256-UTCzEaWOjjv1Wk4UEOD8f108AaFbnDosFhmyJPFNdrw="
-      }
-    }
   }
 }
