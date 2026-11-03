@@ -14,6 +14,7 @@ input {
     touchpad {
         tap
         natural-scroll
+        accel-speed 0.5
     }
     mouse { natural-scroll; }
     // Keychron Nape Pro は udev で trackball 扱いにしているため、このセクションで感度を設定する。
