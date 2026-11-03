@@ -132,7 +132,21 @@
     docker-compose
     # macOS のようにシステム既定の python3 を置く。前提にするスクリプトがある
     # (herdr のエージェント連携フックは無いと黙って抜け、会話が復元されない)
-    python3
+    # diagram-design の PNG 書き出し用に Playwright を同梱する。
+    # PLAYWRIGHT_BROWSERS_PATH を全体に設定すると、バージョンの異なる
+    # プロジェクトローカルの Playwright も参照して壊れるため、python3 内に限定して渡す。
+    (python3.buildEnv.override {
+      extraLibs = [ python3.pkgs.playwright ];
+      makeWrapperArgs = [
+        "--set-default"
+        "PLAYWRIGHT_BROWSERS_PATH"
+        "${playwright-driver.browsers.override {
+          withFirefox = false;
+          withWebkit = false;
+          withFfmpeg = false;
+        }}"
+      ];
+    })
     # アイコンとカーソルのテーマ。どれを使うかは DMS の設定で選ぶ。
     papirus-icon-theme
     bibata-cursors
