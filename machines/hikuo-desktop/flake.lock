@@ -412,6 +412,70 @@
         "type": "github"
       }
     },
+    "mozcdic-ut-jawiki": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790949220,
+        "narHash": "sha256-UFyk0rjp+G4zGIdQy+qemg8K86XJH7WU0LcPBZbk/5I=",
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-jawiki",
+        "rev": "57af6adefedab262c295c4bfff71a89902cbe05c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-jawiki",
+        "type": "github"
+      }
+    },
+    "mozcdic-ut-neologd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776637657,
+        "narHash": "sha256-N00QZ9p5loD/ld6D1BB85tK/rvarRylWVCJqpnz47Ck=",
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-neologd",
+        "rev": "d8307abf02b830b185c9320822cffa0d0787c54e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-neologd",
+        "type": "github"
+      }
+    },
+    "mozcdic-ut-skk-jisyo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776637637,
+        "narHash": "sha256-Ew8mzdhQHzCHSkwo9HzPKduSPrH0BZx/YNEsoOPLe3I=",
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-skk-jisyo",
+        "rev": "7c02e535bd6d999a715a53b58c3366f2401bfb7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-skk-jisyo",
+        "type": "github"
+      }
+    },
+    "mozcdic-ut-sudachidict": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792115534,
+        "narHash": "sha256-RIOmVNh22aX1pty2kKFwDBYg57fs2pKYZ+jBNOPxgNg=",
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-sudachidict",
+        "rev": "13129ddebe1cb8eabb63feccbe157adec4e1de01",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utuhiro78",
+        "repo": "mozcdic-ut-sudachidict",
+        "type": "github"
+      }
+    },
     "my": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -728,6 +792,10 @@
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
+        "mozcdic-ut-jawiki": "mozcdic-ut-jawiki",
+        "mozcdic-ut-neologd": "mozcdic-ut-neologd",
+        "mozcdic-ut-skk-jisyo": "mozcdic-ut-skk-jisyo",
+        "mozcdic-ut-sudachidict": "mozcdic-ut-sudachidict",
         "my": "my",
         "niri-flake": "niri-flake",
         "nixpkgs": "nixpkgs_3",

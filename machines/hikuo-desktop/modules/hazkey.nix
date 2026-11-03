@@ -1,4 +1,9 @@
-{ pkgs, upstream, ... }:
+{
+  inputs,
+  pkgs,
+  upstream,
+  ...
+}:
 let
   # 上流のビルド済みバイナリを NixOS 向けにパッチして使う。ソースビルドには Swift が必要なため。
   hazkey = pkgs.stdenv.mkDerivation {
@@ -41,6 +46,20 @@ let
       runHook postInstall
     '';
   };
+
+  # 標準辞書に無い語を補うため、UT 辞書をユーザー辞書の形式へ変換する。
+  hazkey-ut-dict =
+    pkgs.runCommand "hazkey-ut-dict"
+      {
+        nativeBuildInputs = [ pkgs.python3 ];
+      }
+      ''
+        python3 ${./hazkey-ut-dict.py} ${hazkey}/share/hazkey/Dictionary/louds/charID.chid $out \
+          ${inputs.mozcdic-ut-jawiki}/mozcdic-ut-jawiki.txt.bz2 \
+          ${inputs.mozcdic-ut-neologd}/mozcdic-ut-neologd.txt.bz2 \
+          ${inputs.mozcdic-ut-skk-jisyo}/mozcdic-ut-skk-jisyo.txt.bz2 \
+          ${inputs.mozcdic-ut-sudachidict}/mozcdic-ut-sudachidict.txt.bz2
+      '';
 in
 {
   i18n.inputMethod.fcitx5.addons = [ hazkey ];
@@ -53,5 +72,8 @@ in
     { config, ... }:
     {
       xdg.configFile."hazkey/config.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-nix/machines/hikuo-desktop/modules/hazkey-config.json";
+
+      # 変換エンジンはユーザー辞書をこのディレクトリから読む。
+      xdg.cacheFile."hazkey/shared".source = hazkey-ut-dict;
     };
 }

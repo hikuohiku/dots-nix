@@ -51,6 +51,24 @@
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Hazkey のユーザー辞書の元データ。
+    mozcdic-ut-jawiki = {
+      url = "github:utuhiro78/mozcdic-ut-jawiki";
+      flake = false;
+    };
+    mozcdic-ut-neologd = {
+      url = "github:utuhiro78/mozcdic-ut-neologd";
+      flake = false;
+    };
+    mozcdic-ut-skk-jisyo = {
+      url = "github:utuhiro78/mozcdic-ut-skk-jisyo";
+      flake = false;
+    };
+    mozcdic-ut-sudachidict = {
+      url = "github:utuhiro78/mozcdic-ut-sudachidict";
+      flake = false;
+    };
   };
 
   outputs =
