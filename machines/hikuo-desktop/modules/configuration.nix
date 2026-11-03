@@ -10,7 +10,6 @@
     ./apps.nix
     ./vm.nix
     ./face-auth.nix
-    ./karukan.nix
     ./hazkey.nix
   ];
 

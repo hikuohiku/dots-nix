@@ -42,12 +42,6 @@
 
     niri-flake.url = "github:sodiboo/niri-flake";
 
-    # nixpkgs に無い fcitx5 アドオンのソース。modules/karukan.nix でビルドする。
-    karukan = {
-      url = "github:togatoga/karukan";
-      flake = false;
-    };
-
     # OMP は公式リリースの事前ビルドを持つ flake を使い、Bun 依存のローカルビルドを避ける。
     omp.url = "github:bjin/oh-my-pi.nix";
 
