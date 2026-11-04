@@ -572,5 +572,6 @@
   "fontScale": 0.9,
   "controlCenterIconScale": 0.85,
   "notificationCompactMode": true,
-  "floatingWindowSyncGlobal": false
+  "floatingWindowSyncGlobal": false,
+  "audioShowStreamDevices": false
 }
