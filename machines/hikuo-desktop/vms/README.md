@@ -193,8 +193,19 @@ vCPU は 10（コア 1〜5 の両スレッド）でホストと共有する。�
 
 `vwin` で SSH 越しに pwsh を叩く（使い方は `vwin --help`）。VM が止まっていれば起動して待つ。
 `vwin run <cmd>` はカレントの git リポジトリを mutagen で `C:\src\<名前>` へミラーしてから実行する。
+同期セッションは `vwin-<名前>` で、worktree ごとに分かれる。
 
-名前は libvirt NSS が virbr0 側の IP に引く。tailnet の名前（MagicDNS）は使わない。
+| カレント | `<名前>` | 例 |
+|---|---|---|
+| main checkout | `<リポジトリ>` | `~/ghq/github.com/voicist/infra` → `infra` |
+| worktree | `<リポジトリ>-<worktree>` | `~/worktrees/infra/mise` → `infra-mise` |
+
+`<リポジトリ>` は main checkout のディレクトリ名、`<worktree>` は worktree のディレクトリ名。
+別パスで同じ `<名前>` の既存セッションが存在する場合、セッションの誤用や停止を防ぐためエラーで停止する。mutagen がセッション名に使える文字は英数字とハイフンのみのため、`_` や `.` を含む名前は同期できない。
+
+`bin` など OS ごとに中身が異なるディレクトリは、階層の深さを問わず同期対象外となる。そのため、`bin/` 配下に Git の追跡対象ファイルがあるリポジトリでは Windows 側に同期されない。
+
+`hikuo-vwin` という名前は libvirt NSS が virbr0 側の IP に引く。tailnet の名前（MagicDNS）は使わない。
 ゲストの Tailscale がログイン前やログアウト中は繋がらないため。
 
 ## 実機で起動する
