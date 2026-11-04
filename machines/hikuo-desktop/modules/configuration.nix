@@ -35,6 +35,7 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "bak";
   home-manager.users.hikuo = {
+    catppuccin.autoEnable = false;
     imports = [
       ./home.nix
       inputs.my.homeManagerModules.default

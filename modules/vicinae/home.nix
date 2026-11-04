@@ -41,8 +41,8 @@ let
     '';
 in
 {
-  config = lib.optionalAttrs (lib.hasAttrByPath [ "services" "vicinae" ] options) {
-    services.vicinae = lib.mkIf config.mymodule.apps.vicinae.enable {
+  config = lib.optionalAttrs (lib.hasAttrByPath [ "programs" "vicinae" ] options) {
+    programs.vicinae = lib.mkIf config.mymodule.apps.vicinae.enable {
       enable = true;
       systemd = {
         enable = true;
