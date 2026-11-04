@@ -59,7 +59,7 @@ cursor {
 }
 binds {
     Alt+Print { screenshot-window; }
-    Ctrl+Alt+Delete { quit; }
+    Ctrl+Alt+Delete hotkey-overlay-title="niri を終了" { quit; }
     Ctrl+Print { screenshot-screen; }
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -70,10 +70,10 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+A hotkey-overlay-title="Open a Terminal" { spawn "niri-focus-or-spawn" "com.mitchellh.ghostty" "ghostty"; }
-    Mod+B hotkey-overlay-title="Toggle Bluetooth Panel" { spawn "dms" "ipc" "call" "control-center" "toggle"; }
-    Mod+BracketLeft { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+A hotkey-overlay-title="ターミナルを開く" { spawn "niri-focus-or-spawn" "com.mitchellh.ghostty" "ghostty"; }
+    Mod+B hotkey-overlay-title="Bluetooth パネルの表示を切り替え" { spawn "dms" "ipc" "call" "control-center" "toggle"; }
+    Mod+BracketLeft hotkey-overlay-title="ウィンドウを左のカラムへ統合 / 分離" { consume-or-expel-window-left; }
+    Mod+BracketRight hotkey-overlay-title="ウィンドウを右のカラムへ統合 / 分離" { consume-or-expel-window-right; }
     Mod+C { center-column; }
     Mod+Comma { consume-window-into-column; }
     Mod+Ctrl+1 { move-column-to-workspace 1; }
@@ -89,11 +89,11 @@ binds {
     Mod+Ctrl+Down { move-window-down; }
     Mod+Ctrl+End { move-column-to-last; }
     Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+Ctrl+H { move-column-left; }
+    Mod+Ctrl+H hotkey-overlay-title="カラムを左へ移動" { move-column-left; }
     Mod+Ctrl+Home { move-column-to-first; }
-    Mod+Ctrl+J { move-column-to-workspace-down; }
-    Mod+Ctrl+K { move-column-to-workspace-up; }
-    Mod+Ctrl+L { move-column-right; }
+    Mod+Ctrl+J hotkey-overlay-title="カラムを下のワークスペースへ移動" { move-column-to-workspace-down; }
+    Mod+Ctrl+K hotkey-overlay-title="カラムを上のワークスペースへ移動" { move-column-to-workspace-up; }
+    Mod+Ctrl+L hotkey-overlay-title="カラムを右へ移動" { move-column-right; }
     Mod+Ctrl+Left { move-column-left; }
     "Mod+Ctrl+Page_Down" { move-column-to-workspace-down; }
     "Mod+Ctrl+Page_Up" { move-column-to-workspace-up; }
@@ -110,25 +110,25 @@ binds {
     Mod+End { focus-column-last; }
     Mod+Equal { set-column-width "+10%"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-    Mod+F { maximize-column; }
-    Mod+H { focus-column-left; }
+    Mod+F hotkey-overlay-title="カラムを最大化" { maximize-column; }
+    Mod+H hotkey-overlay-title="左のカラムへフォーカス" { focus-column-left; }
     Mod+Home { focus-column-first; }
-    Mod+J { focus-workspace-down; }
-    Mod+K { focus-workspace-up; }
-    Mod+L { focus-column-right; }
+    Mod+J hotkey-overlay-title="下のワークスペースへ切り替え" { focus-workspace-down; }
+    Mod+K hotkey-overlay-title="上のワークスペースへ切り替え" { focus-workspace-up; }
+    Mod+L hotkey-overlay-title="右のカラムへフォーカス" { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Minus { set-column-width "-10%"; }
-    Mod+N hotkey-overlay-title="Open Focused App" { spawn "niri-spawn-focused-app"; }
-    Mod+O repeat=false { toggle-overview; }
+    Mod+N hotkey-overlay-title="フォーカス中のアプリの新規インスタンスを開く" { spawn "niri-spawn-focused-app"; }
+    Mod+O hotkey-overlay-title="オーバービューを開く" repeat=false { toggle-overview; }
     "Mod+Page_Down" { focus-workspace-down; }
     "Mod+Page_Up" { focus-workspace-up; }
     Mod+Period { expel-window-from-column; }
-    Mod+Q { close-window; }
-    Mod+R { switch-preset-column-width; }
+    Mod+Q hotkey-overlay-title="フォーカス中のウィンドウを閉じる" { close-window; }
+    Mod+R hotkey-overlay-title="カラム幅のプリセットを切り替え" { switch-preset-column-width; }
     Mod+Right { focus-column-right; }
-    Mod+S hotkey-overlay-title="Open Slack" { spawn "niri-focus-or-spawn" "Slack" "slack"; }
+    Mod+S hotkey-overlay-title="Slack を開く" { spawn "niri-focus-or-spawn" "Slack" "slack"; }
     Mod+Shift+3 { screenshot-screen; }
-    Mod+Shift+4 { screenshot; }
+    Mod+Shift+4 hotkey-overlay-title="スクリーンショットを撮る" { screenshot; }
     Mod+Shift+5 { screenshot; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
@@ -141,7 +141,7 @@ binds {
     Mod+Shift+Down { focus-monitor-down; }
     Mod+Shift+E { quit; }
     Mod+Shift+Equal { set-window-height "+10%"; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+F hotkey-overlay-title="フローティングとタイリングを切り替え" { toggle-window-floating; }
     Mod+Shift+H { focus-monitor-left; }
     Mod+Shift+J { focus-monitor-down; }
     Mod+Shift+K { focus-monitor-up; }
@@ -153,22 +153,22 @@ binds {
     "Mod+Shift+Page_Up" { move-workspace-up; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+S hotkey-overlay-title="Toggle Stream Display (S2725QC FHD@1)" { spawn "niri-toggle-stream-display"; }
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+S hotkey-overlay-title="配信用ディスプレイを切り替え (S2725QC FHD@1)" { spawn "niri-toggle-stream-display"; }
+    Mod+Shift+Slash hotkey-overlay-title="重要なホットキーを表示" { show-hotkey-overlay; }
     Mod+Shift+Up { focus-monitor-up; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+V hotkey-overlay-title="フローティングとタイリングの間でフォーカスを切り替え" { switch-focus-between-floating-and-tiling; }
     Mod+Shift+WheelScrollDown { focus-column-right; }
     Mod+Shift+WheelScrollUp { focus-column-left; }
-    Mod+Space hotkey-overlay-title="Open Launcher" { spawn "vicinae" "toggle"; }
+    Mod+Space hotkey-overlay-title="ランチャーを開く" { spawn "vicinae" "toggle"; }
     Mod+Up { focus-window-up; }
-    Mod+V hotkey-overlay-title="Open Visual Studio Code" { spawn "niri-focus-or-spawn" "code" "code" "--enable-wayland-ime"; }
-    Mod+W hotkey-overlay-title="Open Zen Browser" { spawn "niri-focus-or-spawn" "zen-beta" "zen-beta"; }
+    Mod+V hotkey-overlay-title="Visual Studio Code を開く" { spawn "niri-focus-or-spawn" "code" "code" "--enable-wayland-ime"; }
+    Mod+W hotkey-overlay-title="Zen Browser を開く" { spawn "niri-focus-or-spawn" "zen-beta" "zen-beta"; }
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollLeft { focus-column-left; }
     Mod+WheelScrollRight { focus-column-right; }
     Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
     Print { screenshot; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="画面をロック" { spawn "swaylock"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
     XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
