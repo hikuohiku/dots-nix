@@ -8,7 +8,7 @@
 #                        共有に戻す。通常は共有で、VM 停止時にも自動で共有に戻る
 # コマンドは 1 つの pwsh スクリプト文字列として渡る（管理者権限、UTF-8）。
 # 同期はホストを正とする片方向ミラーで、Windows 側で変更したファイルは元に戻り、追加したファイルは削除される。
-# node_modules, target, obj, bin, .venv, __pycache__ は同期対象外として Windows 側に残る。
+# node_modules, target, obj, bin, .venv, __pycache__, .terraform は同期対象外として Windows 側に残る。
 # 成果物は scp hikuo-vwin:C:/src/<名前>/... で取得する。
 host=hikuo-vwin
 
@@ -65,7 +65,7 @@ sync() {
     fi
     mutagen sync create --name "$session" --mode one-way-replica --ignore-vcs \
       --ignore node_modules --ignore target --ignore obj --ignore bin --ignore .venv \
-      --ignore __pycache__ --ignore .direnv --ignore result \
+      --ignore __pycache__ --ignore .direnv --ignore result --ignore .terraform \
       "$repo" "$host:C:/src/$name" >&2
   fi
   mutagen sync flush "$session" >&2
