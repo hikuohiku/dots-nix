@@ -88,7 +88,7 @@ binds {
     Mod+Ctrl+C { center-visible-columns; }
     Mod+Ctrl+Down { move-window-down; }
     Mod+Ctrl+End { move-column-to-last; }
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+Ctrl+F hotkey-overlay-title="フローティングとタイリングを切り替え" { toggle-window-floating; }
     Mod+Ctrl+H hotkey-overlay-title="カラムを左へ移動" { move-column-left; }
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+J hotkey-overlay-title="カラムを下のワークスペースへ移動" { move-column-to-workspace-down; }
@@ -142,7 +142,7 @@ binds {
     Mod+Shift+Down { focus-monitor-down; }
     Mod+Shift+E { quit; }
     Mod+Shift+Equal { set-window-height "+10%"; }
-    Mod+Shift+F hotkey-overlay-title="フローティングとタイリングを切り替え" { toggle-window-floating; }
+    Mod+Shift+F hotkey-overlay-title="フルスクリーンの切り替え" { fullscreen-window; }
     Mod+Shift+H { focus-monitor-left; }
     Mod+Shift+J { focus-monitor-down; }
     Mod+Shift+K { focus-monitor-up; }
