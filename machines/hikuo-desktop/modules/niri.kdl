@@ -102,6 +102,7 @@ binds {
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
     Mod+Ctrl+Up { move-window-up; }
+    Mod+Ctrl+V hotkey-overlay-title="クリップボード履歴を開く" { spawn "vicinae" "vicinae://launch/clipboard/history?toggle=true"; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
     Mod+Ctrl+WheelScrollLeft { move-column-left; }
     Mod+Ctrl+WheelScrollRight { move-column-right; }
@@ -201,4 +202,27 @@ window-rule {
 window-rule {
     match app-id="firefox$" title="^Picture-in-Picture$"
     open-floating true
+}
+// DMS の colors.kdl が layout のフォーカスリング色を primary で上書きするため、window-rule で控えめな色に固定する。
+window-rule {
+    focus-ring {
+        active-color "#8e8e93"
+        inactive-color "#d1d1d6"
+    }
+}
+layer-rule {
+    match namespace="^dms:"
+    match namespace="^vicinae$"
+    exclude namespace="^dms:blurwallpaper"
+    background-effect {
+        xray false
+    }
+    popups {
+        background-effect {
+            xray false
+        }
+    }
+}
+blur {
+    saturation 1.8
 }

@@ -39,4 +39,6 @@
   mymodule.apps.zed.enable = true;
   mymodule.apps.sunshine.enable = true;
   mymodule.apps.xremap.enable = true;
+  mymodule.apps.dms.enable = true;
+  mymodule.apps.fcitx5.enable = true;
 }

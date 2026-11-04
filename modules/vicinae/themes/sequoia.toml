@@ -1,0 +1,36 @@
+[meta]
+version = 1
+name = "Sequoia"
+description = "macOS Sequoia style"
+variant = "light"
+inherits = "vicinae-light"
+
+[colors.core]
+accent = "#007AFF"
+accent_foreground = "#FFFFFF"
+background = "#F5F5F7"
+foreground = "#1D1D1F"
+secondary_background = "#EBEBEF"
+border = "#C7C7CC"
+
+[colors.main_window]
+border = "#C7C7CC"
+
+[colors.text]
+muted = "#6E6E73"
+placeholder = "#8E8E93"
+selection = { background = "#007AFF", foreground = "#FFFFFF" }
+
+[colors.input]
+border = "#C7C7CC"
+border_focus = "#007AFF"
+
+[colors.list.item.selection]
+background = "#007AFF"
+foreground = "#FFFFFF"
+secondary_background = "#0A84FF"
+secondary_foreground = "#FFFFFF"
+
+[colors.list.item.hover]
+foreground = "#1D1D1F"
+secondary_foreground = "#6E6E73"

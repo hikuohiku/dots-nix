@@ -1,0 +1,46 @@
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "close_on_focus_loss": true,
+   "font": {
+      "normal": {
+         "family": "Inter",
+         "size": 10.5
+      }
+   },
+   "theme": {
+      "light": {
+         "name": "sequoia"
+      },
+      "dark": {
+         "name": "sequoia"
+      }
+   },
+   "launcher_window": {
+      "opacity": 0.72,
+      "floating_status_bar": true,
+      "material": "blur",
+      "rounding": 12,
+      "size": {
+         "width": 680,
+         "height": 420
+      }
+   },
+   "providers": {
+      "power": {
+         "entrypoints": {
+            "logout": {
+               "enabled": false
+            },
+            "power-off": {
+               "enabled": false
+            },
+            "reboot": {
+               "enabled": false
+            },
+            "soft-reboot": {
+               "enabled": false
+            }
+         }
+      }
+   }
+}

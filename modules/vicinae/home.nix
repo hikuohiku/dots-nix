@@ -44,12 +44,18 @@ in
   config = lib.optionalAttrs (lib.hasAttrByPath [ "programs" "vicinae" ] options) {
     programs.vicinae = lib.mkIf config.mymodule.apps.vicinae.enable {
       enable = true;
+      # vicinae の保存処理で settings.json の symlink が実ファイルに置き換わるのを防ぐため、settingOverrides で読み込む。
+      settingOverrides = [ "${./settings.json}" ];
       systemd = {
         enable = true;
         environment = {
           USE_LAYER_SHELL = 1;
         };
       };
+    };
+
+    xdg.dataFile."vicinae/themes/sequoia.toml" = lib.mkIf config.mymodule.apps.vicinae.enable {
+      source = ./themes/sequoia.toml;
     };
 
     home.file = lib.mkIf config.mymodule.apps.vicinae.enable {

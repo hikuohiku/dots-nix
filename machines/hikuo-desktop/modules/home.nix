@@ -24,12 +24,6 @@
     buf
   ];
 
-  programs.dank-material-shell = {
-    enable = true;
-    # systemd で起動する。DMS の再起動（電源メニュー等）は systemd 経由でないと立ち上がり直さない。
-    systemd.enable = true;
-  };
-
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
 }

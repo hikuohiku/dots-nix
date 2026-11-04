@@ -10,6 +10,8 @@ keymap:
     application:
       only: [ghostty, Alacritty]
     remap:
+      # niri のクリップボード履歴キーバインドへ渡すため変換しない。
+      Super_L-C-v: Super_L-C-v
       Super_L-a: C-Shift-a
       Super_L-c: C-Shift-c
       Super_L-f: C-Shift-f
@@ -22,6 +24,8 @@ keymap:
     application:
       only: [herdr-gpui]
     remap:
+      # niri のクリップボード履歴キーバインドへ渡すため変換しない。
+      Super_L-C-v: Super_L-C-v
       Super_L-Shift-d: C-Alt-Shift-d
       Super_L-Shift-n: C-Alt-Shift-n
       Super_L-a: C-Shift-a
@@ -44,6 +48,8 @@ keymap:
       Super_L-Shift-3: Super_L-Shift-3
       Super_L-Shift-4: Super_L-Shift-4
       Super_L-Shift-5: Super_L-Shift-5
+      # niri のクリップボード履歴キーバインドへ渡すため変換しない。
+      Super_L-C-v: Super_L-C-v
 
       Super_L-a: C-a
       Super_L-b: C-b
