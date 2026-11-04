@@ -20,6 +20,7 @@
   # make は dev shell (nix develop/devenv) 内では stdenv 経由で入るが、shell 外では
   # 入らない。buf は post-change が protobuf/ の変更時に要求する。
   home.packages = with pkgs; [
+    helvum
     gnumake
     buf
   ];

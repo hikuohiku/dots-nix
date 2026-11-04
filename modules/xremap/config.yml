@@ -1,9 +1,10 @@
-# 左 Cmd はアプリ、右 Cmd は niri の Mod として使う。Super_L の組み合わせだけ変換する。
+# 左 Cmd はアプリ、右 Cmd と左 Alt は niri の Mod として使う。Super_L の組み合わせだけ変換する。
 # Q / H / M / Tab / ` / Space は変換せず、左 Cmd でも niri へ通す。
 modmap:
   - remap:
       Super_L: {held: Super_L, alone: Muhenkan, alone_timeout_millis: 200}
       Super_R: {held: Super_R, alone: Henkan, alone_timeout_millis: 200}
+      Alt_L: Super_R
 
 keymap:
   - name: Terminals
