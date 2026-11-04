@@ -70,7 +70,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+A hotkey-overlay-title="ターミナルを開く" { spawn "niri-focus-or-spawn" "com.mitchellh.ghostty" "ghostty"; }
+    Mod+A hotkey-overlay-title="herdr-gpui を開く" { spawn "niri-focus-or-spawn" "so.pen.herdr-gpui" "herdr-gpui"; }
     Mod+B hotkey-overlay-title="Bluetooth パネルの表示を切り替え" { spawn "dms" "ipc" "call" "control-center" "toggle"; }
     Mod+BracketLeft hotkey-overlay-title="ウィンドウを左のカラムへ統合 / 分離" { consume-or-expel-window-left; }
     Mod+BracketRight hotkey-overlay-title="ウィンドウを右のカラムへ統合 / 分離" { consume-or-expel-window-right; }
@@ -160,6 +160,7 @@ binds {
     Mod+Shift+WheelScrollDown { focus-column-right; }
     Mod+Shift+WheelScrollUp { focus-column-left; }
     Mod+Space hotkey-overlay-title="ランチャーを開く" { spawn "vicinae" "toggle"; }
+    Mod+T hotkey-overlay-title="ターミナルを開く" { spawn "niri-focus-or-spawn" "com.mitchellh.ghostty" "ghostty"; }
     Mod+Up { focus-window-up; }
     Mod+V hotkey-overlay-title="Visual Studio Code を開く" { spawn "niri-focus-or-spawn" "code" "code" "--enable-wayland-ime"; }
     Mod+W hotkey-overlay-title="Zen Browser を開く" { spawn "niri-focus-or-spawn" "zen-beta" "zen-beta"; }
