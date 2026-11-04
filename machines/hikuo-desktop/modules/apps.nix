@@ -20,6 +20,7 @@
   mymodule.apps.herdr.enable = true;
   mymodule.apps.lazygit.enable = true;
   mymodule.apps.gui-tools.enable = true;
+  mymodule.apps.mise.enable = true;
   mymodule.apps.neovim.enable = true;
   mymodule.apps.obsidian.enable = true;
   mymodule.apps.omp.enable = true;

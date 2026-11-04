@@ -20,6 +20,7 @@
   mymodule.apps.karabiner.enable = true;
   mymodule.apps.lazygit.enable = true;
   mymodule.apps.linux-builder.enable = true;
+  mymodule.apps.mise.enable = true;
   mymodule.apps.neovim.enable = true;
   mymodule.apps.nix.enable = true;
   mymodule.apps.pnpm.enable = true;
