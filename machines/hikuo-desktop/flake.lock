@@ -163,11 +163,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793856561,
-        "narHash": "sha256-1446zhZCbC1GEmiI2B1axlLypg0a4mAeMaUVDwzE98o=",
+        "lastModified": 1793862838,
+        "narHash": "sha256-v6655WUHvPyvI3k02qP0C+kDO4FhIhazd0d6aztNMUI=",
         "ref": "refs/heads/main",
-        "rev": "05608e3cf92bc0cb6c6eddab4fe166ac047a3a45",
-        "revCount": 4,
+        "rev": "56119f90f3cff4ca69a7369bf57e9ebb58f3c4d9",
+        "revCount": 12,
         "type": "git",
         "url": "https://github.com/hikuohiku/dots-nix-private"
       },
