@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, upstream, ... }:
+let
+  apple-color-emoji = pkgs.runCommandLocal "apple-color-emoji-${upstream.apple-emoji.version}" { } ''
+    install -Dm444 ${upstream.apple-emoji.src} $out/share/fonts/truetype/AppleColorEmoji.ttf
+  '';
+in
 {
   config = lib.mkIf config.mymodule.apps.fonts.enable {
     fonts = {
@@ -8,6 +13,7 @@
         sarasa-gothic
         plemoljp
         plemoljp-nf
+        apple-color-emoji
         noto-fonts-color-emoji
         nerd-fonts.symbols-only
       ];
@@ -17,17 +23,20 @@
         defaultFonts = {
           serif = [
             "Noto Serif CJK JP"
-            "Noto Color Emoji"
+            "Apple Color Emoji"
           ];
           sansSerif = [
             "Source Han Sans VF"
-            "Noto Color Emoji"
+            "Apple Color Emoji"
           ];
           monospace = [
             "Sarasa Mono J SemiBold"
+            "Apple Color Emoji"
+          ];
+          emoji = [
+            "Apple Color Emoji"
             "Noto Color Emoji"
           ];
-          emoji = [ "Noto Color Emoji" ];
         };
       };
     };

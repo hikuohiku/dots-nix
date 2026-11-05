@@ -68,5 +68,16 @@
         "hash": "sha256-/u2f0L0p8h/eK347VVRGkjWZN9dD9MMB3Fxuv6d39Vs="
       }
     }
+  },
+  "apple-emoji": {
+    "repo": "samuelngs/apple-emoji-linux",
+    "tagPrefix": "",
+    "version": "macos-26-20260722-484daf4e",
+    "assets": {
+      "x86_64-linux": {
+        "name": "AppleColorEmoji-Linux.ttf",
+        "hash": "sha256-43x69iZaxKCvbVe8ZehhCad22ZZug0MzRVf2PaSCUW8="
+      }
+    }
   }
 }
