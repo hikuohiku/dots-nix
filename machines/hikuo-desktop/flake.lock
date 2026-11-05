@@ -156,6 +156,26 @@
         "type": "github"
       }
     },
+    "dots-nix-private": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793856561,
+        "narHash": "sha256-1446zhZCbC1GEmiI2B1axlLypg0a4mAeMaUVDwzE98o=",
+        "ref": "refs/heads/main",
+        "rev": "05608e3cf92bc0cb6c6eddab4fe166ac047a3a45",
+        "revCount": 4,
+        "type": "git",
+        "url": "https://github.com/hikuohiku/dots-nix-private"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/hikuohiku/dots-nix-private"
+      }
+    },
     "dsync": {
       "inputs": {
         "nixpkgs": [
@@ -788,6 +808,7 @@
         "codex-desktop-linux": "codex-desktop-linux",
         "diniamo": "diniamo",
         "dms": "dms",
+        "dots-nix-private": "dots-nix-private",
         "fish-fzf-bd": "fish-fzf-bd",
         "fish-ghq": "fish-ghq",
         "flake-parts": "flake-parts_2",

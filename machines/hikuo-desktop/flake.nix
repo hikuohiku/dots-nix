@@ -52,6 +52,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dots-nix-private = {
+      url = "git+https://github.com/hikuohiku/dots-nix-private";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Hazkey のユーザー辞書の元データ。
     mozcdic-ut-jawiki = {
       url = "github:utuhiro78/mozcdic-ut-jawiki";
