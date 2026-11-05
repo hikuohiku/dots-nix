@@ -192,6 +192,14 @@ window-rule {
     }
 }
 window-rule {
+    match app-id="^zen-beta$"
+    draw-border-with-background false
+    background-effect {
+        blur true
+        xray false
+    }
+}
+window-rule {
     match app-id="^bitwarden$"
     open-floating true
 }
@@ -224,5 +232,8 @@ layer-rule {
     }
 }
 blur {
-    saturation 1.8
+    passes 6
+    offset 16.0
+    noise 0.0
+    saturation 1.4
 }

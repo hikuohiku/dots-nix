@@ -25,6 +25,9 @@
     buf
   ];
 
+  home.file.".zen/s6z0hpzf.default/user.js".source = ./zen-user.js;
+  home.file.".zen/s6z0hpzf.default/chrome/userChrome.css".source = ./zen-userChrome.css;
+
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
 }

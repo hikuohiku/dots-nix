@@ -1,0 +1,4 @@
+/* macOS のような OS 側の下地が Linux にはないので、背景を明るくしてサイドバーの文字を読みやすくする。 */
+#zen-main-app-wrapper {
+  background: light-dark(rgba(246, 246, 248, 0.1), rgba(30, 30, 32, 0.55)) !important;
+}
