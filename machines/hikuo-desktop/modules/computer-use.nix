@@ -12,7 +12,8 @@ let
   computerUseLinux = pkgs.writeShellScriptBin "computer-use-linux" ''
     export COMPUTER_USE_LINUX_SCREENSHOT_BACKEND=gnome-screenshot
     export COMPUTER_USE_LINUX_INDICATOR_BIN=${indicator}
-    export PATH=${pkgs.lib.makeBinPath [ gnomeScreenshot pkgs.wtype ]}:$PATH
+    export PATH=${pkgs.lib.makeBinPath [ gnomeScreenshot pkgs.wtype pkgs.ydotool ]}:$PATH
+    systemctl --user start ydotoold.service
     exec ${server} "$@"
   '';
 
@@ -26,4 +27,11 @@ let
 in
 {
   home.packages = [ computerUseLinux ];
+
+  # キー操作の送信に使う。niri の RemoteDesktop ポータルはキーボードを扱えない。
+  # 必要になったときにサーバーの起動スクリプトから起動する。
+  systemd.user.services.ydotoold = {
+    Unit.Description = "ydotool daemon for computer-use-linux";
+    Service.ExecStart = "${pkgs.ydotool}/bin/ydotoold --socket-path=%t/.ydotool_socket --socket-perm=0600";
+  };
 }
