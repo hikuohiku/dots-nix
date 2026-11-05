@@ -101,5 +101,27 @@
         "hash": "sha256-6VooPi8MDTDSHJbHXq1KHeaelIPdf2ag/Y1V1hVnTrc="
       }
     }
+  },
+  "codexbar-cli": {
+    "repo": "steipete/CodexBar",
+    "tagPrefix": "v",
+    "version": "0.83.0",
+    "assets": {
+      "x86_64-linux": {
+        "name": "CodexBarCLI-v{version}-linux-x86_64.tar.gz",
+        "hash": "sha256-4njrChttYgtchMFX37FoYKgkd69uxzMLa2+1x/Jym1s="
+      }
+    }
+  },
+  "codexbar-desktop": {
+    "repo": "steipete/CodexBar",
+    "tagPrefix": "v",
+    "version": "0.83.0",
+    "assets": {
+      "x86_64-linux": {
+        "name": "CodexBarDesktop-v{version}-linux-x86_64.tar.gz",
+        "hash": "sha256-j1X1FMUC+o+aIqhn78FNGCF8OgPIAtUhzk1SK4eQHvw="
+      }
+    }
   }
 }
