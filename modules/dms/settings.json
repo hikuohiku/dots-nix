@@ -129,6 +129,7 @@
         "weather"
       ],
       "rightWidgets": [
+        "aiQuotas",
         "systemTray",
         "clipboard",
         "cpuUsage",

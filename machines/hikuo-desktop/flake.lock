@@ -156,6 +156,22 @@
         "type": "github"
       }
     },
+    "dms-ai-quotas": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791375065,
+        "narHash": "sha256-hRdjSBJpvCMCgrwWxvuaLzY8ZKfV4InFg/jNceC50Gs=",
+        "owner": "agneswd",
+        "repo": "dms-ai-quotas",
+        "rev": "2603129556d7e38fa9857fee2472b8dd8c29c492",
+        "type": "github"
+      },
+      "original": {
+        "owner": "agneswd",
+        "repo": "dms-ai-quotas",
+        "type": "github"
+      }
+    },
     "dots-nix-private": {
       "inputs": {
         "nixpkgs": [
@@ -808,6 +824,7 @@
         "codex-desktop-linux": "codex-desktop-linux",
         "diniamo": "diniamo",
         "dms": "dms",
+        "dms-ai-quotas": "dms-ai-quotas",
         "dots-nix-private": "dots-nix-private",
         "fish-fzf-bd": "fish-fzf-bd",
         "fish-ghq": "fish-ghq",

@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   userInfo,
@@ -27,6 +28,8 @@
 
   home.file.".zen/s6z0hpzf.default/user.js".source = ./zen-user.js;
   home.file.".zen/s6z0hpzf.default/chrome/userChrome.css".source = ./zen-userChrome.css;
+
+  programs.dank-material-shell.plugins.aiQuotas.src = inputs.dms-ai-quotas;
 
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;

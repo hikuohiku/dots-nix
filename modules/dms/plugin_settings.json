@@ -1,0 +1,12 @@
+{
+  "aiQuotas": {
+    "enabled": true,
+    "openCodeEnabled": false,
+    "zaiEnabled": false,
+    "kimiEnabled": false,
+    "deepSeekEnabled": false,
+    "openRouterEnabled": false,
+    "grokEnabled": false,
+    "antigravityEnabled": false
+  }
+}

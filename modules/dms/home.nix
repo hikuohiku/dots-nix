@@ -16,6 +16,7 @@
       xdg.configFile = {
         # DMS が設定画面から保存するので、書き込める out-of-store symlink にする。
         "dms/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-nix/modules/dms/settings.json";
+        "dms/plugin_settings.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ghq/github.com/hikuohiku/dots-nix/modules/dms/plugin_settings.json";
         "dms/themes/sequoia/theme.json".source = ./themes/sequoia/theme.json;
       };
     }

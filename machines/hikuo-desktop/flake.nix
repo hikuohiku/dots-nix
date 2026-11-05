@@ -57,6 +57,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # DMS のバーに AI の利用枠を出すプラグイン。
+    dms-ai-quotas = {
+      url = "github:agneswd/dms-ai-quotas";
+      flake = false;
+    };
     # Hazkey のユーザー辞書の元データ。
     mozcdic-ut-jawiki = {
       url = "github:utuhiro78/mozcdic-ut-jawiki";
