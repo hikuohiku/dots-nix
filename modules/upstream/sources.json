@@ -79,5 +79,27 @@
         "hash": "sha256-43x69iZaxKCvbVe8ZehhCad22ZZug0MzRVf2PaSCUW8="
       }
     }
+  },
+  "computer-use-linux": {
+    "repo": "agent-sh/computer-use-linux",
+    "tagPrefix": "v",
+    "version": "0.7.47",
+    "assets": {
+      "x86_64-linux": {
+        "name": "computer-use-linux-x86_64-unknown-linux-gnu",
+        "hash": "sha256-aclY1JTHwHY1YGLfPIQA/DXmwrEOON971+wNIWOwUNI="
+      }
+    }
+  },
+  "computer-use-linux-indicator": {
+    "repo": "agent-sh/computer-use-linux",
+    "tagPrefix": "v",
+    "version": "0.7.47",
+    "assets": {
+      "x86_64-linux": {
+        "name": "computer-use-linux-indicator-x86_64-unknown-linux-gnu",
+        "hash": "sha256-6VooPi8MDTDSHJbHXq1KHeaelIPdf2ag/Y1V1hVnTrc="
+      }
+    }
   }
 }
