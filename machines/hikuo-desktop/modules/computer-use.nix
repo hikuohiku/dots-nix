@@ -1,15 +1,29 @@
 { pkgs, upstream, ... }:
 let
-  # niri の画面をエージェントが操作する MCP サーバー。上流のバイナリを nix-ld で動かす。
-  # インジケーターはサーバーと同じ場所に置くと見つけてもらえる。
-  computerUseLinux = pkgs.runCommand "computer-use-linux-${upstream.computer-use-linux.version}" { } ''
-    install -Dm755 ${upstream.computer-use-linux.src} $out/bin/computer-use-linux
-    install -Dm755 ${upstream.computer-use-linux-indicator.src} $out/bin/computer-use-linux-indicator
+  # niri の org.gnome.Shell.Screenshot は出力が 1 つのときしか撮影できず、それを使うポータルも
+  # 複数モニタでは撮影できない。computer-use-linux が呼ぶ gnome-screenshot を grim に差し替える。
+  gnomeScreenshot = pkgs.writeShellScriptBin "gnome-screenshot" ''
+    # -f 以外は有無の確認（--version）で呼ばれる。
+    [ "$1" = "-f" ] || exit 0
+    exec ${pkgs.grim}/bin/grim "$2"
   '';
+
+  # niri の画面をエージェントが操作する MCP サーバー。上流のバイナリを nix-ld で動かす。
+  computerUseLinux = pkgs.writeShellScriptBin "computer-use-linux" ''
+    export COMPUTER_USE_LINUX_SCREENSHOT_BACKEND=gnome-screenshot
+    export COMPUTER_USE_LINUX_INDICATOR_BIN=${indicator}
+    export PATH=${pkgs.lib.makeBinPath [ gnomeScreenshot pkgs.wtype ]}:$PATH
+    exec ${server} "$@"
+  '';
+
+  executable =
+    name: src:
+    pkgs.runCommand name { } ''
+      install -Dm755 ${src} $out
+    '';
+  server = executable "computer-use-linux-${upstream.computer-use-linux.version}" upstream.computer-use-linux.src;
+  indicator = executable "computer-use-linux-indicator-${upstream.computer-use-linux-indicator.version}" upstream.computer-use-linux-indicator.src;
 in
 {
-  home.packages = [
-    computerUseLinux
-    pkgs.wtype # 文字入力に使う
-  ];
+  home.packages = [ computerUseLinux ];
 }
