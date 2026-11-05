@@ -109,6 +109,7 @@ binds {
     Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
     Mod+Down { focus-window-down; }
     Mod+End { focus-column-last; }
+    Mod+D hotkey-overlay-title="Discord を開く" { spawn "niri-focus-or-spawn" "discord" "discord"; }
     Mod+Equal { set-column-width "+10%"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+F hotkey-overlay-title="カラムを最大化" { maximize-column; }
