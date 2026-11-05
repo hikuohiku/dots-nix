@@ -231,6 +231,8 @@
   services.displayManager.defaultSession = "niri";
   # 鍵の保管は gnome-keyring に一本化している。中身は Seahorse で見る。
   programs.seahorse.enable = true;
+  # computer-use-linux がアプリの UI 要素を読むのに使う。
+  services.gnome.at-spi2-core.enable = true;
 
   # Flatpak support
   services.flatpak.enable = true;
