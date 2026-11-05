@@ -6,7 +6,6 @@
   mymodule.apps.claude.enable = true;
   mymodule.apps.codex.enable = true;
   mymodule.apps.codex-desktop.enable = true;
-  mymodule.apps.codexbar.enable = true;
   mymodule.apps.dsh.enable = true;
   mymodule.apps.cli-tools.enable = true;
   mymodule.apps.core.enable = true;
