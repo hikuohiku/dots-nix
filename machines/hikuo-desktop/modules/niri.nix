@@ -159,6 +159,9 @@ let
         zen-beta)
           exec zen-beta
           ;;
+        org.gnome.Nautilus)
+          exec nautilus --new-window
+          ;;
         *)
           exit 0
           ;;
