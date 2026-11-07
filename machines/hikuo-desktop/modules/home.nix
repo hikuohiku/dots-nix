@@ -31,6 +31,16 @@
 
   programs.dank-material-shell.plugins.aiQuotas.src = inputs.dms-ai-quotas;
 
+  # Chrome の --app で開く Notion。ファイル名をウィンドウの app_id に揃えると、
+  # タスクバーにこの名前とアイコンが出る。
+  xdg.desktopEntries."chrome-www.notion.so__login-Default" = {
+    name = "Notion";
+    exec = "google-chrome-stable --app=https://www.notion.so/login";
+    icon = "${./notion.png}";
+    categories = [ "Office" ];
+    settings.StartupWMClass = "chrome-www.notion.so__login-Default";
+  };
+
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
 }
