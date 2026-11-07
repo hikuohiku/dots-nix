@@ -20,6 +20,19 @@ in
       enableDefaultPackages = false;
       fontDir.enable = true;
       fontconfig = {
+        # Notion などは "-apple-system, ..., Apple Color Emoji, Arial, sans-serif" と指定する。
+        # Firefox 系は先頭から実在するフォントを使うため、Apple Color Emoji で英数字が描かれ、
+        # 空白が全角幅に、数字が空白になる。前に並ぶ macOS・Windows のフォント名を sans-serif に向ける。
+        localConf = ''
+          <fontconfig>
+          ${lib.concatMapStrings (family: ''
+            <alias binding="same">
+              <family>${family}</family>
+              <prefer><family>sans-serif</family></prefer>
+            </alias>
+          '') [ "-apple-system" "BlinkMacSystemFont" "Segoe UI" ]}
+          </fontconfig>
+        '';
         defaultFonts = {
           serif = [
             "Noto Serif CJK JP"
