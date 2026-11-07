@@ -238,6 +238,10 @@
   services.flatpak.enable = true;
   xdg.portal = {
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk";
+    config.common = {
+      default = "gtk";
+      # GTK 4 の Nautilus のダイアログを使う。gtk のものは GTK 3 で見た目が古い。
+      "org.freedesktop.impl.portal.FileChooser" = "gnome";
+    };
   };
 }
