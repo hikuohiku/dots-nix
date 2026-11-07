@@ -111,7 +111,7 @@ binds {
     Mod+End { focus-column-last; }
     Mod+D hotkey-overlay-title="Discord を開く" { spawn "niri-focus-or-spawn" "discord" "discord"; }
     // PWA は Chrome のツールバーを消せないので --app で開く。/ だとログイン中も紹介ページになる。
-    Mod+I hotkey-overlay-title="Notion を開く" { spawn "niri-focus-or-spawn" "chrome-www.notion.so__login-Default" "google-chrome-stable" "--app=https://www.notion.so/login"; }
+    Mod+N hotkey-overlay-title="Notion を開く" { spawn "niri-focus-or-spawn" "chrome-www.notion.so__login-Default" "google-chrome-stable" "--app=https://www.notion.so/login"; }
     Mod+E hotkey-overlay-title="ファイルを開く" { spawn "niri-focus-or-spawn" "org.gnome.Nautilus" "nautilus" "--new-window"; }
     Mod+Equal { set-column-width "+10%"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
@@ -123,7 +123,6 @@ binds {
     Mod+L hotkey-overlay-title="右のカラムへフォーカス" { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Minus { set-column-width "-10%"; }
-    Mod+N hotkey-overlay-title="フォーカス中のアプリの新規インスタンスを開く" { spawn "niri-spawn-focused-app"; }
     Mod+O hotkey-overlay-title="オーバービューを開く" repeat=false { toggle-overview; }
     "Mod+Page_Down" { focus-workspace-down; }
     "Mod+Page_Up" { focus-workspace-up; }

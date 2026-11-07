@@ -136,38 +136,6 @@ let
     '';
   };
 
-  niriSpawnFocusedApp = pkgs.writeShellApplication {
-    name = "niri-spawn-focused-app";
-    runtimeInputs = [
-      niriPackage
-      pkgs.jq
-    ];
-    text = ''
-      focused_window="$(niri msg --json focused-window)"
-      focused_app_id="$(printf '%s' "$focused_window" | jq -r '.app_id // empty')"
-
-      case "$focused_app_id" in
-        com.mitchellh.ghostty)
-          exec ghostty
-          ;;
-        code)
-          exec code --enable-wayland-ime --new-window
-          ;;
-        Slack)
-          exec slack
-          ;;
-        zen-beta)
-          exec zen-beta
-          ;;
-        org.gnome.Nautilus)
-          exec nautilus --new-window
-          ;;
-        *)
-          exit 0
-          ;;
-      esac
-    '';
-  };
 in
 {
   # niri 設定は raw KDL (./niri.kdl) で管理する。
@@ -202,7 +170,6 @@ in
     niriEarlyWallpaper
     niriFloatExtensionWindows
     niriFocusOrSpawn
-    niriSpawnFocusedApp
     niriToggleStreamDisplay
   ];
 
