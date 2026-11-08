@@ -36,6 +36,7 @@
   mymodule.apps.vicinae.enable = true;
   mymodule.apps.vm.enable = true;
   mymodule.apps.fortivpn.enable = true;
+  mymodule.apps.cloudflare-warp.enable = true;
   mymodule.apps.zed.enable = true;
   mymodule.apps.sunshine.enable = true;
   mymodule.apps.xremap.enable = true;

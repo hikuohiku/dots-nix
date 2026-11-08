@@ -552,6 +552,22 @@
         "type": "github"
       }
     },
+    "niri-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794079117,
+        "narHash": "sha256-Y3nkQZjOE+OpgKrUxoistNClYXv/eq6q5AGUjAs78PQ=",
+        "owner": "niri-wm",
+        "repo": "niri",
+        "rev": "da0ab810d463d26da2fa6d9cf9f7abdb1928f9a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niri-wm",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "niri-stable": {
       "flake": false,
       "locked": {
@@ -836,6 +852,7 @@
         "mozcdic-ut-sudachidict": "mozcdic-ut-sudachidict",
         "my": "my",
         "niri-flake": "niri-flake",
+        "niri-src": "niri-src",
         "nixpkgs": "nixpkgs_3",
         "omp": "omp",
         "vicinae": "vicinae",

@@ -41,6 +41,12 @@
     };
 
     niri-flake.url = "github:sodiboo/niri-flake";
+    # GlobalShortcuts portal の対応を含む未リリースの main をビルドする。
+    # portal 対応版が nixpkgs に取り込まれたら、この入力と overlay を削除する。
+    niri-src = {
+      url = "github:niri-wm/niri";
+      flake = false;
+    };
 
     # OMP は公式リリースの事前ビルドを持つ flake を使い、Bun 依存のローカルビルドを避ける。
     omp.url = "github:bjin/oh-my-pi.nix";

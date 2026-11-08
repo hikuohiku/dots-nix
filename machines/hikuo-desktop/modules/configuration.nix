@@ -21,6 +21,25 @@
   # niri-flake の niri-unstable は古い libglvnd にリンクされ、NVIDIA 595.104 で EGL_EXT_device_query が
   # 見えず起動できない。キャッシュがありシステムと libglvnd が揃う nixpkgs 版を使う。
   programs.niri.package = pkgs.niri;
+  # nixpkgs の derivation の src だけを main に差し替える。overlay 化により home-manager 側の niri msg も同じ版に揃える。
+  nixpkgs.overlays = [
+    (final: prev: {
+      niri = prev.niri.overrideAttrs (old: {
+        version = "unstable-${inputs.niri-src.shortRev}";
+        src = inputs.niri-src;
+        cargoDeps = final.rustPlatform.importCargoLock {
+          lockFile = "${inputs.niri-src}/Cargo.lock";
+          allowBuiltinFetchGit = true;
+        };
+        env = old.env // {
+          NIRI_BUILD_COMMIT = inputs.niri-src.shortRev;
+        };
+        # ビルド時間を短縮する。versionCheckHook は version 属性と niri --version の出力（Cargo.toml 由来）の不一致で失敗するため無効化する。
+        doCheck = false;
+        doInstallCheck = false;
+      });
+    })
+  ];
   # 既定は defaultFontPath を埋め込む override で cache に無くソースビルドになるため、素の版を使う。
   programs.xwayland.package = pkgs.xwayland;
   # polkit の認証ダイアログは DMS が出す。niri-flake の KDE エージェントが先に登録すると DMS 側が使われない。

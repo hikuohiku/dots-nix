@@ -43,4 +43,30 @@
 
   home.stateVersion = "24.05";
   home.enableNixpkgsReleaseCheck = false;
+
+  # GlobalShortcuts portal が voim を app ID（jp.voim.Voim）で識別するために配置する。
+  xdg.desktopEntries."jp.voim.Voim" = {
+    name = "voim";
+    exec = "${config.home.homeDirectory}/ghq/github.com/voicist/beta-frontend-linux/target/debug/voim run";
+    noDisplay = true;
+  };
+  # voicist/beta-frontend-linux の常駐プロセス。Engine をチェックアウト先の .engine/ から探索するため、
+  # チェックアウト先でビルドしたバイナリを直接起動する（設定内容はリポジトリの README に準拠）。
+  systemd.user.services.voim = {
+    Unit = {
+      Description = "voim";
+      PartOf = [ "graphical-session.target" ];
+      After = [
+        "graphical-session.target"
+        "pipewire.service"
+      ];
+    };
+    Service = {
+      ExecStart = "%h/ghq/github.com/voicist/beta-frontend-linux/target/debug/voim run";
+      # SIGTERM を voim だけに送り、voim が Engine を停止してから終了する。
+      KillMode = "mixed";
+      Restart = "no";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 }
