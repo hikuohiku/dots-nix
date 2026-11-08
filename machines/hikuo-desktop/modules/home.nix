@@ -47,7 +47,7 @@
   # GlobalShortcuts portal が voim を app ID（jp.voim.Voim）で識別するために配置する。
   # ショートカットを割り当てる gnome-control-center の「アプリケーション」画面で一覧に表示させるため、NoDisplay は設定しない。
   xdg.desktopEntries."jp.voim.Voim" = {
-    name = "voim";
+    name = "Voim";
     exec = "${config.home.homeDirectory}/ghq/github.com/voicist/beta-frontend-linux/target/debug/voim run";
   };
   # voicist/beta-frontend-linux の常駐プロセス。Engine をチェックアウト先の .engine/ から探索するため、
