@@ -110,7 +110,12 @@
     };
   };
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    # DNS は Cloudflare WARP に任せ、/etc/resolv.conf を書き換え合わないようにする。
+    # *.ts.net は WARP のローカルドメインのフォールバックから 100.100.100.100 へ送る。
+    extraSetFlags = [ "--accept-dns=false" ];
+  };
   services.printing.enable = true;
 
   virtualisation = {
