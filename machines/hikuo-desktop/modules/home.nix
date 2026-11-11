@@ -50,6 +50,13 @@
     name = "Voim";
     exec = "${config.home.homeDirectory}/ghq/github.com/voicist/beta-frontend-linux/target/debug/voim run";
   };
+  # 収録中だけ Esc キー単体で取り消すため、voim は Esc を別の app ID（ jp.voim.Voim.Cancel ）で GlobalShortcuts portal に登録する。
+  # 起動するアプリではないため、NoDisplay を設定し、Exec には何もしないコマンドを指定する。
+  xdg.desktopEntries."jp.voim.Voim.Cancel" = {
+    name = "Voim キャンセル";
+    exec = "true";
+    noDisplay = true;
+  };
   # voicist/beta-frontend-linux の常駐プロセス。Engine をチェックアウト先の .engine/ から探索するため、
   # チェックアウト先でビルドしたバイナリを直接起動する（設定内容はリポジトリの README に準拠）。
   systemd.user.services.voim = {
