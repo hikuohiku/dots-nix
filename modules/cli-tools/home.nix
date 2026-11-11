@@ -113,7 +113,11 @@ in
       ]
       ++ linuxOnly [
         pkgs.bitwarden-cli
-        pkgs.fnox
+        # nixpkgs 版はキャッシュがなく、ソースビルドも aws-lc-sys で失敗するため上流の静的バイナリを使う。
+        (pkgs.runCommand "fnox-${upstream.fnox.version}" { } ''
+          tar xzf ${upstream.fnox.src} fnox
+          install -Dm755 fnox $out/bin/fnox
+        '')
       ];
 
       # fnox.toml のあるディレクトリに入ると secret を読み込み、出ると外す

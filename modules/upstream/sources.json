@@ -101,5 +101,16 @@
         "hash": "sha256-6VooPi8MDTDSHJbHXq1KHeaelIPdf2ag/Y1V1hVnTrc="
       }
     }
+  },
+  "fnox": {
+    "repo": "jdx/fnox",
+    "tagPrefix": "v",
+    "version": "1.48.0",
+    "assets": {
+      "x86_64-linux": {
+        "name": "fnox-x86_64-unknown-linux-musl.tar.gz",
+        "hash": "sha256-2dopRz6Uo7nztlEJZXxpgNaix8b6WeEHA9xbcTpdnOc="
+      }
+    }
   }
 }
