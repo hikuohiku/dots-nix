@@ -1,5 +1,6 @@
 {
   config,
+  inputs',
   pkgs,
   systemInfo,
   ...
@@ -25,12 +26,14 @@
         "https://hyprland.cachix.org"
         "https://vicinae.cachix.org"
         "https://nix-community.cachix.org" # other community packages
+        "https://wvhulle.cachix.org"
       ];
       trusted-public-keys = [
         "oh-my-pi.cachix.org-1:FRLFzcZnCIB2GfSpDkgHsl8uGa1zDrx1F+bBlVIy7Wo="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "wvhulle.cachix.org-1:heXx8DZMiRsKUx6l1TxNoF+Nmtmz66QEdsonQzc1ir0="
       ];
     };
   };
@@ -202,6 +205,11 @@
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
+  };
+
+  services.bootvine = {
+    enable = true;
+    package = inputs'.bootvine.packages.default;
   };
 
   # Desktop environments

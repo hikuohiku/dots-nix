@@ -68,6 +68,9 @@
       url = "github:agneswd/dms-ai-quotas";
       flake = false;
     };
+    # nixpkgs を follow すると derivation が変わり、cachix のビルド済みバイナリを使えずソースビルドになるため follow しない。
+    bootvine.url = "git+https://codeberg.org/wvhulle/bootvine";
+
     # Hazkey のユーザー辞書の元データ。
     mozcdic-ut-jawiki = {
       url = "github:utuhiro78/mozcdic-ut-jawiki";

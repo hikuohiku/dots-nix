@@ -13,6 +13,7 @@
         inputs.my.nixosModules.default
         inputs.vicinae.nixosModules.default
         inputs.niri-flake.nixosModules.niri
+        inputs.bootvine.nixosModules.default
         inputs.dots-nix-private.nixosModules.default
         ./modules/configuration.nix
       ];
