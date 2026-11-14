@@ -311,7 +311,7 @@
       "trigger": "pw"
     }
   },
-  "configVersion": 42,
+  "configVersion": 43,
   "dmsWindowsFloatingSeeded": [
     "niri"
   ],
